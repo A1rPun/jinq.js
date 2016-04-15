@@ -1,7 +1,25 @@
-﻿#jinq.js
+﻿# jinq.js
 JavaScript Integrated query
 
-##Examples
+## Functions
+
+- aggregate
+- all
+- any
+- contains
+- count
+- elementAt
+- first
+- groupBy
+- last
+- orderBy
+- select
+- skip
+- take
+- toArray
+- where
+
+## Examples
 
 Using `where`, `select` and `groupBy`
 
@@ -30,8 +48,8 @@ Using `any` in combination with `where` callback
             return obj.group === 'b';
         });
 
-##TODO
+## TODO
 
-- add new methods `aggregate`, `distinct`, `except`, `join`, `union`, `zip`
+- add new methods `distinct`, `except`, `join`, `union`, `zip`
 - support native array function calls for chain (ex: `concat`, `reverse`)
 - optimize `all`, `any`, `first`, `last` functions (break loops)

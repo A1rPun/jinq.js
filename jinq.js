@@ -11,6 +11,24 @@
         this._data = arr;
     }
     enumerable.prototype = {
+        aggregate: function (aggregateCallback, seed) {
+            var result = seed === 0 ? 0 : seed || null;
+            var i = 0;
+            var l = this._data.length;
+
+            if (l == 0) return result;
+
+            if (result === null) {
+                result = this._data[0];
+                i = 1;
+            }
+
+            for (l = this._data.length; i < l; i++) {
+                var obj = this._data[i];
+                result = aggregateCallback.call(this._data, result, obj, i);
+            }
+            return result;
+        },
         all: function (whereCallback) {
             return this._data.length === this.count(whereCallback);
         },
