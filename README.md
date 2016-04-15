@@ -1,6 +1,8 @@
 ﻿# jinq.js
 JavaScript Integrated query
 
+This is still a work in progress
+
 ## Methods
 
 - aggregate()
@@ -8,6 +10,7 @@ JavaScript Integrated query
 - any()
 - contains()
 - count()
+- distinct()
 - elementAt()
 - first()
 - groupBy()
@@ -83,5 +86,6 @@ Using `any` in combination with `where` callback
 
 ## TODO
 
-- add new methods `distinct`, `except`, `join`, `union`, `zip`
+- Deferred execution (more linq like)
+- add new methods `join`, `union`, `zip`
 - optimize `all`, `any`, `first`, `last` functions (break loops)

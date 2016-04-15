@@ -41,6 +41,30 @@
         count: function (whereCallback) {
             return this.toArray(whereCallback).length;
         },
+        distinct: function (distinctCallback) {
+            var result = [];
+            var lookup = {};
+            var i = 0;
+            var l = this._data.length;
+            if (distinctCallback) {
+                for (; i < l; i++) {
+                    var obj = this._data[i];
+                    var key = distinctCallback.call(this._data, obj, i);
+                    if (lookup[key]) continue;
+                    lookup[key] = true;
+                    result.push(obj);
+                }
+            } else {
+                for (; i < l; i++) {
+                    var obj = this._data[i];
+                    if (lookup[obj]) continue;
+                    lookup[obj] = true;
+                    result.push(obj);
+                }
+            }
+            this._data = result;
+            return this;
+        },
         elementAt: function (index) {
             var result = this.toArray();
             return index < result.length ? result[index] : null;
