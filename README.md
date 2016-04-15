@@ -1,23 +1,56 @@
 ﻿# jinq.js
 JavaScript Integrated query
 
-## Functions
+## Methods
 
-- aggregate
-- all
-- any
-- contains
-- count
-- elementAt
-- first
-- groupBy
-- last
-- orderBy
-- select
-- skip
-- take
-- toArray
-- where
+- aggregate()
+- all()
+- any()
+- contains()
+- count()
+- elementAt()
+- first()
+- groupBy()
+- last()
+- orderBy()
+- select()
+- skip()
+- take()
+- toArray()
+- where()
+
+Every method in [`Array.prototype`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype).
+
+- concat()
+- copyWithin()
+- entries()
+- every()
+- fill()
+- filter()
+- find()
+- findIndex()
+- forEach()
+- includes()
+- indexOf()
+- join()
+- keys()
+- lastIndexOf()
+- map()
+- pop()
+- push()
+- reduce()
+- reduceRight()
+- reverse()
+- shift()
+- slice()
+- some()
+- sort()
+- splice()
+- toLocaleString()
+- toSource()
+- toString()
+- unshift()
+- values()
 
 ## Examples
 
@@ -51,5 +84,4 @@ Using `any` in combination with `where` callback
 ## TODO
 
 - add new methods `distinct`, `except`, `join`, `union`, `zip`
-- support native array function calls for chain (ex: `concat`, `reverse`)
 - optimize `all`, `any`, `first`, `last` functions (break loops)
