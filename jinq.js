@@ -7,44 +7,51 @@
         if (noConflict) this[name].noConflict = noConflict;
     }
 }('jinq', function () {
-
     function enumerable(arr) {
         this._data = arr;
     }
-
     enumerable.prototype = {
-        any: function () {
-            return !!this.first()
+        all: function (whereCallback) {
+            return this._data.length === this.count(whereCallback);
         },
-        count: function () {
-            return this.toArray().length;
+        any: function (whereCallback) {
+            return !!this.first(whereCallback);
         },
-        groupBy: function (fn) {
+        contains: function (val) {
+            return this._data.indexOf(val) !== -1;
+        },
+        count: function (whereCallback) {
+            return this.toArray(whereCallback).length;
+        },
+        elementAt: function (index) {
+            var result = this.toArray();
+            return index < result.length ? result[index] : null;
+        },
+        first: function (whereCallback) {
+            var result = this.toArray(whereCallback);
+            var length = result.length;
+            return length ? result[0] : null;
+        },
+        groupBy: function (groupCallback) {
             var result = [];
-            var prop = 'key';
+            var lookup = {};
             for (var i = 0, l = this._data.length; i < l; i++) {
                 var obj = this._data[i];
-                var group = fn.call(this._data, obj, i);
-                var index = getIndexOf(result, prop, group);
+                var group = groupCallback.call(this._data, obj, i);
 
-                if (index === -1)
-                    result.push({
-                        key: group,
-                        value: [obj]
-                    });
-                else
-                    result[index].value.push(obj);
+                if (lookup[group]) {
+                    lookup[group].push(obj);
+                } else {
+                    var value = [obj];
+                    lookup[group] = value;
+                    result.push({ key: group, value: value });
+                }
             }
             this._data = result;
             return this;
         },
-        first: function () {
-            var result = this.toArray();
-            var length = result.length;
-            return length ? result[0] : null;
-        },
-        last: function () {
-            var result = this.toArray();
+        last: function (whereCallback) {
+            var result = this.toArray(whereCallback);
             var length = result.length;
             return length ? result[result.length - 1] : null;
         },
@@ -53,33 +60,40 @@
             this._data = newArr.sort.apply(newArr, arguments);
             return this;
         },
-        select: function (fn) {
-            this._data = this._data.map.apply(this._data, arguments);
-            return this;
-        },
-        //thenBy: function () { },
-        toArray: function () {
-            return this._data;
-        },
-        where: function (fn) {
+        select: function (selectCallback) {
             var result = [];
             for (var i = 0, l = this._data.length; i < l; i++) {
                 var obj = this._data[i];
-                if (fn.call(this._data, obj, i))
+                var newObj = selectCallback.call(this._data, obj, i);
+                result.push(newObj);
+            }
+            this._data = result;
+            return this;
+        },
+        skip: function (num) {
+            this._data = this._data.slice(num);
+            return this;
+        },
+        take: function (num) {
+            this._data = this._data.slice(0, num);
+            return this;
+        },
+        toArray: function (whereCallback) {
+            if (whereCallback)
+                this.where(whereCallback);
+            return this._data;
+        },
+        where: function (whereCallback) {
+            var result = [];
+            for (var i = 0, l = this._data.length; i < l; i++) {
+                var obj = this._data[i];
+                if (whereCallback.call(this._data, obj, i))
                     result.push(obj);
             }
             this._data = result;
             return this;
         }
     };
-
-    function getIndexOf(arr, prop, val) {
-        for (var i = 0, l = arr.length; i < l; i++)
-            if (arr[i][prop] === val)
-                return i;
-        return -1;
-    }
-
     return function jinq(arr) {
         return new enumerable(arr);
     };
