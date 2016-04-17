@@ -38,9 +38,29 @@ Using `where`, `select` and `groupBy`
 			};
 		})
 		.groupBy(function(obj) {
-			return obj.isOdd;
+			return obj.isEven;
 		})
 		.toArray();
+
+Output:
+
+	[{
+		key: false,
+		value: [
+			{ original: 5, multiplied: 10, isEven: false },
+			{ original: 3, multiplied: 6, isEven: false },
+			{ original: 9, multiplied: 18, isEven: false },
+			{ original: 7, multiplied: 14, isEven: false }
+		]
+	}, {
+		key: true,
+		value: [
+			{ original: 6, multiplied: 12, isEven: true },
+			{ original: 2, multiplied: 4, isEven: true },
+			{ original: 4, multiplied: 8, isEven: true },
+			{ original: 8, multiplied: 16, isEven: true }
+		]
+	}];
 
 Using `any` in combination with `where` callback
 
@@ -51,8 +71,20 @@ Using `any` in combination with `where` callback
             return obj.group === 'b';
         });
 
+Output:
+
+	true;
+
 ## TODO
 
 - Deferred execution (more linq like)
-- add new methods `join`, `union`, `zip`
-- optimize `all`, `any`, `first`, `last` functions (break loops)
+- Optimize `all`, `any`, `first`, `last` functions (break loops)
+- Add new methods 
+	- `join`
+	- `intersect`
+	- `union`
+	- `zip`
+	- `selectMany`
+	- `reverse`
+	- `single`
+	- `sum`, `max`, `min`, `average`

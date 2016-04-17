@@ -80,7 +80,6 @@
             for (var i = 0, l = this._data.length; i < l; i++) {
                 var obj = this._data[i];
                 var group = groupCallback.call(this._data, obj, i);
-
                 if (lookup[group]) {
                     lookup[group].push(obj);
                 } else {
