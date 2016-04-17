@@ -137,21 +137,6 @@
         }
     };
 
-    // Copy every property from Array.prototype into enumerable
-    var props = Object.getOwnPropertyNames(Array.prototype);
-    for (var i = props.length; i--;) {
-        var prop = props[i];
-        var fn = Array.prototype[prop];
-        if (typeof fn === 'function') {
-            enumerable.prototype[prop] = (function (original) {
-                return function () {
-                    this._data = original.apply(this._data, arguments);
-                    return this;
-                };
-            }(fn));
-        }
-    }
-
     return function jinq(arr) {
         return new enumerable(arr);
     };

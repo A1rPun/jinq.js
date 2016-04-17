@@ -22,39 +22,6 @@ This is still a work in progress
 - toArray()
 - where()
 
-Every method in [`Array.prototype`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype).
-
-- concat()
-- copyWithin()
-- entries()
-- every()
-- fill()
-- filter()
-- find()
-- findIndex()
-- forEach()
-- includes()
-- indexOf()
-- join()
-- keys()
-- lastIndexOf()
-- map()
-- pop()
-- push()
-- reduce()
-- reduceRight()
-- reverse()
-- shift()
-- slice()
-- some()
-- sort()
-- splice()
-- toLocaleString()
-- toSource()
-- toString()
-- unshift()
-- values()
-
 ## Examples
 
 Using `where`, `select` and `groupBy`
