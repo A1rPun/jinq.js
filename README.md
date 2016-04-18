@@ -81,6 +81,5 @@ Output:
 - Optimize `all`, `any`, `first`, `last` functions (break loops)
 - Add new methods 
 	- `join`
-	- `zip`
 	- `selectMany`
 	- `sum`, `max`, `min`, `average`

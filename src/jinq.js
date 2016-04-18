@@ -205,6 +205,20 @@
             }
             this._data = result;
             return this;
+        },
+        zip: function (arr, selectCallback) {
+            var result = [];
+            var sourceLength = this._data.length;
+            var destLength = arr.length;
+            var l = sourceLength < destLength ? sourceLength : destLength;
+            for (var i = 0; i < l; i++) {
+                var sourceObj = this._data[i];
+                var destObj = arr[i];
+                var newObj = selectCallback.call(this._data, sourceObj, destObj, i);
+                result.push(newObj);
+            }
+            this._data = result;
+            return this;
         }
     };
     return function jinq(arr) {
