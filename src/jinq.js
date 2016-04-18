@@ -64,19 +64,19 @@
             var result = [];
             var lookup = {};
             var i = 0;
-            var l = this._data.length;
+            var l = arr.length;
             var obj;
             var key;
             for (; i < l; i++) {
-                obj = this._data[i];
-                key = distinctCallback ? distinctCallback.call(this._data, obj, i) : obj;
+                obj = arr[i];
+                key = distinctCallback ? distinctCallback.call(arr, obj, i) : obj;
                 lookup[key] = true;
             }
             i = 0;
-            l = arr.length;
+            l = this._data.length;
             for (; i < l; i++) {
-                obj = arr[i];
-                key = distinctCallback ? distinctCallback.call(arr, obj, i) : obj;
+                obj = this._data[i];
+                key = distinctCallback ? distinctCallback.call(this._data, obj, i) : obj;
                 if (!lookup[key])
                     result.push(obj);
             }
@@ -109,19 +109,19 @@
             var result = [];
             var lookup = {};
             var i = 0;
-            var l = this._data.length;
+            var l = arr.length;
             var obj;
             var key;
             for (; i < l; i++) {
-                obj = this._data[i];
-                key = distinctCallback ? distinctCallback.call(this._data, obj, i) : obj;
+                obj = arr[i];
+                key = distinctCallback ? distinctCallback.call(arr, obj, i) : obj;
                 lookup[key] = true;
             }
             i = 0;
-            l = arr.length;
+            l = this._data.length;
             for (; i < l; i++) {
-                obj = arr[i];
-                key = distinctCallback ? distinctCallback.call(arr, obj, i) : obj;
+                obj = this._data[i];
+                key = distinctCallback ? distinctCallback.call(this._data, obj, i) : obj;
                 if (lookup[key])
                     result.push(obj);
             }
