@@ -101,6 +101,13 @@
             this._data = newArr.sort.apply(newArr, arguments);
             return this;
         },
+        reverse: function () {
+            var result = [];
+            for (var i = this._data.length; i--;)
+                result.push(this._data[i]);            
+            this._data = result;
+            return this;
+        },
         select: function (selectCallback) {
             var result = [];
             for (var i = 0, l = this._data.length; i < l; i++) {
