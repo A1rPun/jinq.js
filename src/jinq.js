@@ -29,7 +29,10 @@
             return result;
         },
         all: function (whereCallback) {
-            return this._data.length === this.count(whereCallback);
+            for (var i = 0, l = this._data.length; i < l; i++)
+                if (!whereCallback.call(this._data, this._data[i], i))
+                    return false;
+            return true;
         },
         any: function (whereCallback) {
             return !!this.first(whereCallback);

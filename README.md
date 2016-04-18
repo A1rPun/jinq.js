@@ -85,7 +85,6 @@ Output:
 ## TODO
 
 - Deferred execution (more linq like)
-- Optimize `all`, `any`, `first`, `last` functions (break loops)
 - Add new methods 
 	- `join`
 	- `sum`, `max`, `min`, `average`
