@@ -7,43 +7,43 @@
         if (noConflict) this[name].noConflict = noConflict;
     }
 }('jinq', function () {
-    function Enumerable(arr) {
-        this._data = arr;
+    function Enumerable(list) {
+        this.list = list;
     }
     Enumerable.prototype = {
         aggregate: function (aggregateCallback, seed) {
             var me = this;
             var result = seed === 0 ? 0 : seed || null;
             var i = 0;
-            var l = me._data.length;
+            var l = me.list.length;
             if (l == 0)
                 return result;
             if (result === null) {
-                result = me._data[0];
+                result = me.list[0];
                 i = 1;
             }
-            for (l = me._data.length; i < l; i++) {
-                var obj = me._data[i];
-                result = aggregateCallback.call(me._data, result, obj, i);
+            for (l = me.list.length; i < l; i++) {
+                var obj = me.list[i];
+                result = aggregateCallback.call(me.list, result, obj, i);
             }
             return result;
         },
         all: function (whereCallback) {
-            for (var i = 0, l = this._data.length; i < l; i++)
-                if (!whereCallback.call(this._data, this._data[i], i))
+            for (var i = 0, l = this.list.length; i < l; i++)
+                if (!whereCallback.call(this.list, this.list[i], i))
                     return false;
             return true;
         },
         any: function (whereCallback) {
             return !!this.first(whereCallback);
         },
-        concat: function (arr) {
+        concat: function (list) {
             var me = this;
-            me._data = me._data.concat.apply(me._data, arr);
+            me.list = me.list.concat.apply(me.list, list);
             return me;
         },
         contains: function (val) {
-            return this._data.indexOf(val) !== -1;
+            return this.list.indexOf(val) !== -1;
         },
         count: function (whereCallback) {
             return this.toArray(whereCallback).length;
@@ -52,42 +52,42 @@
             var me = this;
             var result = [];
             var lookup = {};            
-            for (var i = 0, l = me._data.length; i < l; i++) {
-                var obj = me._data[i];
-                var key = distinctCallback ? distinctCallback.call(me._data, obj, i) : obj;
+            for (var i = 0, l = me.list.length; i < l; i++) {
+                var obj = me.list[i];
+                var key = distinctCallback ? distinctCallback.call(me.list, obj, i) : obj;
                 if (lookup[key]) continue;
                 lookup[key] = true;
                 result.push(obj);
             }
-            me._data = result;
+            me.list = result;
             return me;
         },
         elementAt: function (index) {
             var result = this.toArray();
             return index < result.length ? result[index] : null;
         },
-        except: function (arr, distinctCallback) {
+        except: function (list, distinctCallback) {
             var me = this;
             var result = [];
             var lookup = {};
             var i = 0;
-            var l = arr.length;
+            var l = list.length;
             var obj;
             var key;
             for (; i < l; i++) {
-                obj = arr[i];
-                key = distinctCallback ? distinctCallback.call(arr, obj, i) : obj;
+                obj = list[i];
+                key = distinctCallback ? distinctCallback.call(list, obj, i) : obj;
                 lookup[key] = true;
             }
             i = 0;
-            l = me._data.length;
+            l = me.list.length;
             for (; i < l; i++) {
-                obj = me._data[i];
-                key = distinctCallback ? distinctCallback.call(me._data, obj, i) : obj;
+                obj = me.list[i];
+                key = distinctCallback ? distinctCallback.call(me.list, obj, i) : obj;
                 if (!lookup[key])
                     result.push(obj);
             }
-            me._data = result;
+            me.list = result;
             return me;
         },
         first: function (whereCallback) {
@@ -99,9 +99,9 @@
             var me = this;
             var result = [];
             var lookup = {};
-            for (var i = 0, l = me._data.length; i < l; i++) {
-                var obj = me._data[i];
-                var group = groupCallback.call(me._data, obj, i);
+            for (var i = 0, l = me.list.length; i < l; i++) {
+                var obj = me.list[i];
+                var group = groupCallback.call(me.list, obj, i);
                 if (lookup[group]) {
                     lookup[group].push(obj);
                 } else {
@@ -110,31 +110,31 @@
                     result.push({ key: group, value: value });
                 }
             }
-            me._data = result;
+            me.list = result;
             return me;
         },
-        intersect: function (arr, distinctCallback) {
+        intersect: function (list, distinctCallback) {
             var me = this;
             var result = [];
             var lookup = {};
             var i = 0;
-            var l = arr.length;
+            var l = list.length;
             var obj;
             var key;
             for (; i < l; i++) {
-                obj = arr[i];
-                key = distinctCallback ? distinctCallback.call(arr, obj, i) : obj;
+                obj = list[i];
+                key = distinctCallback ? distinctCallback.call(list, obj, i) : obj;
                 lookup[key] = true;
             }
             i = 0;
-            l = me._data.length;
+            l = me.list.length;
             for (; i < l; i++) {
-                obj = me._data[i];
-                key = distinctCallback ? distinctCallback.call(me._data, obj, i) : obj;
+                obj = me.list[i];
+                key = distinctCallback ? distinctCallback.call(me.list, obj, i) : obj;
                 if (lookup[key])
                     result.push(obj);
             }
-            me._data = result;
+            me.list = result;
             return me;
         },
         last: function (whereCallback) {
@@ -143,7 +143,7 @@
             return length ? result[result.length - 1] : null;
         },
         orderBy: function (prop) {
-            this._data.sort(prop ? function (a, b) {
+            this.list.sort(prop ? function (a, b) {
                 return a[prop] > b[prop] ? 1 : (b[prop] > a[prop] ? -1 : 0);
             } : prop);
             return this;
@@ -151,113 +151,113 @@
         reverse: function () {
             var me = this;
             var result = [];
-            for (var i = me._data.length; i--;)
-                result.push(me._data[i]);            
-            me._data = result;
+            for (var i = me.list.length; i--;)
+                result.push(me.list[i]);            
+            me.list = result;
             return me;
         },
         select: function (selectCallback) {
             var me = this;
             var result = [];
-            for (var i = 0, l = me._data.length; i < l; i++) {
-                var obj = me._data[i];
-                var newObj = selectCallback.call(me._data, obj, i);
+            for (var i = 0, l = me.list.length; i < l; i++) {
+                var obj = me.list[i];
+                var newObj = selectCallback.call(me.list, obj, i);
                 result.push(newObj);
             }
-            me._data = result;
+            me.list = result;
             return me;
         },
         selectMany: function (selectCallback) {
             var me = this;
             var result = [];
-            for (var i = 0, l = me._data.length; i < l; i++) {
-                var obj = me._data[i];
-                var newObj = selectCallback.call(me._data, obj, i);
+            for (var i = 0, l = me.list.length; i < l; i++) {
+                var obj = me.list[i];
+                var newObj = selectCallback.call(me.list, obj, i);
                 result.concat(newObj);
             }
-            me._data = result;
+            me.list = result;
             return me;
         },
         shuffle: function () {
             // Used for testing and card games
-            for (var i = this._data.length, j, t; i--;) {
+            for (var i = this.list.length, j, t; i--;) {
                 j = Math.floor(Math.random() * (i + 1));
-                t = this._data[i];
-                this._data[i] = this._data[j];
-                this._data[j] = t;
+                t = this.list[i];
+                this.list[i] = this.list[j];
+                this.list[j] = t;
             }
             return this;
         },
         skip: function (num) {
-            this._data = this._data.slice(num);
+            this.list = this.list.slice(num);
             return this;
         },
         take: function (num) {
-            this._data = this._data.slice(0, num);
+            this.list = this.list.slice(0, num);
             return this;
         },
         toArray: function (whereCallback) {
             if (whereCallback)
                 this.where(whereCallback);
-            return this._data;
+            return this.list;
         },
-        union: function (arr, distinctCallback) {
+        union: function (list, distinctCallback) {
             var me = this;
             var result = [];
             var lookup = {};
             var i = 0;
-            var l = me._data.length;
+            var l = me.list.length;
             var obj;
             var key;
             for (; i < l; i++) {
-                obj = me._data[i];
-                key = distinctCallback ? distinctCallback.call(me._data, obj, i) : obj;
+                obj = me.list[i];
+                key = distinctCallback ? distinctCallback.call(me.list, obj, i) : obj;
                 if (!lookup[key]) {
                     lookup[key] = true;
                     result.push(obj);
                 }
             }
             i = 0;
-            l = arr.length;
+            l = list.length;
             for (; i < l; i++) {
-                obj = arr[i];
-                key = distinctCallback ? distinctCallback.call(arr, obj, i) : obj;
+                obj = list[i];
+                key = distinctCallback ? distinctCallback.call(list, obj, i) : obj;
                 if (!lookup[key]) {
                     lookup[key] = true;
                     result.push(obj);
                 }
             }
-            me._data = result;
+            me.list = result;
             return me;
         },
         where: function (whereCallback) {
             var me = this;
             var result = [];
-            for (var i = 0, l = me._data.length; i < l; i++) {
-                var obj = me._data[i];
-                if (whereCallback.call(me._data, obj, i))
+            for (var i = 0, l = me.list.length; i < l; i++) {
+                var obj = me.list[i];
+                if (whereCallback.call(me.list, obj, i))
                     result.push(obj);
             }
-            me._data = result;
+            me.list = result;
             return me;
         },
-        zip: function (arr, selectCallback) {
+        zip: function (list, selectCallback) {
             var me = this;
             var result = [];
-            var sourceLength = me._data.length;
-            var destLength = arr.length;
+            var sourceLength = me.list.length;
+            var destLength = list.length;
             var l = sourceLength < destLength ? sourceLength : destLength;
             for (var i = 0; i < l; i++) {
-                var sourceObj = me._data[i];
-                var destObj = arr[i];
-                var newObj = selectCallback.call(me._data, sourceObj, destObj, i);
+                var sourceObj = me.list[i];
+                var destObj = list[i];
+                var newObj = selectCallback.call(me.list, sourceObj, destObj, i);
                 result.push(newObj);
             }
-            me._data = result;
+            me.list = result;
             return me;
         }
     };
-    return function (arr) {
-        return new Enumerable(arr);
+    return function (list) {
+        return new Enumerable(list);
     };
 }));
