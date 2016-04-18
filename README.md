@@ -8,19 +8,26 @@ This is still a work in progress
 - aggregate()
 - all()
 - any()
+- concat()
 - contains()
 - count()
 - distinct()
 - elementAt()
+- except()
 - first()
 - groupBy()
+- intersect()
 - last()
 - orderBy()
+- reverse()
 - select()
+- selectMany()
 - skip()
 - take()
 - toArray()
+- union()
 - where()
+- zip()
 
 ## Examples
 
@@ -81,5 +88,4 @@ Output:
 - Optimize `all`, `any`, `first`, `last` functions (break loops)
 - Add new methods 
 	- `join`
-	- `selectMany`
 	- `sum`, `max`, `min`, `average`
