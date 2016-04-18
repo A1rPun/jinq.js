@@ -142,9 +142,10 @@
             var length = result.length;
             return length ? result[result.length - 1] : null;
         },
-        orderBy: function () {
-            var newArr = this._data.slice();
-            this._data = newArr.sort.apply(newArr, arguments);
+        orderBy: function (prop) {
+            this._data.sort(prop ? function (a, b) {
+                return a[prop] > b[prop] ? 1 : (b[prop] > a[prop] ? -1 : 0);
+            } : prop);
             return this;
         },
         reverse: function () {
