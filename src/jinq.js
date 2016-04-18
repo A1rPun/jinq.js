@@ -15,14 +15,12 @@
             var result = seed === 0 ? 0 : seed || null;
             var i = 0;
             var l = this._data.length;
-
-            if (l == 0) return result;
-
+            if (l == 0)
+                return result;
             if (result === null) {
                 result = this._data[0];
                 i = 1;
             }
-
             for (l = this._data.length; i < l; i++) {
                 var obj = this._data[i];
                 result = aggregateCallback.call(this._data, result, obj, i);
@@ -35,6 +33,10 @@
         any: function (whereCallback) {
             return !!this.first(whereCallback);
         },
+        concat: function (arr) {
+            this._data = this._data.concat.apply(this._data, arr);
+            return this;
+        },
         contains: function (val) {
             return this._data.indexOf(val) !== -1;
         },
@@ -43,24 +45,13 @@
         },
         distinct: function (distinctCallback) {
             var result = [];
-            var lookup = {};
-            var i = 0;
-            var l = this._data.length;
-            if (distinctCallback) {
-                for (; i < l; i++) {
-                    var obj = this._data[i];
-                    var key = distinctCallback.call(this._data, obj, i);
-                    if (lookup[key]) continue;
-                    lookup[key] = true;
-                    result.push(obj);
-                }
-            } else {
-                for (; i < l; i++) {
-                    var obj = this._data[i];
-                    if (lookup[obj]) continue;
-                    lookup[obj] = true;
-                    result.push(obj);
-                }
+            var lookup = {};            
+            for (var i = 0, l = this._data.length; i < l; i++) {
+                var obj = this._data[i];
+                var key = distinctCallback ? distinctCallback.call(this._data, obj, i) : obj;
+                if (lookup[key]) continue;
+                lookup[key] = true;
+                result.push(obj);
             }
             this._data = result;
             return this;
@@ -68,6 +59,29 @@
         elementAt: function (index) {
             var result = this.toArray();
             return index < result.length ? result[index] : null;
+        },
+        except: function (arr, distinctCallback) {
+            var result = [];
+            var lookup = {};
+            var i = 0;
+            var l = this._data.length;
+            var obj;
+            var key;
+            for (; i < l; i++) {
+                obj = this._data[i];
+                key = distinctCallback ? distinctCallback.call(this._data, obj, i) : obj;
+                lookup[key] = true;
+            }
+            i = 0;
+            l = arr.length;
+            for (; i < l; i++) {
+                obj = arr[i];
+                key = distinctCallback ? distinctCallback.call(arr, obj, i) : obj;
+                if (!lookup[key])
+                    result.push(obj);
+            }
+            this._data = result;
+            return this;
         },
         first: function (whereCallback) {
             var result = this.toArray(whereCallback);
@@ -87,6 +101,29 @@
                     lookup[group] = value;
                     result.push({ key: group, value: value });
                 }
+            }
+            this._data = result;
+            return this;
+        },
+        intersect: function (arr, distinctCallback) {
+            var result = [];
+            var lookup = {};
+            var i = 0;
+            var l = this._data.length;
+            var obj;
+            var key;
+            for (; i < l; i++) {
+                obj = this._data[i];
+                key = distinctCallback ? distinctCallback.call(this._data, obj, i) : obj;
+                lookup[key] = true;
+            }
+            i = 0;
+            l = arr.length;
+            for (; i < l; i++) {
+                obj = arr[i];
+                key = distinctCallback ? distinctCallback.call(arr, obj, i) : obj;
+                if (lookup[key])
+                    result.push(obj);
             }
             this._data = result;
             return this;
@@ -131,6 +168,34 @@
                 this.where(whereCallback);
             return this._data;
         },
+        union: function (arr, distinctCallback) {
+            var result = [];
+            var lookup = {};
+            var i = 0;
+            var l = this._data.length;
+            var obj;
+            var key;
+            for (; i < l; i++) {
+                obj = this._data[i];
+                key = distinctCallback ? distinctCallback.call(this._data, obj, i) : obj;
+                if (!lookup[key]) {
+                    lookup[key] = true;
+                    result.push(obj);
+                }
+            }
+            i = 0;
+            l = arr.length;
+            for (; i < l; i++) {
+                obj = arr[i];
+                key = distinctCallback ? distinctCallback.call(arr, obj, i) : obj;
+                if (!lookup[key]) {
+                    lookup[key] = true;
+                    result.push(obj);
+                }
+            }
+            this._data = result;
+            return this;
+        },
         where: function (whereCallback) {
             var result = [];
             for (var i = 0, l = this._data.length; i < l; i++) {
@@ -142,7 +207,6 @@
             return this;
         }
     };
-
     return function jinq(arr) {
         return new enumerable(arr);
     };
