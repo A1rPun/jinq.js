@@ -178,6 +178,16 @@
             me._data = result;
             return me;
         },
+        shuffle: function () {
+            // Used for testing and card games
+            for (var i = this._data.length, j, t; i--;) {
+                j = Math.floor(Math.random() * (i + 1));
+                t = this._data[i];
+                this._data[i] = this._data[j];
+                this._data[j] = t;
+            }
+            return this;
+        },
         skip: function (num) {
             this._data = this._data.slice(num);
             return this;
