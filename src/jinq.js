@@ -142,10 +142,12 @@
             var length = result.length;
             return length ? result[result.length - 1] : null;
         },
-        orderBy: function (prop) {
-            this.list.sort(prop ? function (a, b) {
-                return a[prop] > b[prop] ? 1 : (b[prop] > a[prop] ? -1 : 0);
-            } : prop);
+        orderBy: function (a) {
+            this.list.sort(a ? makeOrderBy(arguments) : a);
+            return this;
+        },
+        orderByDescending: function (a) {
+            this.list.sort(a ? makeOrderBy(arguments, true) : function (a, b) { return a > b ? 1 : (b > a ? -1 : 0); });
             return this;
         },
         reverse: function () {
@@ -257,6 +259,25 @@
             return me;
         }
     };
+    function makeOrderBy(args, desc) {
+        function makeCompare(prop) {
+            return desc
+                ? function (a, b) { return a[prop] > b[prop] ? -1 : (b[prop] > a[prop] ? 1 : 0); }
+                : function (a, b) { return a[prop] > b[prop] ? 1 : (b[prop] > a[prop] ? -1 : 0); };
+        }
+        for (var i = args.length; i--;) {
+            var arg = args[i];
+            if (typeof arg !== 'function')
+                args[i] = makeCompare(arg);
+        }
+        return function (a, b) {
+            for (var i = 0, l = args.length, c; i < l; i++) {
+                c = args[i](a, b);
+                if (c) return c;
+            }
+            return 0;
+        }
+    }
     return function (list) {
         return new Enumerable(list);
     };
