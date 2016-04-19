@@ -85,6 +85,7 @@ Output:
 ## TODO
 
 - Deferred execution (more linq like)
+- Add unit tests
 - Add new methods 
 	- `join`
 	- `sum`, `max`, `min`, `average`
