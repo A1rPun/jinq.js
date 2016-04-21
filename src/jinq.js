@@ -137,6 +137,40 @@
             me.list = result;
             return me;
         },
+        join: function (list, sourceProp, joinProp, selectCallback) {
+            var me = this;
+            var result = [];
+            var lookup = {};
+            var i = 0;
+            var l = list.length;
+            var obj;
+            var key;
+            for (; i < l; i++) {
+                obj = list[i];
+                key = obj[joinProp];
+                if (key) lookup[key] = obj;
+            }
+            i = 0;
+            l = me.list.length;
+            for (; i < l; i++) {
+                obj = me.list[i];
+                key = obj[sourceProp];
+                if (key) {
+                    var joinObj = lookup[key];
+                    if (joinObj) {
+                        if (selectCallback)
+                            obj = selectCallback.call(me.list, obj, lookup[key], i);
+                        else
+                            for (var prop in joinObj)
+                                if (!obj[prop])
+                                    obj[prop] = joinObj[prop];
+                        result.push(obj);
+                    }
+                }
+            }
+            me.list = result;
+            return this;
+        },
         last: function (whereCallback) {
             var result = this.toArray(whereCallback);
             var length = result.length;

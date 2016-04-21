@@ -17,6 +17,7 @@ This is still a work in progress
 - first()
 - groupBy()
 - intersect()
+- join()
 - last()
 - orderBy()
 - reverse()
@@ -86,6 +87,5 @@ Output:
 
 - Deferred execution (more linq like)
 - Add unit tests
-- Add new methods 
-	- `join`
+- Add new methods
 	- `sum`, `max`, `min`, `average`

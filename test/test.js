@@ -7,14 +7,19 @@ function log(name, arr) {
 var numberArray = [1, 2, 2, 3, 4, 4, 5, 6];
 var anotherNumberArray = [2, 3, 5, 6, 7, 8, 8];
 var objectArray = [
-    { id: 1, difficulty: 8, name: 'Castle Crashers' },
-    { id: 2, difficulty: 10, name: 'Dustforce' },
-    { id: 3, difficulty: 8, name: 'Enter the Gungeon' },
-    { id: 4, difficulty: 10, name: 'Super Meat Boy' },
-    { id: 5, difficulty: 6, name: 'Super Time Force Ultra' },
-    { id: 6, difficulty: 10, name: 'VVVVVV' },
+    { id: 1, difficulty: 8, gameName: 'Castle Crashers' },
+    { id: 2, difficulty: 10, gameName: 'Dustforce' },
+    { id: 3, difficulty: 8, gameName: 'Enter the Gungeon' },
+    { id: 4, difficulty: 10, gameName: 'Super Meat Boy' },
+    { id: 5, difficulty: 6, gameName: 'Super Time Force Ultra' },
+    { id: 6, difficulty: 10, gameName: 'VVVVVV' },
 ];
-var anotherObjectArray = [];
+var anotherObjectArray = [
+    { id: 1, objId: 1, type: 'Bronze', trophyName: 'Melee Is Best' },
+    { id: 2, objId: 6, type: 'Silver', trophyName: 'Graviton Master' },
+    { id: 3, objId: 2, type: 'Gold', trophyName: 'Master of the Custodial Arts' },
+    { id: 4, objId: 4, type: 'Platinum', trophyName: 'Super Meat Boy!' }
+];
 
 /* */
 log('numbers', numberArray);
@@ -55,6 +60,11 @@ log('groupBy objects', jinq(objectArray).toArray());
 /* /
 log('intersect numbers', jinq(numberArray).toArray());
 log('intersect objects', jinq(objectArray).toArray());
+/* /
+log('join objects', jinq(objectArray).join(anotherObjectArray, 'id', 'objId').toArray());
+log('join objects with select', jinq(anotherObjectArray).join(objectArray, 'objId', 'id', function (a, b) {
+    return a.id + '. ' + b.gameName + ' : ' + a.trophyName;
+}).toArray());
 /* /
 log('last numbers', jinq(numberArray).toArray());
 log('last objects', jinq(objectArray).toArray());
