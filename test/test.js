@@ -7,12 +7,12 @@ function log(name, arr) {
 var numberArray = [1, 2, 2, 3, 4, 4, 5, 6];
 var anotherNumberArray = [2, 3, 5, 6, 7, 8, 8];
 var objectArray = [
-    { id: 1, difficulty: 8, gameName: 'Castle Crashers' },
-    { id: 2, difficulty: 10, gameName: 'Dustforce' },
-    { id: 3, difficulty: 8, gameName: 'Enter the Gungeon' },
-    { id: 4, difficulty: 10, gameName: 'Super Meat Boy' },
-    { id: 5, difficulty: 6, gameName: 'Super Time Force Ultra' },
-    { id: 6, difficulty: 10, gameName: 'VVVVVV' },
+    { id: 1, difficulty: 3, trophyDifficulty: 8, gameName: 'Castle Crashers' },
+    { id: 2, difficulty: 9, trophyDifficulty: 10, gameName: 'Dustforce' },
+    { id: 3, difficulty: 8, trophyDifficulty: 8, gameName: 'Enter the Gungeon' },
+    { id: 4, difficulty: 8, trophyDifficulty: 10, gameName: 'Super Meat Boy' },
+    { id: 5, difficulty: 6, trophyDifficulty: 7, gameName: 'Super Time Force Ultra' },
+    { id: 6, difficulty: 6, trophyDifficulty: 10, gameName: 'VVVVVV' },
 ];
 var anotherObjectArray = [
     { id: 1, objId: 1, type: 'Bronze', trophyName: 'Melee Is Best' },
@@ -75,7 +75,9 @@ log('shuffled numbers', shuffledNumbers.toArray());
 log('shuffled objects', shuffledObjects.toArray());
 
 log('orderBy numbers', shuffledNumbers.orderBy().toArray());
-log('orderBy objects id property', shuffledObjects.orderBy('difficulty', 'id').toArray());
+log('orderBy objects trophyDifficulty property', shuffledObjects.orderBy('trophyDifficulty').toArray());
+log('orderByDescending objects trophyDifficulty & difficulty properties', shuffledObjects.orderByDescending('trophyDifficulty', 'difficulty').toArray());
+log('orderBy objects ascending difficulty & descending id properties', shuffledObjects.orderBy('difficulty', function (a, b) { return b.id - a.id }).toArray());
 /* /
 log('reverse numbers', jinq(numberArray).reverse().toArray());
 log('reverse objects', jinq(objectArray).reverse().toArray());

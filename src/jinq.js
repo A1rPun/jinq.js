@@ -181,7 +181,7 @@
             return this;
         },
         orderByDescending: function (a) {
-            this.list.sort(a ? makeOrderBy(arguments, true) : function (a, b) { return a > b ? 1 : (b > a ? -1 : 0); });
+            this.list.sort(a ? makeOrderBy(arguments, true) : function (a, b) { return a > b ? -1 : (b > a ? 1 : 0); });
             return this;
         },
         reverse: function () {
