@@ -29,6 +29,8 @@ JavaScript Integrated Query with Deferred Execution
 - sum()
 - take()
 - toArray() // toList
+- toDictionary()
+- toLookup()
 - union()
 - where()
 - zip()
@@ -40,23 +42,27 @@ JavaScript Integrated Query with Deferred Execution
 
 ### Examples
 
+Construct a new enumeration object
+
+    var source = [5,6,3,1,2,9,0,4,7,8];
+    var ints = jinq(source);
+
 Using `where`, `select` and `groupBy`
 
-	jinq([5,6,3,1,2,9,0,4,7,8])
-		.where(function(obj) {
-			return obj > 1;
-		})
-		.select(function(obj) {
-			return {
-				original: obj,
-				multiplied: obj * 2,
-				isEven: obj % 2 === 0
-			};
-		})
-		.groupBy(function(obj) {
-			return obj.isEven;
-		})
-		.toArray();
+    ints.where(function(o) {
+            return o > 1;
+        })
+        .select(function(o) {
+            return {
+                original: o,
+                multiplied: o * 2,
+                isEven: o % 2 === 0
+            };
+        })
+        .groupBy(function(o) {
+            return o.isEven;
+        })
+        .toArray();
 
 **Output:**
 
@@ -94,7 +100,6 @@ Using `any` in combination with `where` callback
 ### TODO
 
 - :link: Add new methods
-    - toLookup() // toDictionary
     - groupJoin
     - defaultIfEmpty
     - skipWhile // Skip until a condition is met
