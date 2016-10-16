@@ -72,6 +72,9 @@
         any: function (whereCallback) {
             return !!this.first(whereCallback);
         },
+        average: function () {
+            return this.sum() / this.list.length;
+        },
         contains: function (val) {
             this.__resolveQueue();
             return this.list.indexOf(val) !== -1;
@@ -92,6 +95,18 @@
             var result = this.toArray(whereCallback);
             var length = result.length;
             return length ? result[result.length - 1] : null;
+        },
+        max: function () {
+            this.__resolveQueue();
+            return Math.max.apply(null, this.list);
+        },
+        min: function () {
+            this.__resolveQueue();
+            return Math.min.apply(null, this.list);
+        },
+        sum: function () {
+            this.__resolveQueue();
+            return this.list.reduce(function(a, b) { return a + b; }, 0);
         },
         toArray: function (whereCallback) {
             if (whereCallback)

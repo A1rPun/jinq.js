@@ -119,7 +119,7 @@ log('zip objects', jinq(objectArray).zip(anotherObjectArray, function (a, b) {
 }).toArray());
 /* /
 // Testing deferred execution
-var source = [5, 6, 3, 1, 2, 9, 0, 4, 7, 8]
+var source = [5, 6, 3, 1, 2, 9, 0, 4, 7, 8];
 var where = jinq(source)
 .where(function (obj) {
     return obj > 1;
@@ -134,9 +134,9 @@ var select = where.select(function (obj) {
 var groupBy = select.groupBy(function (obj) {
     return obj.isEven;
 });
-log('test `where, select & groupBy` deferred', groupBy.list);
-log('test groupBy', groupBy.toArray());
-log('test select', select.toArray());
-log('test where', where.toArray());
+log('`where, select & groupBy` deferred', groupBy.list);
+log('groupBy', groupBy.toArray());
+log('select', select.toArray());
+log('where', where.toArray());
 log('sauce', source);
 /* */
