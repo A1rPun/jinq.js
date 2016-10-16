@@ -100,11 +100,17 @@ log('single numbers 4', jinq(numberArray).single(function (o) { return o === 4 }
 log('single objects', jinq(objectArray).single());
 log('single objects', jinq(objectArray).single(function (o) { return o.id === 1 }));
 /* /
-log('skip numbers', jinq(numberArray).toArray());
-log('skip objects', jinq(objectArray).toArray());
+log('skip 4 numbers', jinq(numberArray).skip(4).toArray());
+log('skip 4 objects', jinq(objectArray).skip(4).toArray());
 /* /
-log('take numbers', jinq(numberArray).toArray());
-log('take objects', jinq(objectArray).toArray());
+log('skipWhile numbers', jinq(numberArray).skipWhile(function (o) { return o < 3 }).toArray());
+log('skipWhile objects', jinq(objectArray).skipWhile(function (o) { return o.id < 3 }).toArray());
+/* /
+log('take 3 numbers', jinq(numberArray).take(3).toArray());
+log('take 3 objects', jinq(objectArray).take(3).toArray());
+/* /
+log('takeWhile numbers', jinq(numberArray).takeWhile(function (o) { return o < 3 }).toArray());
+log('takeWhile objects', jinq(objectArray).takeWhile(function (o) { return o.id < 3 }).toArray());
 /* /
 log('toDictionary numbers', jinq(numberArray).toDictionary());
 log('toDictionary objects', jinq(objectArray).toDictionary(function (o) { return o.id }));

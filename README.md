@@ -26,8 +26,10 @@ JavaScript Integrated Query with Deferred Execution
 - selectMany()
 - single() // singleOrDefault
 - skip()
+- skipWhile()
 - sum()
 - take()
+- takeWhile()
 - toArray() // toList
 - toDictionary()
 - toLookup()
@@ -101,9 +103,7 @@ Using `any` in combination with `where` callback
 
 - :link: Add new methods
     - groupJoin
-    - defaultIfEmpty
-    - skipWhile // Skip until a condition is met
-    - takeWhile // Take until a condition is met
+    - defaultIfEmpty?
     - asEnumerable?
     - asParallel?
     - cast?

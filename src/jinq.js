@@ -57,6 +57,12 @@
             }
             return lookup;
         },
+        __while: function (whileCallback) {
+            for (var i = 0, l = this.list.length; i < l; i++)
+                if (!whileCallback.call(this.list, this.list[i], i))
+                    break;
+            return i;
+        },
         aggregate: function (aggregateCallback, seed) {
             var me = this;
             me.__resolveQueue();
@@ -299,7 +305,15 @@
         skip: function (num) {
             this.list = this.list.slice(num);
         },
+        skipWhile: function (whileCallback) {
+            var num = this.__while(whileCallback);
+            this.list = this.list.slice(num);
+        },
         take: function (num) {
+            this.list = this.list.slice(0, num);
+        },
+        takeWhile: function (whileCallback) {
+            var num = this.__while(whileCallback);
             this.list = this.list.slice(0, num);
         },
         union: function (list, distinctCallback) {

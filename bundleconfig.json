@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "src/jinq.min.js",
+    "inputFiles": [
+      "src/jinq.js"
+    ]
+  }
+]
