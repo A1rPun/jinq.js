@@ -35,17 +35,18 @@ log('all objects', jinq(objectArray).toArray());
 log('any numbers', jinq(numberArray).toArray());
 log('any objects', jinq(objectArray).toArray());
 /* /
-log('concat numbers', jinq(numberArray).toArray());
-log('concat objects', jinq(objectArray).toArray());
+log('concat numbers', jinq(numberArray).concat(anotherNumberArray).toArray());
+log('concat objects', jinq(objectArray).concat(anotherObjectArray).toArray());
 /* /
 log('contains numbers', jinq(numberArray).toArray());
 log('contains objects', jinq(objectArray).toArray());
 /* /
 log('count numbers', jinq(numberArray).toArray());
 log('count objects', jinq(objectArray).toArray());
-/* /
-log('distinct numbers', jinq(numberArray).toArray());
-log('distinct objects', jinq(objectArray).toArray());
+/* */
+log('distinct numbers', jinq(numberArray).distinct().toArray());
+log('distinct objects', jinq(objectArray).distinct(function () { }).toArray());
+log('distinct objects', jinq(objectArray).distinct(function () { }).toArray());
 /* /
 log('elementAt numbers', jinq(numberArray).toArray());
 log('elementAt objects', jinq(objectArray).toArray());

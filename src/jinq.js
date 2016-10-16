@@ -19,6 +19,9 @@
     }
     // Prototype methods which have no enumerable return types
     Enumerable.prototype = {
+        __createCallback: function (cb) {
+            return typeof cb === 'string' ? function (o) { return o[cb] } : cb;
+        },
         __makeOrderBy: function (args, desc) {
             function makeCompare(prop) {
                 return desc
@@ -47,6 +50,7 @@
         },
         __toLookup: function (keyCallback) {
             var lookup = {};
+            keyCallback = me.__createCallback(keyCallback);
             for (var i = 0, l = this.list.length; i < l; i++) {
                 var value = this.list[i];
                 var key = keyCallback ? keyCallback.call(this.list, value, i) : value;
@@ -58,6 +62,7 @@
             return lookup;
         },
         __while: function (whileCallback) {
+            whileCallback = this.__createCallback(whileCallback);
             for (var i = 0, l = this.list.length; i < l; i++)
                 if (!whileCallback.call(this.list, this.list[i], i))
                     break;
@@ -141,10 +146,13 @@
             return this.list;
         },
         toDictionary: function (keyCallback, valueCallback) {
-            this.__resolveQueue();
+            var me = this;
+            me.__resolveQueue();
+            keyCallback = me.__createCallback(keyCallback);
+            valueCallback = me.__createCallback(valueCallback);
             var result = {};
-            for (var i = 0, l = this.list.length; i < l; i++) {
-                var value = this.list[i];
+            for (var i = 0, l = me.list.length; i < l; i++) {
+                var value = me.list[i];
                 var key = keyCallback ? keyCallback(value) : value;
                 result[key] = valueCallback ? valueCallback(value) : value;
             }
@@ -166,6 +174,7 @@
         },
         distinct: function (distinctCallback) {
             var me = this;
+            distinctCallback = me.__createCallback(distinctCallback);
             var result = [];
             var lookup = {};
             for (var i = 0, l = me.list.length; i < l; i++) {
@@ -179,6 +188,7 @@
         },
         except: function (list, distinctCallback) {
             var me = this;
+            distinctCallback = me.__createCallback(distinctCallback);
             var result = [];
             var lookup = {};
             var i = 0;
@@ -207,8 +217,11 @@
                 result.push({ key: prop, value: lookup[prop] });
             this.list = result;
         },
-        groupJoin: function (list, sourceProp, joinProp, selectCallback) {
+        groupJoin: function (list, sourceCallback, joinCallback, selectCallback) {
             var me = this;
+            sourceCallback = me.__createCallback(sourceCallback);
+            joinCallback = me.__createCallback(joinCallback);
+            if (!sourceCallback || !joinCallback) return;
             var result = [];
             var lookup = {};
             var i = 0;
@@ -217,7 +230,7 @@
             var key;
             for (; i < l; i++) {
                 obj = list[i];
-                key = obj[joinProp];
+                key = joinCallback(obj);
                 if (key)
                     if (lookup[key])
                         lookup[key].push(obj);
@@ -228,22 +241,18 @@
             l = me.list.length;
             for (; i < l; i++) {
                 obj = me.list[i];
-                key = obj[sourceProp];
+                key = sourceCallback(obj);
                 if (key) {
                     var joinObj = lookup[key];
-                    if (joinObj) {
-                        if (selectCallback)
-                            obj = selectCallback.call(me.list, obj, lookup[key], i);
-                        else
-                            obj = joinObj;
-                        result.push(obj);
-                    }
+                    if (joinObj)
+                        result.push(selectCallback ? selectCallback.call(me.list, obj, lookup[key], i) : joinObj);
                 }
             }
             me.list = result;
         },
         intersect: function (list, distinctCallback) {
             var me = this;
+            distinctCallback = me.__createCallback(distinctCallback);
             var result = [];
             var lookup = {};
             var i = 0;
@@ -265,8 +274,11 @@
             }
             me.list = result;
         },
-        join: function (list, sourceProp, joinProp, selectCallback) {
+        join: function (list, sourceCallback, joinCallback, selectCallback) {
             var me = this;
+            sourceCallback = me.__createCallback(sourceCallback);
+            joinCallback = me.__createCallback(joinCallback);
+            if (!sourceCallback || !joinCallback) return;
             var result = [];
             var lookup = {};
             var i = 0;
@@ -275,14 +287,14 @@
             var key;
             for (; i < l; i++) {
                 obj = list[i];
-                key = obj[joinProp];
+                key = joinCallback(obj);
                 if (key) lookup[key] = obj;
             }
             i = 0;
             l = me.list.length;
             for (; i < l; i++) {
                 obj = me.list[i];
-                key = obj[sourceProp];
+                key = sourceCallback(obj);
                 if (key) {
                     var joinObj = lookup[key];
                     if (joinObj) {
@@ -313,6 +325,8 @@
         },
         select: function (selectCallback) {
             var me = this;
+            selectCallback = me.__createCallback(selectCallback);
+            if (!selectCallback) return;
             var result = [];
             for (var i = 0, l = me.list.length; i < l; i++) {
                 var obj = me.list[i];
@@ -323,6 +337,8 @@
         },
         selectMany: function (selectCallback) {
             var me = this;
+            selectCallback = me.__createCallback(selectCallback);
+            if (!selectCallback) return;
             var result = [];
             for (var i = 0, l = me.list.length; i < l; i++) {
                 var obj = me.list[i];
@@ -356,6 +372,7 @@
         },
         union: function (list, distinctCallback) {
             var me = this;
+            distinctCallback = me.__createCallback(distinctCallback);
             var result = [];
             var lookup = {};
             var i = 0;
@@ -384,6 +401,8 @@
         },
         where: function (whereCallback) {
             var me = this;
+            whereCallback = me.__createCallback(whereCallback);
+            if (!whereCallback) return;
             var result = [];
             for (var i = 0, l = me.list.length; i < l; i++) {
                 var obj = me.list[i];
@@ -394,6 +413,8 @@
         },
         zip: function (list, selectCallback) {
             var me = this;
+            selectCallback = me.__createCallback(selectCallback);
+            if (!selectCallback) return;
             var result = [];
             var sourceLength = me.list.length;
             var destLength = list.length;
