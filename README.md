@@ -1,13 +1,12 @@
 ﻿# jinq.js
-JavaScript Integrated query
+JavaScript Integrated Query with Deferred Execution
 
-This is still a work in progress
-
-## Methods
+### Methods
 
 - aggregate()
 - all()
 - any()
+- average()
 - concat()
 - contains()
 - count()
@@ -19,18 +18,26 @@ This is still a work in progress
 - intersect()
 - join()
 - last()
+- max()
+- min()
 - orderBy()
 - reverse()
-- select()
+- select() // skipWhile & takeWhile
 - selectMany()
 - skip()
+- sum()
 - take()
-- toArray()
+- toArray() // toList
 - union()
 - where()
 - zip()
 
-## Examples
+### Static Methods
+- jinq.empty() 
+- jinq.range()
+- jinq.repeat()
+
+### Examples
 
 Using `where`, `select` and `groupBy`
 
@@ -50,7 +57,7 @@ Using `where`, `select` and `groupBy`
 		})
 		.toArray();
 
-Output:
+**Output:**
 
 	[{
 		key: false,
@@ -79,14 +86,27 @@ Using `any` in combination with `where` callback
             return obj.group === 'b';
         });
 
-Output:
+**Output:**
 
 	true;
 
-## TODO
+### TODO
 
-- Deferred execution (more linq like)
-- Add unit tests
-- Add new methods
-	- `sum`, `max`, `min`, `average`
+- :link: Add new methods
+    - toLookup() // toDictionary
+    - groupJoin
+    - defaultIfEmpty
+    - elementAtOrDefault
+    - firstOrDefault
+    - lastOrDefault
+    - singleOrDefault
+    - single
 
+    - asEnumerable?
+    - asParallel?
+    - cast?
+    - ofType?
+    - sequenceEqual?
+
+- :page_facing_up: Add unit tests
+- :thumbsup: Distribution :)
