@@ -118,7 +118,7 @@
         },
         toArray: function (whereCallback) {
             if (whereCallback)
-                this.where(whereCallback);
+                this.queue.push([deferredMethods.where, arguments]);
             this.__resolveQueue();
             return this.list;
         }

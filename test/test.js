@@ -95,9 +95,10 @@ log('select objects into names', jinq(objectArray).select(function (o) {
 log('selectMany numbers', jinq(numberArray).toArray());
 log('selectMany objects', jinq(objectArray).toArray());
 /* */
-log('single numbers 3', jinq(numberArray).single(function (o) { return o === 3}));
+log('single numbers 3', jinq(numberArray).single(function (o) { return o === 3 }));
 log('single numbers 4', jinq(numberArray).single(function (o) { return o === 4 }));
 log('single objects', jinq(objectArray).single());
+log('single objects', jinq(objectArray).single(function (o) { return o.id === 1 }));
 /* /
 log('skip numbers', jinq(numberArray).toArray());
 log('skip objects', jinq(objectArray).toArray());
