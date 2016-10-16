@@ -17,6 +17,7 @@
             this.queue = [];
         }
     }
+    // Prototype methods which have no enumerable return types
     Enumerable.prototype = {
         __resolveQueue: function () {
             this.list = this.list.slice();
@@ -106,7 +107,10 @@
         },
         sum: function () {
             this.__resolveQueue();
-            return this.list.reduce(function(a, b) { return a + b; }, 0);
+            var result = 0;
+            for (var i = this.list; i--;)
+                result += this.list[i];
+            return result;
         },
         toArray: function (whereCallback) {
             if (whereCallback)
@@ -115,6 +119,7 @@
             return this.list;
         }
     };
+    // These methods will be postponed till the queue needs to be resolved
     var deferredMethods = {
         concat: function (list) {
             var me = this;
@@ -355,10 +360,25 @@
             }
         }(deferredMethods[prop]));
     }
-    return function (list) {
-        var enumerable = new Enumerable(null);
-        if (Array.isArray(list))
-            enumerable.list = list;
+    // Pass an array into jinq for easy enumeration
+    var jinq = function (list) {
+        var enumerable = new Enumerable();
+        enumerable.list = list;
         return enumerable;
     };
+    // Static Methods
+    jinq.empty = function () { return new Enumerable(); };
+    jinq.range = function (i, count) {
+        var list = [];
+        for (var l = i + count; i < l; i++)
+            list.push(i);
+        return jinq(list);
+    };
+    jinq.repeat = function (val, count) {
+        var list = [];
+        for (var i = 0; i < count; i++)
+            list.push(val);
+        return jinq(list);
+    };
+    return jinq;
 }));

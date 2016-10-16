@@ -139,4 +139,15 @@ log('groupBy', groupBy.toArray());
 log('select', select.toArray());
 log('where', where.toArray());
 log('sauce', source);
+/* /
+log('empty', jinq.empty().toArray());
+log('range', jinq.range(0, 10).toArray());
+log('range negative', jinq.range(-9, 10).toArray());
+log('repeat', jinq.repeat(1337, 5).toArray());
+// Repeat instance test
+var foo = { bar: 'test' };
+var repeat = jinq.repeat(foo, 3);
+log('repeat object', repeat.toArray());
+foo.bar = 'wooop';
+log('repeat object', repeat.toArray());
 /* */
