@@ -89,3 +89,4 @@ Output:
 - Add unit tests
 - Add new methods
 	- `sum`, `max`, `min`, `average`
+

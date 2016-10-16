@@ -7,12 +7,46 @@
         if (noConflict) this[name].noConflict = noConflict;
     }
 }('jinq', function () {
-    function Enumerable(list) {
-        this.list = list;
+    function Enumerable(parent, newQueue) {
+        if (parent) {
+            this.list = parent.list;
+            this.queue = parent.queue.slice();
+            newQueue && this.queue.push(newQueue);
+        } else {
+            this.list = [];
+            this.queue = [];
+        }
     }
     Enumerable.prototype = {
+        __resolveQueue: function () {
+            this.list = this.list.slice();
+            for (var i = 0, l = this.queue.length; i < l; i++) {
+                var c = this.queue[i];
+                c[0].apply(this, c[1]);
+            }
+        },
+        __makeOrderBy: function (args, desc) {
+            function makeCompare(prop) {
+                return desc
+                    ? function (a, b) { return a[prop] > b[prop] ? -1 : (b[prop] > a[prop] ? 1 : 0); }
+                    : function (a, b) { return a[prop] > b[prop] ? 1 : (b[prop] > a[prop] ? -1 : 0); };
+            }
+            for (var i = args.length; i--;) {
+                var arg = args[i];
+                if (typeof arg !== 'function')
+                    args[i] = makeCompare(arg);
+            }
+            return function (a, b) {
+                for (var i = 0, l = args.length, c; i < l; i++) {
+                    c = args[i](a, b);
+                    if (c) return c;
+                }
+                return 0;
+            }
+        },
         aggregate: function (aggregateCallback, seed) {
             var me = this;
+            me.__resolveQueue();
             var result = seed === 0 ? 0 : seed || null;
             var i = 0;
             var l = me.list.length;
@@ -29,6 +63,7 @@
             return result;
         },
         all: function (whereCallback) {
+            this.__resolveQueue();
             for (var i = 0, l = this.list.length; i < l; i++)
                 if (!whereCallback.call(this.list, this.list[i], i))
                     return false;
@@ -37,21 +72,44 @@
         any: function (whereCallback) {
             return !!this.first(whereCallback);
         },
-        concat: function (list) {
-            var me = this;
-            me.list = me.list.concat.apply(me.list, list);
-            return me;
-        },
         contains: function (val) {
+            this.__resolveQueue();
             return this.list.indexOf(val) !== -1;
         },
         count: function (whereCallback) {
             return this.toArray(whereCallback).length;
         },
+        elementAt: function (index) {
+            var result = this.toArray();
+            return index < result.length ? result[index] : null;
+        },
+        first: function (whereCallback) {
+            var result = this.toArray(whereCallback);
+            var length = result.length;
+            return length ? result[0] : null;
+        },
+        last: function (whereCallback) {
+            var result = this.toArray(whereCallback);
+            var length = result.length;
+            return length ? result[result.length - 1] : null;
+        },
+        toArray: function (whereCallback) {
+            if (whereCallback)
+                this.where(whereCallback);
+            this.__resolveQueue();
+            return this.list;
+        }
+    };
+    var deferredMethods = {
+        concat: function (list) {
+            var me = this;
+            me.list = me.list.concat.apply(me.list, list);
+            return me;
+        },
         distinct: function (distinctCallback) {
             var me = this;
             var result = [];
-            var lookup = {};            
+            var lookup = {};
             for (var i = 0, l = me.list.length; i < l; i++) {
                 var obj = me.list[i];
                 var key = distinctCallback ? distinctCallback.call(me.list, obj, i) : obj;
@@ -61,10 +119,6 @@
             }
             me.list = result;
             return me;
-        },
-        elementAt: function (index) {
-            var result = this.toArray();
-            return index < result.length ? result[index] : null;
         },
         except: function (list, distinctCallback) {
             var me = this;
@@ -89,11 +143,6 @@
             }
             me.list = result;
             return me;
-        },
-        first: function (whereCallback) {
-            var result = this.toArray(whereCallback);
-            var length = result.length;
-            return length ? result[0] : null;
         },
         groupBy: function (groupCallback) {
             var me = this;
@@ -169,26 +218,21 @@
                 }
             }
             me.list = result;
-            return this;
-        },
-        last: function (whereCallback) {
-            var result = this.toArray(whereCallback);
-            var length = result.length;
-            return length ? result[result.length - 1] : null;
+            return me;
         },
         orderBy: function (a) {
-            this.list.sort(a ? makeOrderBy(arguments) : a);
+            this.list.sort(a ? this.__makeOrderBy(arguments) : a);
             return this;
         },
         orderByDescending: function (a) {
-            this.list.sort(a ? makeOrderBy(arguments, true) : function (a, b) { return a > b ? -1 : (b > a ? 1 : 0); });
+            this.list.sort(a ? this.__makeOrderBy(arguments, true) : function (a, b) { return a > b ? -1 : (b > a ? 1 : 0); });
             return this;
         },
         reverse: function () {
             var me = this;
             var result = [];
             for (var i = me.list.length; i--;)
-                result.push(me.list[i]);            
+                result.push(me.list[i]);
             me.list = result;
             return me;
         },
@@ -231,11 +275,6 @@
         take: function (num) {
             this.list = this.list.slice(0, num);
             return this;
-        },
-        toArray: function (whereCallback) {
-            if (whereCallback)
-                this.where(whereCallback);
-            return this.list;
         },
         union: function (list, distinctCallback) {
             var me = this;
@@ -293,26 +332,18 @@
             return me;
         }
     };
-    function makeOrderBy(args, desc) {
-        function makeCompare(prop) {
-            return desc
-                ? function (a, b) { return a[prop] > b[prop] ? -1 : (b[prop] > a[prop] ? 1 : 0); }
-                : function (a, b) { return a[prop] > b[prop] ? 1 : (b[prop] > a[prop] ? -1 : 0); };
-        }
-        for (var i = args.length; i--;) {
-            var arg = args[i];
-            if (typeof arg !== 'function')
-                args[i] = makeCompare(arg);
-        }
-        return function (a, b) {
-            for (var i = 0, l = args.length, c; i < l; i++) {
-                c = args[i](a, b);
-                if (c) return c;
+    for (var prop in deferredMethods) {
+        Enumerable.prototype[prop] = (function (fn) {
+            return function () {
+                this.queue.push();
+                return new Enumerable(this, [fn, arguments]);
             }
-            return 0;
-        }
+        }(deferredMethods[prop]));
     }
     return function (list) {
-        return new Enumerable(list);
+        var enumerable = new Enumerable(null);
+        if (Array.isArray(list))
+            enumerable.list = list;
+        return enumerable;
     };
 }));
