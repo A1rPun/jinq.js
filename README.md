@@ -10,6 +10,7 @@ JavaScript Integrated Query with Deferred Execution
 - concat()
 - contains()
 - count()
+- defaultIfEmpty()
 - distinct()
 - elementAt() // elementAtOrDefault
 - except()
@@ -103,7 +104,6 @@ Using `any` in combination with `where` callback
 ### TODO
 
 - :link: Add new methods
-    - defaultIfEmpty?
     - asEnumerable?
     - asParallel?
     - cast?

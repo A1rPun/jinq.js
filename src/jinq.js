@@ -45,11 +45,11 @@
                 c[0].apply(this, c[1]);
             }
         },
-        __toLookup: function (fnKey) {
+        __toLookup: function (keyCallback) {
             var lookup = {};
             for (var i = 0, l = this.list.length; i < l; i++) {
                 var value = this.list[i];
-                var key = fnKey ? fnKey.call(this.list, value, i) : value;
+                var key = keyCallback ? keyCallback.call(this.list, value, i) : value;
                 if (lookup[key])
                     lookup[key].push(value);
                 else
@@ -140,26 +140,29 @@
             this.__resolveQueue();
             return this.list;
         },
-        toDictionary: function (fnKey, fnValue) {
+        toDictionary: function (keyCallback, valueCallback) {
             this.__resolveQueue();
             var result = {};
             for (var i = 0, l = this.list.length; i < l; i++) {
                 var value = this.list[i];
-                var key = fnKey ? fnKey(value) : value;
-                result[key] = fnValue ? fnValue(value) : value;
+                var key = keyCallback ? keyCallback(value) : value;
+                result[key] = valueCallback ? valueCallback(value) : value;
             }
             return result;
         },
-        toLookup: function (fnKey) {
+        toLookup: function (keyCallback) {
             this.__resolveQueue();
-            return this.__toLookup(fnKey);
+            return this.__toLookup(keyCallback);
         }
     };
     // These methods will be postponed till the queue needs to be resolved
     var deferredMethods = {
         concat: function (list) {
-            var me = this;
-            me.list = me.list.concat.apply(me.list, list);
+            this.list = this.list.concat(list);
+        },
+        defaultIfEmpty: function (defaultValue) {
+            if (!this.list.length)
+                this.list = [defaultValue];
         },
         distinct: function (distinctCallback) {
             var me = this;
