@@ -55,8 +55,8 @@ log('except objects', jinq(objectArray).toArray());
 log('first numbers', jinq(numberArray).toArray());
 log('first objects', jinq(objectArray).toArray());
 /* /
-log('groupBy numbers', jinq(numberArray).toArray());
-log('groupBy objects', jinq(objectArray).toArray());
+log('groupBy numbers', jinq(numberArray).groupBy(function (o) { return o < 4; }).toArray());
+log('groupBy objects', jinq(objectArray).groupBy(function (o) { return o.trophyDifficulty; }).toArray());
 /* /
 log('intersect numbers', jinq(numberArray).toArray());
 log('intersect objects', jinq(objectArray).toArray());
@@ -94,7 +94,7 @@ log('select objects into names', jinq(objectArray).select(function (o) {
 /* /
 log('selectMany numbers', jinq(numberArray).toArray());
 log('selectMany objects', jinq(objectArray).toArray());
-/* */
+/* /
 log('single numbers 3', jinq(numberArray).single(function (o) { return o === 3 }));
 log('single numbers 4', jinq(numberArray).single(function (o) { return o === 4 }));
 log('single objects', jinq(objectArray).single());
@@ -105,6 +105,12 @@ log('skip objects', jinq(objectArray).toArray());
 /* /
 log('take numbers', jinq(numberArray).toArray());
 log('take objects', jinq(objectArray).toArray());
+/* /
+log('toDictionary numbers', jinq(numberArray).toDictionary());
+log('toDictionary objects', jinq(objectArray).toDictionary(function (o) { return o.id }));
+/* /
+log('toLookup numbers', jinq(numberArray).toLookup());
+log('toLookup objects', jinq(objectArray).toLookup(function (o) { return o.trophyDifficulty }));
 /* /
 log('union numbers', jinq(numberArray).toArray());
 log('union objects', jinq(objectArray).toArray());

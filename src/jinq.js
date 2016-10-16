@@ -19,13 +19,6 @@
     }
     // Prototype methods which have no enumerable return types
     Enumerable.prototype = {
-        __resolveQueue: function () {
-            this.list = this.list.slice();
-            for (var i = 0, l = this.queue.length; i < l; i++) {
-                var c = this.queue[i];
-                c[0].apply(this, c[1]);
-            }
-        },
         __makeOrderBy: function (args, desc) {
             function makeCompare(prop) {
                 return desc
@@ -44,6 +37,25 @@
                 }
                 return 0;
             }
+        },
+        __resolveQueue: function () {
+            this.list = this.list.slice();
+            for (var i = 0, l = this.queue.length; i < l; i++) {
+                var c = this.queue[i];
+                c[0].apply(this, c[1]);
+            }
+        },
+        __toLookup: function (fnKey) {
+            var lookup = {};
+            for (var i = 0, l = this.list.length; i < l; i++) {
+                var value = this.list[i];
+                var key = fnKey ? fnKey.call(this.list, value, i) : value;
+                if (lookup[key])
+                    lookup[key].push(value);
+                else
+                    lookup[key] = [value];
+            }
+            return lookup;
         },
         aggregate: function (aggregateCallback, seed) {
             var me = this;
@@ -121,6 +133,20 @@
                 this.queue.push([deferredMethods.where, arguments]);
             this.__resolveQueue();
             return this.list;
+        },
+        toDictionary: function (fnKey, fnValue) {
+            this.__resolveQueue();
+            var result = {};
+            for (var i = 0, l = this.list.length; i < l; i++) {
+                var value = this.list[i];
+                var key = fnKey ? fnKey(value) : value;
+                result[key] = fnValue ? fnValue(value) : value;
+            }
+            return result;
+        },
+        toLookup: function (fnKey) {
+            this.__resolveQueue();
+            return this.__toLookup(fnKey);
         }
     };
     // These methods will be postponed till the queue needs to be resolved
@@ -166,21 +192,11 @@
             me.list = result;
         },
         groupBy: function (groupCallback) {
-            var me = this;
+            var lookup = this.__toLookup(groupCallback);
             var result = [];
-            var lookup = {};
-            for (var i = 0, l = me.list.length; i < l; i++) {
-                var obj = me.list[i];
-                var group = groupCallback.call(me.list, obj, i);
-                if (lookup[group]) {
-                    lookup[group].push(obj);
-                } else {
-                    var value = [obj];
-                    lookup[group] = value;
-                    result.push({ key: group, value: value });
-                }
-            }
-            me.list = result;
+            for (var prop in lookup)
+                result.push({ key: prop, value: lookup[prop] });
+            this.list = result;
         },
         intersect: function (list, distinctCallback) {
             var me = this;
