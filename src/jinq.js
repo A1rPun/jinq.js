@@ -204,6 +204,41 @@
                 result.push({ key: prop, value: lookup[prop] });
             this.list = result;
         },
+        groupJoin: function (list, sourceProp, joinProp, selectCallback) {
+            var me = this;
+            var result = [];
+            var lookup = {};
+            var i = 0;
+            var l = list.length;
+            var obj;
+            var key;
+            for (; i < l; i++) {
+                obj = list[i];
+                key = obj[joinProp];
+                if (key)
+                    if (lookup[key])
+                        lookup[key].push(obj);
+                    else
+                        lookup[key] = [obj];
+            }
+            i = 0;
+            l = me.list.length;
+            for (; i < l; i++) {
+                obj = me.list[i];
+                key = obj[sourceProp];
+                if (key) {
+                    var joinObj = lookup[key];
+                    if (joinObj) {
+                        if (selectCallback)
+                            obj = selectCallback.call(me.list, obj, lookup[key], i);
+                        else
+                            obj = joinObj;
+                        result.push(obj);
+                    }
+                }
+            }
+            me.list = result;
+        },
         intersect: function (list, distinctCallback) {
             var me = this;
             var result = [];

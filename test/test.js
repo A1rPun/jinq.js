@@ -18,7 +18,8 @@ var anotherObjectArray = [
     { id: 1, objId: 1, type: 'Bronze', trophyName: 'Melee Is Best' },
     { id: 2, objId: 6, type: 'Silver', trophyName: 'Graviton Master' },
     { id: 3, objId: 2, type: 'Gold', trophyName: 'Master of the Custodial Arts' },
-    { id: 4, objId: 4, type: 'Platinum', trophyName: 'Super Meat Boy!' }
+    { id: 4, objId: 4, type: 'Platinum', trophyName: 'Super Meat Boy!' },
+    { id: 5, objId: 6, type: 'Silver', trophyName: 'Master of the Universe' },
 ];
 
 /* */
@@ -57,6 +58,11 @@ log('first objects', jinq(objectArray).toArray());
 /* /
 log('groupBy numbers', jinq(numberArray).groupBy(function (o) { return o < 4; }).toArray());
 log('groupBy objects', jinq(objectArray).groupBy(function (o) { return o.trophyDifficulty; }).toArray());
+/* /
+log('groupJoin objects with select', jinq(objectArray).groupJoin(anotherObjectArray, 'id', 'objId', function (a, b) {
+    return { gameName: a.gameName, trophies: b };
+}).toArray());
+log('groupJoin objects', jinq(anotherObjectArray).groupJoin(objectArray, 'objId', 'id').toArray());
 /* /
 log('intersect numbers', jinq(numberArray).toArray());
 log('intersect objects', jinq(objectArray).toArray());

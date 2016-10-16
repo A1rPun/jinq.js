@@ -15,6 +15,7 @@ JavaScript Integrated Query with Deferred Execution
 - except()
 - first() // firstOrDefault
 - groupBy()
+- groupJoin()
 - intersect()
 - join()
 - last() // lastOrDefault
@@ -102,7 +103,6 @@ Using `any` in combination with `where` callback
 ### TODO
 
 - :link: Add new methods
-    - groupJoin
     - defaultIfEmpty?
     - asEnumerable?
     - asParallel?
