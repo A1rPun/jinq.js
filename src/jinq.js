@@ -105,6 +105,10 @@
             this.__resolveQueue();
             return Math.min.apply(null, this.list);
         },
+        single: function (whereCallback) {
+            var result = this.first(whereCallback);
+            return this.list.length === 1 ? result : null;
+        },
         sum: function () {
             this.__resolveQueue();
             var result = 0;
@@ -124,7 +128,6 @@
         concat: function (list) {
             var me = this;
             me.list = me.list.concat.apply(me.list, list);
-            return me;
         },
         distinct: function (distinctCallback) {
             var me = this;
@@ -138,7 +141,6 @@
                 result.push(obj);
             }
             me.list = result;
-            return me;
         },
         except: function (list, distinctCallback) {
             var me = this;
@@ -162,7 +164,6 @@
                     result.push(obj);
             }
             me.list = result;
-            return me;
         },
         groupBy: function (groupCallback) {
             var me = this;
@@ -180,7 +181,6 @@
                 }
             }
             me.list = result;
-            return me;
         },
         intersect: function (list, distinctCallback) {
             var me = this;
@@ -204,7 +204,6 @@
                     result.push(obj);
             }
             me.list = result;
-            return me;
         },
         join: function (list, sourceProp, joinProp, selectCallback) {
             var me = this;
@@ -238,15 +237,12 @@
                 }
             }
             me.list = result;
-            return me;
         },
         orderBy: function (a) {
             this.list.sort(a ? this.__makeOrderBy(arguments) : a);
-            return this;
         },
         orderByDescending: function (a) {
             this.list.sort(a ? this.__makeOrderBy(arguments, true) : function (a, b) { return a > b ? -1 : (b > a ? 1 : 0); });
-            return this;
         },
         reverse: function () {
             var me = this;
@@ -254,7 +250,6 @@
             for (var i = me.list.length; i--;)
                 result.push(me.list[i]);
             me.list = result;
-            return me;
         },
         select: function (selectCallback) {
             var me = this;
@@ -265,7 +260,6 @@
                 result.push(newObj);
             }
             me.list = result;
-            return me;
         },
         selectMany: function (selectCallback) {
             var me = this;
@@ -276,7 +270,6 @@
                 result.concat(newObj);
             }
             me.list = result;
-            return me;
         },
         shuffle: function () {
             // Used for testing and card games
@@ -286,15 +279,12 @@
                 this.list[i] = this.list[j];
                 this.list[j] = t;
             }
-            return this;
         },
         skip: function (num) {
             this.list = this.list.slice(num);
-            return this;
         },
         take: function (num) {
             this.list = this.list.slice(0, num);
-            return this;
         },
         union: function (list, distinctCallback) {
             var me = this;
@@ -323,7 +313,6 @@
                 }
             }
             me.list = result;
-            return me;
         },
         where: function (whereCallback) {
             var me = this;
@@ -334,7 +323,6 @@
                     result.push(obj);
             }
             me.list = result;
-            return me;
         },
         zip: function (list, selectCallback) {
             var me = this;
@@ -349,13 +337,12 @@
                 result.push(newObj);
             }
             me.list = result;
-            return me;
         }
     };
+    // Assign every deferred method to the prototype and freeze the function and arguments for later use
     for (var prop in deferredMethods) {
         Enumerable.prototype[prop] = (function (fn) {
             return function () {
-                this.queue.push();
                 return new Enumerable(this, [fn, arguments]);
             }
         }(deferredMethods[prop]));

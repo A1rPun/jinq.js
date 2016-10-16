@@ -11,19 +11,20 @@ JavaScript Integrated Query with Deferred Execution
 - contains()
 - count()
 - distinct()
-- elementAt()
+- elementAt() // elementAtOrDefault
 - except()
-- first()
+- first() // firstOrDefault
 - groupBy()
 - intersect()
 - join()
-- last()
+- last() // lastOrDefault
 - max()
 - min()
 - orderBy()
 - reverse()
-- select() // skipWhile & takeWhile
+- select()
 - selectMany()
+- single() // singleOrDefault
 - skip()
 - sum()
 - take()
@@ -96,12 +97,8 @@ Using `any` in combination with `where` callback
     - toLookup() // toDictionary
     - groupJoin
     - defaultIfEmpty
-    - elementAtOrDefault
-    - firstOrDefault
-    - lastOrDefault
-    - singleOrDefault
-    - single
-
+    - skipWhile // Skip until a condition is met
+    - takeWhile // Take until a condition is met
     - asEnumerable?
     - asParallel?
     - cast?
