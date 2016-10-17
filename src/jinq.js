@@ -87,9 +87,12 @@
             return result;
         },
         all: function (whereCallback) {
-            this.__resolveQueue();
-            for (var i = 0, l = this.list.length; i < l; i++)
-                if (!whereCallback.call(this.list, this.list[i], i))
+            var me = this;
+            me.__resolveQueue();
+            whereCallback = me.__createCallback(whereCallback);
+            if (!whereCallback) return;
+            for (var i = 0, l = me.list.length; i < l; i++)
+                if (!whereCallback.call(me.list, me.list[i], i))
                     return false;
             return true;
         },
