@@ -43,10 +43,10 @@ log('contains objects', jinq(objectArray).toArray());
 /* /
 log('count numbers', jinq(numberArray).toArray());
 log('count objects', jinq(objectArray).toArray());
-/* */
+/* /
 log('distinct numbers', jinq(numberArray).distinct().toArray());
-log('distinct objects', jinq(objectArray).distinct(function () { }).toArray());
-log('distinct objects', jinq(objectArray).distinct(function () { }).toArray());
+//log('distinct objects', jinq(objectArray).distinct().toArray());// Not Implemented
+log('distinct trophyDifficulty objects', jinq(objectArray).distinct(function (o) { o.trophyDifficulty }).toArray());
 /* /
 log('elementAt numbers', jinq(numberArray).toArray());
 log('elementAt objects', jinq(objectArray).toArray());

@@ -19,58 +19,9 @@
     }
     // Prototype methods which have no enumerable return types
     Enumerable.prototype = {
-        __createCallback: function (cb) {
-            return typeof cb === 'string' ? function (o) { return o[cb] } : cb;
-        },
-        __makeOrderBy: function (args, desc) {
-            function makeCompare(prop) {
-                return desc
-                    ? function (a, b) { return a[prop] > b[prop] ? -1 : (b[prop] > a[prop] ? 1 : 0); }
-                    : function (a, b) { return a[prop] > b[prop] ? 1 : (b[prop] > a[prop] ? -1 : 0); };
-            }
-            for (var i = args.length; i--;) {
-                var arg = args[i];
-                if (typeof arg !== 'function')
-                    args[i] = makeCompare(arg);
-            }
-            return function (a, b) {
-                for (var i = 0, l = args.length, c; i < l; i++) {
-                    c = args[i](a, b);
-                    if (c) return c;
-                }
-                return 0;
-            }
-        },
-        __resolveQueue: function () {
-            this.list = this.list.slice();
-            for (var i = 0, l = this.queue.length; i < l; i++) {
-                var c = this.queue[i];
-                c[0].apply(this, c[1]);
-            }
-        },
-        __toLookup: function (keyCallback) {
-            var lookup = {};
-            keyCallback = me.__createCallback(keyCallback);
-            for (var i = 0, l = this.list.length; i < l; i++) {
-                var value = this.list[i];
-                var key = keyCallback ? keyCallback.call(this.list, value, i) : value;
-                if (lookup[key])
-                    lookup[key].push(value);
-                else
-                    lookup[key] = [value];
-            }
-            return lookup;
-        },
-        __while: function (whileCallback) {
-            whileCallback = this.__createCallback(whileCallback);
-            for (var i = 0, l = this.list.length; i < l; i++)
-                if (!whileCallback.call(this.list, this.list[i], i))
-                    break;
-            return i;
-        },
         aggregate: function (aggregateCallback, seed) {
             var me = this;
-            me.__resolveQueue();
+            resolveQueue(me);
             var result = seed === 0 ? 0 : seed || null;
             var i = 0;
             var l = me.list.length;
@@ -88,8 +39,8 @@
         },
         all: function (whereCallback) {
             var me = this;
-            me.__resolveQueue();
-            whereCallback = me.__createCallback(whereCallback);
+            resolveQueue(me);
+            whereCallback = createCallback(whereCallback);
             if (!whereCallback) return;
             for (var i = 0, l = me.list.length; i < l; i++)
                 if (!whereCallback.call(me.list, me.list[i], i))
@@ -103,7 +54,7 @@
             return this.sum() / this.list.length;
         },
         contains: function (val) {
-            this.__resolveQueue();
+            resolveQueue(this);
             return this.list.indexOf(val) !== -1;
         },
         count: function (whereCallback) {
@@ -124,11 +75,11 @@
             return length ? result[result.length - 1] : null;
         },
         max: function () {
-            this.__resolveQueue();
+            resolveQueue(this);
             return Math.max.apply(null, this.list);
         },
         min: function () {
-            this.__resolveQueue();
+            resolveQueue(this);
             return Math.min.apply(null, this.list);
         },
         single: function (whereCallback) {
@@ -136,7 +87,7 @@
             return this.list.length === 1 ? result : null;
         },
         sum: function () {
-            this.__resolveQueue();
+            resolveQueue(this);
             var result = 0;
             for (var i = this.list; i--;)
                 result += this.list[i];
@@ -145,14 +96,14 @@
         toArray: function (whereCallback) {
             if (whereCallback)
                 this.queue.push([deferredMethods.where, arguments]);
-            this.__resolveQueue();
+            resolveQueue(this);
             return this.list;
         },
         toDictionary: function (keyCallback, valueCallback) {
             var me = this;
-            me.__resolveQueue();
-            keyCallback = me.__createCallback(keyCallback);
-            valueCallback = me.__createCallback(valueCallback);
+            resolveQueue(me);
+            keyCallback = createCallback(keyCallback);
+            valueCallback = createCallback(valueCallback);
             var result = {};
             for (var i = 0, l = me.list.length; i < l; i++) {
                 var value = me.list[i];
@@ -162,10 +113,59 @@
             return result;
         },
         toLookup: function (keyCallback) {
-            this.__resolveQueue();
-            return this.__toLookup(keyCallback);
+            resolveQueue(this);
+            return toLookup(this.list, keyCallback);
         }
     };
+    function createCallback(cb) {
+        return typeof cb === 'string' ? function (o) { return o[cb] } : cb;
+    }
+    function makeOrderBy(args, desc) {
+        function makeCompare(prop) {
+            return desc
+                ? function (a, b) { return a[prop] > b[prop] ? -1 : (b[prop] > a[prop] ? 1 : 0); }
+                : function (a, b) { return a[prop] > b[prop] ? 1 : (b[prop] > a[prop] ? -1 : 0); };
+        }
+        for (var i = args.length; i--;) {
+            var arg = args[i];
+            if (typeof arg !== 'function')
+                args[i] = makeCompare(arg);
+        }
+        return function (a, b) {
+            for (var i = 0, l = args.length, c; i < l; i++) {
+                c = args[i](a, b);
+                if (c) return c;
+            }
+            return 0;
+        }
+    }
+    function resolveQueue(enumerable) {
+        enumerable.list = enumerable.list.slice();
+        for (var i = 0, l = enumerable.queue.length; i < l; i++) {
+            var c = enumerable.queue[i];
+            c[0].apply(enumerable, c[1]);
+        }
+    }
+    function toLookup(list, keyCallback) {
+        var lookup = {};
+        keyCallback = createCallback(keyCallback);
+        for (var i = 0, l = list.length; i < l; i++) {
+            var value = list[i];
+            var key = keyCallback ? keyCallback.call(list, value, i) : value;
+            if (lookup[key])
+                lookup[key].push(value);
+            else
+                lookup[key] = [value];
+        }
+        return lookup;
+    }
+    function makeWhile(list, whileCallback) {
+        whileCallback = createCallback(whileCallback);
+        for (var i = 0, l = list.length; i < l; i++)
+            if (!whileCallback.call(list, list[i], i))
+                break;
+        return i;
+    }
     // These methods will be postponed till the queue needs to be resolved
     var deferredMethods = {
         concat: function (list) {
@@ -177,7 +177,7 @@
         },
         distinct: function (distinctCallback) {
             var me = this;
-            distinctCallback = me.__createCallback(distinctCallback);
+            distinctCallback = createCallback(distinctCallback);
             var result = [];
             var lookup = {};
             for (var i = 0, l = me.list.length; i < l; i++) {
@@ -191,7 +191,7 @@
         },
         except: function (list, distinctCallback) {
             var me = this;
-            distinctCallback = me.__createCallback(distinctCallback);
+            distinctCallback = createCallback(distinctCallback);
             var result = [];
             var lookup = {};
             var i = 0;
@@ -214,7 +214,7 @@
             me.list = result;
         },
         groupBy: function (groupCallback) {
-            var lookup = this.__toLookup(groupCallback);
+            var lookup = toLookup(this.list, groupCallback);
             var result = [];
             for (var prop in lookup)
                 result.push({ key: prop, value: lookup[prop] });
@@ -222,8 +222,8 @@
         },
         groupJoin: function (list, sourceCallback, joinCallback, selectCallback) {
             var me = this;
-            sourceCallback = me.__createCallback(sourceCallback);
-            joinCallback = me.__createCallback(joinCallback);
+            sourceCallback = createCallback(sourceCallback);
+            joinCallback = createCallback(joinCallback);
             if (!sourceCallback || !joinCallback) return;
             var result = [];
             var lookup = {};
@@ -255,7 +255,7 @@
         },
         intersect: function (list, distinctCallback) {
             var me = this;
-            distinctCallback = me.__createCallback(distinctCallback);
+            distinctCallback = createCallback(distinctCallback);
             var result = [];
             var lookup = {};
             var i = 0;
@@ -279,8 +279,8 @@
         },
         join: function (list, sourceCallback, joinCallback, selectCallback) {
             var me = this;
-            sourceCallback = me.__createCallback(sourceCallback);
-            joinCallback = me.__createCallback(joinCallback);
+            sourceCallback = createCallback(sourceCallback);
+            joinCallback = createCallback(joinCallback);
             if (!sourceCallback || !joinCallback) return;
             var result = [];
             var lookup = {};
@@ -314,10 +314,10 @@
             me.list = result;
         },
         orderBy: function (a) {
-            this.list.sort(a ? this.__makeOrderBy(arguments) : a);
+            this.list.sort(a ? makeOrderBy(arguments) : a);
         },
         orderByDescending: function (a) {
-            this.list.sort(a ? this.__makeOrderBy(arguments, true) : function (a, b) { return a > b ? -1 : (b > a ? 1 : 0); });
+            this.list.sort(a ? makeOrderBy(arguments, true) : function (a, b) { return a > b ? -1 : (b > a ? 1 : 0); });
         },
         reverse: function () {
             var me = this;
@@ -328,7 +328,7 @@
         },
         select: function (selectCallback) {
             var me = this;
-            selectCallback = me.__createCallback(selectCallback);
+            selectCallback = createCallback(selectCallback);
             if (!selectCallback) return;
             var result = [];
             for (var i = 0, l = me.list.length; i < l; i++) {
@@ -340,7 +340,7 @@
         },
         selectMany: function (selectCallback) {
             var me = this;
-            selectCallback = me.__createCallback(selectCallback);
+            selectCallback = createCallback(selectCallback);
             if (!selectCallback) return;
             var result = [];
             for (var i = 0, l = me.list.length; i < l; i++) {
@@ -363,19 +363,19 @@
             this.list = this.list.slice(num);
         },
         skipWhile: function (whileCallback) {
-            var num = this.__while(whileCallback);
+            var num = makeWhile(this.list, whileCallback);
             this.list = this.list.slice(num);
         },
         take: function (num) {
             this.list = this.list.slice(0, num);
         },
         takeWhile: function (whileCallback) {
-            var num = this.__while(whileCallback);
+            var num = makeWhile(this.list, whileCallback);
             this.list = this.list.slice(0, num);
         },
         union: function (list, distinctCallback) {
             var me = this;
-            distinctCallback = me.__createCallback(distinctCallback);
+            distinctCallback = createCallback(distinctCallback);
             var result = [];
             var lookup = {};
             var i = 0;
@@ -404,7 +404,7 @@
         },
         where: function (whereCallback) {
             var me = this;
-            whereCallback = me.__createCallback(whereCallback);
+            whereCallback = createCallback(whereCallback);
             if (!whereCallback) return;
             var result = [];
             for (var i = 0, l = me.list.length; i < l; i++) {
@@ -416,7 +416,7 @@
         },
         zip: function (list, selectCallback) {
             var me = this;
-            selectCallback = me.__createCallback(selectCallback);
+            selectCallback = createCallback(selectCallback);
             if (!selectCallback) return;
             var result = [];
             var sourceLength = me.list.length;
