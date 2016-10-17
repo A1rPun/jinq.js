@@ -72,6 +72,16 @@
         min: function () {
             return Math.min.apply(null, resolveQueue(this));
         },
+        sequenceEqual: function (sequence) {
+            var list = this.toArray(whereCallback);
+            var l = list.length;
+            if (l !== sequence.length)
+                return false;
+            for (var i = 0; i < l; i++)
+                if (list[i] !== sequence[i])
+                    return false;
+            return true;
+        },
         single: function (whereCallback) {
             var first = this.first(whereCallback);
             return first.length === 1 ? first : null;

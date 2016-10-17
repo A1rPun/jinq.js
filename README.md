@@ -1,6 +1,8 @@
 ﻿# jinq.js
 JavaScript Integrated Query with Deferred Execution
 
+[:page_facing_up: Wiki]([wiki](https://github.com/A1rPun/jinq.js/wiki))
+
 ### Methods
 
 - aggregate()
@@ -24,6 +26,7 @@ JavaScript Integrated Query with Deferred Execution
 - min()
 - orderBy()
 - reverse()
+- sequenceEqual()
 - select()
 - selectMany()
 - single() // singleOrDefault
@@ -108,7 +111,7 @@ Using `any` in combination with `where` callback
     - asParallel?
     - cast?
     - ofType?
-    - sequenceEqual?
 
 - :page_facing_up: Add unit tests
+- :page_facing_up: Add more info to the [wiki](https://github.com/A1rPun/jinq.js/wiki)
 - :thumbsup: Distribution :)
