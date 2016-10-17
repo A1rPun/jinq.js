@@ -163,8 +163,14 @@ log('groupBy', groupBy.toArray());
 log('select', select.toArray());
 log('where', where.toArray());
 log('sauce', source);
+
+// Testing non-cached results
+log('non-cached groupBy', groupBy.toArray());
+log('non-cached select', select.toArray());
+log('non-cached where', where.toArray());
+log('non-cached sauce', source);
 /* /
-log('empty', jinq.empty().toArray());
+log('empty defaultIfEmpty 1337', jinq.empty().defaultIfEmpty(1337).toArray());
 log('range', jinq.range(0, 10).toArray());
 log('range negative', jinq.range(-9, 10).toArray());
 log('repeat', jinq.repeat(1337, 5).toArray());

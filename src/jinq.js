@@ -14,30 +14,28 @@
     // Prototype methods which have no enumerable return types
     Enumerable.prototype = {
         aggregate: function (aggregateCallback, seed) {
-            var me = this;
-            resolveQueue(me);
+            var list = resolveQueue(this);
             var result = seed === 0 ? 0 : seed || null;
             var i = 0;
-            var l = me.list.length;
+            var l = list.length;
             if (l == 0)
                 return result;
             if (result === null) {
-                result = me.list[0];
+                result = list[0];
                 i = 1;
             }
-            for (l = me.list.length; i < l; i++) {
-                var obj = me.list[i];
-                result = aggregateCallback.call(me.list, result, obj, i);
+            for (l = list.length; i < l; i++) {
+                var obj = list[i];
+                result = aggregateCallback.call(list, result, obj, i);
             }
             return result;
         },
         all: function (whereCallback) {
-            var me = this;
-            resolveQueue(me);
+            var list = resolveQueue(this);
             whereCallback = createCallback(whereCallback);
             if (!whereCallback) return;
-            for (var i = 0, l = me.list.length; i < l; i++)
-                if (!whereCallback.call(me.list, me.list[i], i))
+            for (var i = 0, l = list.length; i < l; i++)
+                if (!whereCallback.call(list, list[i], i))
                     return false;
             return true;
         },
@@ -48,66 +46,62 @@
             return this.sum() / this.list.length;
         },
         contains: function (val) {
-            resolveQueue(this);
-            return this.list.indexOf(val) !== -1;
+            var list = resolveQueue(this);
+            return list.indexOf(val) !== -1;
         },
         count: function (whereCallback) {
             return this.toArray(whereCallback).length;
         },
         elementAt: function (index) {
-            var result = this.toArray();
-            return index < result.length ? result[index] : null;
+            var list = this.toArray();
+            return index < list.length ? list[index] : null;
         },
         first: function (whereCallback) {
-            var result = this.toArray(whereCallback);
-            var length = result.length;
-            return length ? result[0] : null;
+            var list = this.toArray(whereCallback);
+            var length = list.length;
+            return length ? list[0] : null;
         },
         last: function (whereCallback) {
-            var result = this.toArray(whereCallback);
-            var length = result.length;
-            return length ? result[result.length - 1] : null;
+            var list = this.toArray(whereCallback);
+            var length = list.length;
+            return length ? list[length - 1] : null;
         },
         max: function () {
-            resolveQueue(this);
-            return Math.max.apply(null, this.list);
+            return Math.max.apply(null, resolveQueue(this));
         },
         min: function () {
-            resolveQueue(this);
-            return Math.min.apply(null, this.list);
+            return Math.min.apply(null, resolveQueue(this));
         },
         single: function (whereCallback) {
-            var result = this.first(whereCallback);
-            return this.list.length === 1 ? result : null;
+            var first = this.first(whereCallback);
+            return first.length === 1 ? first : null;
         },
         sum: function () {
-            resolveQueue(this);
+            var list = resolveQueue(this);
             var result = 0;
-            for (var i = this.list; i--;)
-                result += this.list[i];
+            for (var i = list; i--;)
+                result += list[i];
             return result;
         },
         toArray: function (whereCallback) {
             if (whereCallback)
                 this.queue.push([deferredMethods.where, arguments]);
-            resolveQueue(this);
-            return this.list;
+            return resolveQueue(this);
         },
         toDictionary: function (keyCallback, valueCallback) {
-            resolveQueue(this);
+            var list = resolveQueue(this);
             keyCallback = createCallback(keyCallback);
             valueCallback = createCallback(valueCallback);
             var result = {};
-            for (var i = 0, l = this.list.length; i < l; i++) {
-                var value = this.list[i];
+            for (var i = 0, l = list.length; i < l; i++) {
+                var value = list[i];
                 var key = keyCallback ? keyCallback(value) : value;
                 result[key] = valueCallback ? valueCallback(value) : value;
             }
             return result;
         },
         toLookup: function (keyCallback) {
-            resolveQueue(this);
-            return toLookup(this.list, keyCallback);
+            return toLookup(resolveQueue(this), keyCallback);
         }
     };
     function createCallback(cb) {
@@ -421,7 +415,7 @@
         Enumerable.prototype[prop] = (function (fn) {
             return function () {
                 var e = new Enumerable(this.list);
-                e.queue = this.queue.slice()
+                e.queue = e.queue.concat(this.queue);
                 e.queue.push([fn, arguments]);
                 return e;
             }
