@@ -7,15 +7,9 @@
         if (noConflict) this[name].noConflict = noConflict;
     }
 }('jinq', function () {
-    function Enumerable(parent, newQueue) {
-        if (parent) {
-            this.list = parent.list;
-            this.queue = parent.queue.slice();
-            newQueue && this.queue.push(newQueue);
-        } else {
-            this.list = [];
-            this.queue = [];
-        }
+    function Enumerable(list) {
+        this.list = list || [];
+        this.queue = [];
     }
     // Prototype methods which have no enumerable return types
     Enumerable.prototype = {
@@ -144,8 +138,7 @@
             var c = enumerable.queue[i];
             list = c[0].apply(list, c[1]);
         }
-        enumerable.list = list;
-        //return list;
+        return list;
     }
     function toLookup(list, keyCallback) {
         var lookup = {};
@@ -427,15 +420,16 @@
     for (var prop in deferredMethods) {
         Enumerable.prototype[prop] = (function (fn) {
             return function () {
-                return new Enumerable(this, [fn, arguments]);
+                var e = new Enumerable(this.list);
+                e.queue = this.queue.slice()
+                e.queue.push([fn, arguments]);
+                return e;
             }
         }(deferredMethods[prop]));
     }
     // Pass an array into jinq for easy enumeration
     var jinq = function (list) {
-        var enumerable = new Enumerable();
-        enumerable.list = list;
-        return enumerable;
+        return new Enumerable(list);
     };
     // Static Methods
     jinq.empty = function () { return new Enumerable(); };
