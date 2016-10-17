@@ -1,7 +1,12 @@
 ﻿# jinq.js
 JavaScript Integrated Query with Deferred Execution
 
-[:page_facing_up: Wiki]([wiki](https://github.com/A1rPun/jinq.js/wiki))
+For vanillajs and nodejs
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Javascript-736400_960_720.png/64px-Javascript-736400_960_720.png)
+![](https://bitpay.com/img/js64.png)
+
+:page_facing_up: [Wiki](https://github.com/A1rPun/jinq.js/wiki)
 
 ### Methods
 
