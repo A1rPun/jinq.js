@@ -114,6 +114,8 @@
             return toLookup(resolveQueue(this), keyCallback);
         }
     };
+    Enumerable.prototype.longCount = Enumerable.prototype.count;
+    Enumerable.prototype.toList = Enumerable.prototype.toArray;
     function createCallback(cb) {
         return typeof cb === 'string' ? function (o) { return o[cb] } : cb;
     }
