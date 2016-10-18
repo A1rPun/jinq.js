@@ -89,7 +89,7 @@
         sum: function () {
             var list = resolveQueue(this);
             var result = 0;
-            for (var i = list; i--;)
+            for (var i = list.length; i--;)
                 result += list[i];
             return result;
         },
