@@ -80,7 +80,10 @@ var shuffledNumbers = jinq(numberArray).shuffle();
 var shuffledObjects = jinq(objectArray).shuffle();
 log('shuffled numbers', shuffledNumbers.toArray());
 log('shuffled objects', shuffledObjects.toArray());
-
+/* /
+log('ofType number', jinq(null, 7, 5, 'lol', 'multiple arguments?', 1337).ofType('number').toArray());
+log('ofType string', jinq(1, 2, '3', '4', 5, 6).ofType('string').toArray());
+/* /
 log('orderBy numbers', shuffledNumbers.orderBy().toArray());
 log('orderBy objects trophyDifficulty property', shuffledObjects.orderBy('trophyDifficulty').toArray());
 log('orderByDescending objects trophyDifficulty & difficulty properties', shuffledObjects.orderByDescending('trophyDifficulty', 'difficulty').toArray());

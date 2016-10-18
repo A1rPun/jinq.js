@@ -117,7 +117,10 @@
     Enumerable.prototype.longCount = Enumerable.prototype.count;
     Enumerable.prototype.toList = Enumerable.prototype.toArray;
     function createCallback(cb) {
-        return typeof cb === 'string' ? function (o) { return o[cb] } : cb;
+        return ofType(cb) === 'string' ? function (o) { return o[cb] } : cb;
+    }
+    function ofType(obj) {
+        return Object.prototype.toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
     }
     function makeOrderBy(args, desc) {
         function makeCompare(prop) {
@@ -127,7 +130,7 @@
         }
         for (var i = args.length; i--;) {
             var arg = args[i];
-            if (typeof arg !== 'function')
+            if (ofType(arg) !== 'function')
                 args[i] = makeCompare(arg);
         }
         return function (a, b) {
@@ -307,6 +310,16 @@
             }
             return result;
         },
+        ofType: function (type) {
+            type = type || 'undefined';
+            var result = [];
+            for (var i = 0, l = this.length; i < l; i++) {
+                var el = this[i];
+                if (ofType(el) === type)
+                    result.push(el);
+            }
+            return result;
+        },
         orderBy: function (a) {
             this.sort(a ? makeOrderBy(arguments) : a);
             return this;
@@ -435,7 +448,7 @@
     }
     // Pass an array into jinq for easy enumeration
     var jinq = function (list) {
-        return new Enumerable(list);
+        return new Enumerable(arguments.length === 1 && ofType(list) === 'array' ? list : Array.prototype.slice.call(arguments));
     };
     // Static Methods
     jinq.empty = function () { return new Enumerable(); };
