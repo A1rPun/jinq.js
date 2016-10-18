@@ -14,8 +14,9 @@
     // Prototype methods which have no enumerable return types
     Enumerable.prototype = {
         aggregate: function (aggregateCallback, seed) {
+            if (!aggregateCallback) return;
             var list = resolveQueue(this);
-            var result = seed === 0 ? 0 : seed || null;
+            var result = seed || 0;
             var i = 0;
             var l = list.length;
             if (l == 0)
