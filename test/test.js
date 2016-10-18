@@ -24,16 +24,24 @@ var anotherObjectArray = [
 
 /* */
 log('numbers', numberArray);
+/* */
 log('objects', objectArray);
 /* /
-log('aggregate numbers', jinq(numberArray).toArray());
-log('aggregate objects', jinq(objectArray).toArray());
+log('aggregate parameterless', jinq(numberArray).aggregate());
+log('aggregate empty', jinq.empty().aggregate(function (a, b) { return a + b }, 'seed'));
+log('aggregate sum numbers without seed', jinq(numberArray).aggregate(function(a, b){ return a + b }));
+log('aggregate sum numbers with seed 10', jinq(numberArray).aggregate(function(a, b){ return a + b }, 10));
+log('aggregate sum objectArray difficulty', jinq(objectArray).select('difficulty').aggregate(function(a, b){ return a + b }, 0));
 /* /
-log('all numbers', jinq(numberArray).toArray());
-log('all objects', jinq(objectArray).toArray());
+log('all numbers parameterless', jinq(numberArray).all());
+log('all numbers > -1', jinq(numberArray).all(function (o) { return o > -1; }));
+log('all numbers > 5', jinq(numberArray).all(function (o) { return o > 5; }));
 /* /
-log('any numbers', jinq(numberArray).toArray());
-log('any objects', jinq(objectArray).toArray());
+log('any numbers', jinq(numberArray).any());
+log('any numbers < 2', jinq(numberArray).any(function (o) { return o < 2; }));
+log('any objects difficulty < 11', jinq(objectArray).any(function (o) { return o.difficulty < 11; }));
+/* /
+log('average numbers', jinq(numberArray).average());
 /* /
 log('concat numbers', jinq(numberArray).concat(anotherNumberArray).toArray());
 log('concat objects', jinq(objectArray).concat(anotherObjectArray).toArray());
@@ -76,14 +84,20 @@ log('join objects with select', jinq(anotherObjectArray).join(objectArray, 'objI
 log('last numbers', jinq(numberArray).toArray());
 log('last objects', jinq(objectArray).toArray());
 /* /
-var shuffledNumbers = jinq(numberArray).shuffle();
-var shuffledObjects = jinq(objectArray).shuffle();
-log('shuffled numbers', shuffledNumbers.toArray());
-log('shuffled objects', shuffledObjects.toArray());
+log('min numbers', jinq(numberArray).min());
+/* /
+log('max numbers', jinq(numberArray).max());
+/* /
+log('selectMany numbers', jinq(numberArray).toArray());
+log('selectMany objects', jinq(objectArray).toArray());
 /* /
 log('ofType number', jinq(null, 7, 5, 'lol', 'multiple arguments?', 1337).ofType('number').toArray());
 log('ofType string', jinq(1, 2, '3', '4', 5, 6).ofType('string').toArray());
 /* /
+var shuffledNumbers = jinq(numberArray).shuffle();
+var shuffledObjects = jinq(objectArray).shuffle();
+log('shuffled numbers', shuffledNumbers.toArray());
+log('shuffled objects', shuffledObjects.toArray());
 log('orderBy numbers', shuffledNumbers.orderBy().toArray());
 log('orderBy objects trophyDifficulty property', shuffledObjects.orderBy('trophyDifficulty').toArray());
 log('orderByDescending objects trophyDifficulty & difficulty properties', shuffledObjects.orderByDescending('trophyDifficulty', 'difficulty').toArray());

@@ -16,12 +16,10 @@
         aggregate: function (aggregateCallback, seed) {
             if (!aggregateCallback) return;
             var list = resolveQueue(this);
-            var result = seed || 0;
             var i = 0;
             var l = list.length;
-            if (l == 0)
-                return result;
-            if (result === null) {
+            var result = seed;
+            if (!seed && l !== 0){
                 result = list[0];
                 i = 1;
             }
