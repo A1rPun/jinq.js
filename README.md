@@ -1,5 +1,6 @@
 ﻿# jinq.js
-JavaScript Integrated Query with Deferred Execution
+JavaScript Integrated Query with Deferred Execution.  
+Inspired by [LINQ](https://msdn.microsoft.com/en-us/library/system.linq.enumerable_methods(v=vs.110).aspx)
 
 For vanillajs and nodejs
 
@@ -29,6 +30,7 @@ For vanillajs and nodejs
 - last() // lastOrDefault
 - max()
 - min()
+- ofType()
 - orderBy()
 - reverse()
 - sequenceEqual()
@@ -61,7 +63,7 @@ Construct a new enumeration object
 
 Using `where`, `select` and `groupBy`
 
-    ints.where(function(o) {
+    var evenNumbers = ints.where(function(o) {
             return o > 1;
         })
         .select(function(o) {
@@ -76,7 +78,7 @@ Using `where`, `select` and `groupBy`
         })
         .toArray();
 
-**Output:**
+**Output** `evenNumbers`
 
 	[{
 		key: false,
@@ -98,24 +100,21 @@ Using `where`, `select` and `groupBy`
 
 Using `any` in combination with `where` callback
 
-	jinq([{ group: 'a', name: 'abc' },
+	var anyB = jinq([{ group: 'a', name: 'abc' },
           { group: 'a', name: 'def' },
           { group: 'b', name: 'ghi' }])
         .any(function(obj) {
             return obj.group === 'b';
         });
 
-**Output:**
+**Output** `anyB`
 
 	true;
 
 ### TODO
 
 - :link: Add new methods
-    - asEnumerable?
-    - asParallel?
     - cast?
-    - ofType?
 
 - :page_facing_up: Add unit tests
 - :page_facing_up: Add more info to the [wiki](https://github.com/A1rPun/jinq.js/wiki)
