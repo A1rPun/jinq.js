@@ -198,7 +198,7 @@
     // These methods will be postponed till the queue needs to be resolved
     var deferredMethods = {
         concat: function (list) {
-            return this.concat(list);
+            return list ? this.concat(list) : this;
         },
         defaultIfEmpty: function (defaultValue) {
             return this.length ? this : [defaultValue];
