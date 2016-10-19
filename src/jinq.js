@@ -75,10 +75,24 @@
                 return list[l - 1];
         },
         max: function () {
-            return Math.max.apply(-Infinity, resolveQueue(this));
+            var list = resolveQueue(this);
+            var result = -Infinity;
+            for (var i = list.length; i--;) {
+                var val = list[i];
+                if (result < val)
+                    result = val;
+            }
+            return result;
         },
         min: function () {
-            return Math.min.apply(Infinity, resolveQueue(this));
+            var list = resolveQueue(this);
+            var result = Infinity;
+            for (var i = list.length; i--;) {
+                var val = list[i];
+                if (result > val)
+                    result = val;
+            }
+            return result;
         },
         sequenceEqual: function (sequence) {
             if (sequence) {

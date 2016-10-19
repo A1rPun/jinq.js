@@ -1,6 +1,6 @@
 ﻿var output = document.getElementById('output');
 function log(name, arr) {
-    var formatted = JSON.stringify(arr, null, 4);
+    var formatted = Array.isArray(arr) ? JSON.stringify(arr, null, 4) : arr;
     output.innerHTML += name + ':\n' + formatted + '\n\n';
 }
 
@@ -230,4 +230,10 @@ var repeat = jinq.repeat(foo, 3);
 log('repeat object', repeat.toArray());
 foo.bar = 'wooop';
 log('repeat object', repeat.toArray());
+/* /
+// Million elements stress test
+var million = jinq.range(0, 1000000);
+log('sum million elements', million.count());
+log('max million elements', million.max());
+log('max million elements', million.min());
 /* */
