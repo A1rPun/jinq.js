@@ -31,39 +31,52 @@ log('aggregate parameterless', jinq(numberArray).aggregate());
 log('aggregate empty', jinq.empty().aggregate(function (a, b) { return a + b }, 'seed'));
 log('aggregate sum numbers without seed', jinq(numberArray).aggregate(function(a, b){ return a + b }));
 log('aggregate sum numbers with seed 10', jinq(numberArray).aggregate(function(a, b){ return a + b }, 10));
-log('aggregate sum objectArray difficulty', jinq(objectArray).select('difficulty').aggregate(function(a, b){ return a + b }, 0));
+log('aggregate sum objects difficulty', jinq(objectArray).select('difficulty').aggregate(function(a, b){ return a + b }, 0));
 /* /
 log('all numbers parameterless', jinq(numberArray).all());
+log('all empty', jinq.empty().all(function (o) { return o === 0; }));
 log('all numbers > -1', jinq(numberArray).all(function (o) { return o > -1; }));
 log('all numbers > 5', jinq(numberArray).all(function (o) { return o > 5; }));
 /* /
-log('any numbers', jinq(numberArray).any());
-log('any numbers < 2', jinq(numberArray).any(function (o) { return o < 2; }));
+log('any numbers parameterless', jinq(numberArray).any());
+log('any empty', jinq.empty().any());
+log('any numbers > 10', jinq(numberArray).any(function (o) { return o > 10; }));
 log('any objects difficulty < 11', jinq(objectArray).any(function (o) { return o.difficulty < 11; }));
 /* /
-log('average numbers', jinq(numberArray).average());
+log('average numbers parameterless', jinq(numberArray).average());
+log('average empty', jinq.empty().average());
+log('average objects difficulty', jinq(objectArray).select('difficulty').average());
 /* /
 log('concat numbers', jinq(numberArray).concat(anotherNumberArray).toArray());
 log('concat objects', jinq(objectArray).concat(anotherObjectArray).toArray());
 /* /
-log('contains numbers', jinq(numberArray).toArray());
-log('contains objects', jinq(objectArray).toArray());
+log('contains numbers parameterless', jinq(numberArray).contains());
+log('contains empty', jinq.empty().contains(0));
+log('contains numbers 3', jinq(numberArray).contains(3));
+log('contains numbers 1337', jinq(numberArray).contains(1337));
+log('contains objects reference', jinq(objectArray).contains(objectArray[0]));
 /* /
-log('count numbers', jinq(numberArray).toArray());
-log('count objects', jinq(objectArray).toArray());
+log('count numbers parameterless', jinq(numberArray).count());
+log('count objects parameterless', jinq(objectArray).count());
+log('count empty', jinq.empty().count());
+log('count objects trophyDifficulty 10', jinq(objectArray).count(function (o) { return o.trophyDifficulty === 10; }));
 /* /
 log('distinct numbers', jinq(numberArray).distinct().toArray());
 //log('distinct objects', jinq(objectArray).distinct().toArray());// Not Implemented
 log('distinct trophyDifficulty objects', jinq(objectArray).distinct(function (o) { o.trophyDifficulty }).toArray());
 /* /
-log('elementAt numbers', jinq(numberArray).toArray());
-log('elementAt objects', jinq(objectArray).toArray());
+log('elementAt parameterless', jinq(numberArray).elementAt());
+log('elementAt empty', jinq.empty().elementAt(0));
+log('elementAt numbers 1', jinq(numberArray).elementAt(1));
+log('elementAt objects 1', jinq(objectArray).elementAt(1));
+log('elementAt numbers -1', jinq(numberArray).elementAt(-1));
 /* /
 log('except numbers', jinq(numberArray).toArray());
 log('except objects', jinq(objectArray).toArray());
 /* /
-log('first numbers', jinq(numberArray).toArray());
-log('first objects', jinq(objectArray).toArray());
+log('first numbers parameterless', jinq(numberArray).first());
+log('first objects parameterless', jinq(objectArray).first());
+log('first empty', jinq.empty().first());
 /* /
 log('groupBy numbers', jinq(numberArray).groupBy(function (o) { return o < 4; }).toArray());
 log('groupBy objects', jinq(objectArray).groupBy(function (o) { return o.trophyDifficulty; }).toArray());
@@ -81,15 +94,28 @@ log('join objects with select', jinq(anotherObjectArray).join(objectArray, 'objI
     return a.id + '. ' + b.gameName + ' : ' + a.trophyName;
 }).toArray());
 /* /
-log('last numbers', jinq(numberArray).toArray());
-log('last objects', jinq(objectArray).toArray());
+log('last numbers parameterless', jinq(numberArray).last());
+log('last objects parameterless', jinq(objectArray).last());
+log('last empty', jinq.empty().last());
 /* /
-log('min numbers', jinq(numberArray).min());
+log('min numbers parameterless', jinq(numberArray).min());
+log('min empty', jinq.empty().min());
+log('min objects difficulty', jinq(objectArray).select('difficulty').min());
 /* /
-log('max numbers', jinq(numberArray).max());
+log('max numbers parameterless', jinq(numberArray).max());
+log('max empty', jinq.empty().max());
+log('max objects difficulty', jinq(objectArray).select('difficulty').max());
 /* /
 log('selectMany numbers', jinq(numberArray).toArray());
 log('selectMany objects', jinq(objectArray).toArray());
+/* /
+log('single numbers parameterless', jinq(numberArray).single());
+log('single empty', jinq.empty().single());
+log('single objects', jinq(objectArray).single(function (o) { return o.id === 3; }));
+/* /
+log('sum numbers parameterless', jinq(numberArray).sum());
+log('sum empty', jinq.empty().sum());
+log('sum objects difficulty', jinq(objectArray).select('difficulty').sum());
 /* /
 log('ofType number', jinq(null, 7, 5, 'lol', 'multiple arguments?', 1337).ofType('number').toArray());
 log('ofType string', jinq(1, 2, '3', '4', 5, 6).ofType('string').toArray());
@@ -106,18 +132,20 @@ log('orderBy objects ascending difficulty & descending id properties', shuffledO
 log('reverse numbers', jinq(numberArray).reverse().toArray());
 log('reverse objects', jinq(objectArray).reverse().toArray());
 /* /
-log('select numbers multiplied by 2', jinq(numberArray).select(function (o) {
-    return o * 2;
-}).toArray());
+log('select numbers multiplied by 2', jinq(numberArray).select(function (o) { return o * 2; }).toArray());
 log('select numbers into object', jinq(numberArray).select(function (o) {
     return { num: o, multiplied: o * o };
 }).toArray());
-log('select objects into names', jinq(objectArray).select(function (o) {
-    return o.name;
-}).toArray());
+log('select objects into names', jinq(objectArray).select(function (o) { return o.name; }).toArray());
 /* /
 log('selectMany numbers', jinq(numberArray).toArray());
 log('selectMany objects', jinq(objectArray).toArray());
+/* /
+log('sequenceEqual parameterless', jinq(numberArray).sequenceEqual());
+log('sequenceEqual empty', jinq.empty().sequenceEqual([]));
+log('sequenceEqual numbers true', jinq(numberArray).sequenceEqual([1, 2, 2, 3, 4, 4, 5, 6]));
+log('sequenceEqual objects reference', jinq(objectArray).sequenceEqual(objectArray.concat()));
+log('sequenceEqual numbers nosequence', jinq(numberArray).sequenceEqual([1, 2, 2, 3, 4, 4, 5]));
 /* /
 log('single numbers 3', jinq(numberArray).single(function (o) { return o === 3 }));
 log('single numbers 4', jinq(numberArray).single(function (o) { return o === 4 }));
@@ -136,11 +164,16 @@ log('take 3 objects', jinq(objectArray).take(3).toArray());
 log('takeWhile numbers', jinq(numberArray).takeWhile(function (o) { return o < 3 }).toArray());
 log('takeWhile objects', jinq(objectArray).takeWhile(function (o) { return o.id < 3 }).toArray());
 /* /
-log('toDictionary numbers', jinq(numberArray).toDictionary());
+log('toDictionary numbers parameterless', jinq(numberArray).toDictionary());
+log('toDictionary empty', jinq.empty().toDictionary());
 log('toDictionary objects', jinq(objectArray).toDictionary(function (o) { return o.id }));
+log('toDictionary objects', jinq(objectArray).toDictionary(function (o) { return o.id }, function (o) { return o.gameName }));
+log('toDictionary objects', jinq(objectArray).toDictionary('id', 'gameName'));
 /* /
-log('toLookup numbers', jinq(numberArray).toLookup());
+log('toLookup numbers parameterless', jinq(numberArray).toLookup());
+log('toLookup empty', jinq.empty().toLookup());
 log('toLookup objects', jinq(objectArray).toLookup(function (o) { return o.trophyDifficulty }));
+log('toLookup objects', jinq(objectArray).toLookup('trophyDifficulty'));
 /* /
 log('union numbers', jinq(numberArray).toArray());
 log('union objects', jinq(objectArray).toArray());

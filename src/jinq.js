@@ -14,35 +14,42 @@
     // Prototype methods which have no enumerable return types
     Enumerable.prototype = {
         aggregate: function (aggregateCallback, seed) {
-            if (!aggregateCallback) return;
-            var list = resolveQueue(this);
-            var i = 0;
-            var l = list.length;
             var result = seed;
-            if (!seed && l !== 0){
-                result = list[0];
-                i = 1;
-            }
-            for (l = list.length; i < l; i++) {
-                var obj = list[i];
-                result = aggregateCallback.call(list, result, obj, i);
+            if (aggregateCallback) {
+                var list = resolveQueue(this);
+                var i = 0;
+                var l = list.length;
+                if (!seed && l) {
+                    result = list[0];
+                    i = 1;
+                }
+                for (; i < l; i++) {
+                    var obj = list[i];
+                    result = aggregateCallback.call(list, result, obj, i);
+                }
             }
             return result;
         },
         all: function (whereCallback) {
-            var list = resolveQueue(this);
-            whereCallback = createCallback(whereCallback);
-            if (!whereCallback) return;
-            for (var i = 0, l = list.length; i < l; i++)
-                if (!whereCallback.call(list, list[i], i))
-                    return false;
-            return true;
+            if (whereCallback = createCallback(whereCallback)) {
+                var list = resolveQueue(this);
+                var l = list.length;
+                for (var i = 0; i < l; i++)
+                    if (!whereCallback.call(list, list[i], i))
+                        return false;
+                return l > 0;
+            }
         },
         any: function (whereCallback) {
             return !!this.first(whereCallback);
         },
         average: function () {
-            return this.sum() / this.list.length;
+            var list = resolveQueue(this);
+            var l = list.length;
+            var result = 0;
+            for (var i = l; i--;)
+                result += list[i];
+            return l ? result / l : result;
         },
         contains: function (val) {
             var list = resolveQueue(this);
@@ -52,38 +59,44 @@
             return this.toArray(whereCallback).length;
         },
         elementAt: function (index) {
-            var list = this.toArray();
-            return index < list.length ? list[index] : null;
+            var list = resolveQueue(this);
+            if (index > 0 && index < list.length)
+                return list[index];
         },
         first: function (whereCallback) {
             var list = this.toArray(whereCallback);
-            var length = list.length;
-            return length ? list[0] : null;
+            if (list.length)
+                return list[0];
         },
         last: function (whereCallback) {
             var list = this.toArray(whereCallback);
-            var length = list.length;
-            return length ? list[length - 1] : null;
+            var l = list.length;
+            if (l)
+                return list[l - 1];
         },
         max: function () {
-            return Math.max.apply(null, resolveQueue(this));
+            return Math.max.apply(-Infinity, resolveQueue(this));
         },
         min: function () {
-            return Math.min.apply(null, resolveQueue(this));
+            return Math.min.apply(Infinity, resolveQueue(this));
         },
         sequenceEqual: function (sequence) {
-            var list = this.toArray(whereCallback);
-            var l = list.length;
-            if (l !== sequence.length)
-                return false;
-            for (var i = 0; i < l; i++)
-                if (list[i] !== sequence[i])
-                    return false;
-            return true;
+            if (sequence) {
+                var list = resolveQueue(this);
+                var l = list.length;
+                if (l === sequence.length) {
+                    for (var i = 0; i < l; i++)
+                        if (list[i] !== sequence[i])
+                            return false;
+                    return true;
+                }
+            }
+            return false;
         },
         single: function (whereCallback) {
-            var first = this.first(whereCallback);
-            return first.length === 1 ? first : null;
+            var list = this.toArray(whereCallback);
+            if (list.length === 1)
+                return list[0];
         },
         sum: function () {
             var list = resolveQueue(this);
