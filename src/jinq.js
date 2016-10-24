@@ -1,6 +1,10 @@
 ﻿(function (name, definition) {
-    if (typeof module != 'undefined') module.exports = definition();
-    else if (typeof define == 'function' && typeof define.amd == 'object') define(definition);
+    if (typeof module !== 'undefined')
+        module.exports = definition();
+    else if (typeof define === 'function' && typeof define.amd === 'object')
+        define(definition);
+    else if (typeof angular !== 'undefined')
+        angular.module('angular-' + name, []).service('$' + name, function () { return definition(); });
     else {
         var noConflict = this[name];
         this[name] = definition();
