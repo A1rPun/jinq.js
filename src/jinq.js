@@ -7,13 +7,16 @@
         if (noConflict) this[name].noConflict = noConflict;
     }
 }('jinq', function () {
+    var UNDEFINED = 'undefined';
+    var DEFAULT = null;
     function Enumerable(list) {
         this.list = list || [];
         this.queue = [];
     }
     // Prototype methods which have no enumerable return types
     Enumerable.prototype = {
-        aggregate: function (aggregateCallback, seed) {
+        aggregate: function (aggregateCallback, seed, selectCallback) {
+            //TODO selectCallback
             var result = seed;
             if (aggregateCallback) {
                 var list = resolveQueue(this);
@@ -25,7 +28,7 @@
                 }
                 for (; i < l; i++) {
                     var obj = list[i];
-                    result = aggregateCallback.call(list, result, obj, i);
+                    result = aggregateCallback(result, obj, i);
                 }
             }
             return result;
@@ -35,7 +38,7 @@
                 var list = resolveQueue(this);
                 var l = list.length;
                 for (var i = 0; i < l; i++)
-                    if (!whereCallback.call(list, list[i], i))
+                    if (!whereCallback(list[i], i))
                         return false;
                 return l > 0;
             }
@@ -43,7 +46,8 @@
         any: function (whereCallback) {
             return !!this.first(whereCallback);
         },
-        average: function () {
+        average: function (selectCallback) {
+            //TODO selectCallback
             var list = resolveQueue(this);
             var l = list.length;
             var result = 0;
@@ -58,16 +62,19 @@
         count: function (whereCallback) {
             return this.toArray(whereCallback).length;
         },
+        //elementAtOrDefault - index,default
         elementAt: function (index) {
             var list = resolveQueue(this);
             if (index > 0 && index < list.length)
                 return list[index];
         },
+        //firstOrDefault - whereCallback,default
         first: function (whereCallback) {
             var list = this.toArray(whereCallback);
             if (list.length)
                 return list[0];
         },
+        //lastOrDefault - whereCallback,default
         last: function (whereCallback) {
             var list = this.toArray(whereCallback);
             var l = list.length;
@@ -107,6 +114,7 @@
             }
             return false;
         },
+        //singleOrDefault - whereCallback,default
         single: function (whereCallback) {
             var list = this.toArray(whereCallback);
             if (list.length === 1)
@@ -124,20 +132,11 @@
                 this.queue.push([deferredMethods.where, arguments]);
             return resolveQueue(this);
         },
-        toDictionary: function (keyCallback, valueCallback) {
-            var list = resolveQueue(this);
-            keyCallback = createCallback(keyCallback);
-            valueCallback = createCallback(valueCallback);
-            var result = {};
-            for (var i = 0, l = list.length; i < l; i++) {
-                var value = list[i];
-                var key = keyCallback ? keyCallback(value) : value;
-                result[key] = valueCallback ? valueCallback(value) : value;
-            }
-            return result;
+        toDictionary: function (keyCallback, selectCallback) {
+            return toLookup(false, resolveQueue(this), keyCallback, selectCallback);
         },
-        toLookup: function (keyCallback) {
-            return toLookup(resolveQueue(this), keyCallback);
+        toLookup: function (keyCallback, selectCallback) {
+            return toLookup(true, resolveQueue(this), keyCallback, selectCallback);
         }
     };
     Enumerable.prototype.longCount = Enumerable.prototype.count;
@@ -145,8 +144,16 @@
     function createCallback(cb) {
         return ofType(cb) === 'string' ? function (o) { return o[cb] } : cb;
     }
-    function ofType(obj) {
-        return Object.prototype.toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+    function ofType(obj, extend) {
+        return extend ? Object.prototype.toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase() : typeof obj;
+    }
+    function getHashCode(obj) {
+        var hashCode = '';
+        if (ofType(obj) !== 'object')
+            return hashCode + obj;
+        for (var prop in obj)
+            hashCode += prop + obj[prop];
+        return hashCode;
     }
     function makeOrderBy(args, desc) {
         function makeCompare(prop) {
@@ -175,23 +182,26 @@
         }
         return list;
     }
-    function toLookup(list, keyCallback) {
+    function toLookup(multiple, list, keyCallback, selectCallback) {
         var lookup = {};
         keyCallback = createCallback(keyCallback);
+        selectCallback = createCallback(selectCallback);
         for (var i = 0, l = list.length; i < l; i++) {
             var value = list[i];
-            var key = keyCallback ? keyCallback.call(list, value, i) : value;
-            if (lookup[key])
-                lookup[key].push(value);
-            else
-                lookup[key] = [value];
+            var key = keyCallback ? keyCallback(value, list) : getHashCode(value);
+            value = selectCallback ? selectCallback(value) : value;
+            if (lookup[key]) {
+                if (multiple)
+                    lookup[key].push(value);
+            } else
+                lookup[key] = multiple ? [value] : value;
         }
         return lookup;
     }
     function makeWhile(list, whileCallback) {
         whileCallback = createCallback(whileCallback);
         for (var i = 0, l = list.length; i < l; i++)
-            if (!whileCallback.call(list, list[i], i))
+            if (!whileCallback(list[i], i))
                 break;
         return i;
     }
@@ -203,141 +213,79 @@
         defaultIfEmpty: function (defaultValue) {
             return this.length ? this : [defaultValue];
         },
-        distinct: function (distinctCallback) {
-            distinctCallback = createCallback(distinctCallback);
+        distinct: function (keyCallback) {
+            var lookup = toLookup(false, this, keyCallback);
             var result = [];
-            var lookup = {};
-            for (var i = 0, l = this.length; i < l; i++) {
-                var obj = this[i];
-                var key = distinctCallback ? distinctCallback.call(this, obj, i) : obj;
-                if (lookup[key]) continue;
-                lookup[key] = true;
-                result.push(obj);
+            for (var prop in lookup)
+                result.push(lookup[prop]);
+            return result;
+        },
+        except: function (list, keyCallback) {
+            if (!list) return this;
+            var lookup = toLookup(false, this, keyCallback);
+            var lookup2 = toLookup(false, list, keyCallback);
+            var result = [];
+            for (var prop in lookup) {
+                if (ofType(lookup2[prop]) === UNDEFINED)
+                    result.push(lookup[prop]);
             }
             return result;
         },
-        except: function (list, distinctCallback) {
-            distinctCallback = createCallback(distinctCallback);
-            var result = [];
-            var lookup = {};
-            var i = 0;
-            var l = list.length;
-            var obj;
-            var key;
-            for (; i < l; i++) {
-                obj = list[i];
-                key = distinctCallback ? distinctCallback.call(list, obj, i) : obj;
-                lookup[key] = true;
-            }
-            i = 0;
-            l = this.length;
-            for (; i < l; i++) {
-                obj = this[i];
-                key = distinctCallback ? distinctCallback.call(this, obj, i) : obj;
-                if (!lookup[key])
-                    result.push(obj);
-            }
-            return result;
-        },
-        groupBy: function (groupCallback) {
-            var lookup = toLookup(this, groupCallback);
+        groupBy: function (keyCallback, selectCallback) {
+            var lookup = toLookup(true, this, keyCallback, selectCallback);
             var result = [];
             for (var prop in lookup)
                 result.push({ key: prop, value: lookup[prop] });
             return result;
         },
         groupJoin: function (list, sourceCallback, joinCallback, selectCallback) {
-            sourceCallback = createCallback(sourceCallback);
-            joinCallback = createCallback(joinCallback);
-            if (!sourceCallback || !joinCallback) return;
+            if (!list || !selectCallback) return this;
+            var lookup = toLookup(true, this, sourceCallback);
+            var lookup2 = toLookup(true, list, joinCallback);
             var result = [];
-            var lookup = {};
-            var i = 0;
-            var l = list.length;
-            var obj;
-            var key;
-            for (; i < l; i++) {
-                obj = list[i];
-                key = joinCallback(obj);
-                if (key)
-                    if (lookup[key])
-                        lookup[key].push(obj);
-                    else
-                        lookup[key] = [obj];
-            }
-            i = 0;
-            l = this.length;
-            for (; i < l; i++) {
-                obj = this[i];
-                key = sourceCallback(obj);
-                if (key) {
-                    var joinObj = lookup[key];
-                    if (joinObj)
-                        result.push(selectCallback ? selectCallback.call(this, obj, lookup[key], i) : joinObj);
-                }
+            for (var prop in lookup) {
+                if (ofType(lookup2[prop]) !== UNDEFINED)
+                    result.push(selectCallback ? selectCallback(lookup[prop], lookup2[prop]) : lookup[prop].concat(lookup2[prop]))
             }
             return result;
         },
-        intersect: function (list, distinctCallback) {
-            distinctCallback = createCallback(distinctCallback);
+        intersect: function (list) {
+            if (!list) return this;
+            var lookup = toLookup(false, this);
+            var lookup2 = toLookup(false, list);
             var result = [];
-            var lookup = {};
-            var i = 0;
-            var l = list.length;
-            var obj;
-            var key;
-            for (; i < l; i++) {
-                obj = list[i];
-                key = distinctCallback ? distinctCallback.call(list, obj, i) : obj;
-                lookup[key] = true;
-            }
-            i = 0;
-            l = this.length;
-            for (; i < l; i++) {
-                obj = this[i];
-                key = distinctCallback ? distinctCallback.call(this, obj, i) : obj;
-                if (lookup[key])
-                    result.push(obj);
+            for (var prop in lookup) {
+                if (ofType(lookup2[prop]) !== UNDEFINED)
+                    result.push(lookup[prop]);
             }
             return result;
         },
         join: function (list, sourceCallback, joinCallback, selectCallback) {
-            sourceCallback = createCallback(sourceCallback);
-            joinCallback = createCallback(joinCallback);
-            if (!sourceCallback || !joinCallback) return;
+            if (!list || !selectCallback) return this;
+            var lookup = toLookup(false, this, sourceCallback);
+            var lookup2 = toLookup(false, list, joinCallback);
             var result = [];
-            var lookup = {};
-            var i = 0;
-            var l = list.length;
-            var obj;
-            var key;
-            for (; i < l; i++) {
-                obj = list[i];
-                key = joinCallback(obj);
-                if (key) lookup[key] = obj;
-            }
-            i = 0;
-            l = this.length;
-            for (; i < l; i++) {
-                obj = this[i];
-                key = sourceCallback(obj);
-                if (key) {
-                    var joinObj = lookup[key];
-                    if (joinObj) {
-                        if (selectCallback)
-                            obj = selectCallback.call(this, obj, lookup[key], i);
-                        else
-                            for (var prop in joinObj)
-                                if (!obj[prop])
-                                    obj[prop] = joinObj[prop];
-                        result.push(obj);
+            for (var prop in lookup)
+                if (ofType(lookup2[prop]) !== UNDEFINED) {
+                    var obj;
+                    if (selectCallback)
+                        obj = selectCallback(lookup[prop], lookup2[prop])
+                    else {
+                        obj = {};
+                        var p;
+                        var l1 = lookup[prop];
+                        var l2 = lookup2[prop];
+                        for (p in l1)
+                            obj[p] = l1[p];
+                        for (p in l2)
+                            obj[p] = l2[p];
                     }
+                    result.push(obj);
                 }
-            }
             return result;
         },
         ofType: function (type) {
-            type = type || 'undefined';
+            type = type || UNDEFINED;
             var result = [];
             for (var i = 0, l = this.length; i < l; i++) {
                 var el = this[i];
@@ -362,22 +310,22 @@
         },
         select: function (selectCallback) {
             selectCallback = createCallback(selectCallback);
-            if (!selectCallback) return;
+            if (!selectCallback) return this;
             var result = [];
             for (var i = 0, l = this.length; i < l; i++) {
                 var obj = this[i];
-                var newObj = selectCallback.call(this, obj, i);
+                var newObj = selectCallback(obj, i);
                 result.push(newObj);
             }
             return result;
         },
         selectMany: function (selectCallback) {
             selectCallback = createCallback(selectCallback);
-            if (!selectCallback) return;
+            if (!selectCallback) return this;
             var result = [];
             for (var i = 0, l = this.length; i < l; i++) {
                 var obj = this[i];
-                var newObj = selectCallback.call(this, obj, i);
+                var newObj = selectCallback(obj, i);
                 result.concat(newObj);
             }
             return result;
@@ -406,48 +354,33 @@
             var num = makeWhile(this, whileCallback);
             return this.slice(0, num);
         },
-        union: function (list, distinctCallback) {
-            distinctCallback = createCallback(distinctCallback);
+        union: function (list) {
+            if (!list) return this;
+            var lookup = toLookup(false, this);
+            var lookup2 = toLookup(false, list);
             var result = [];
-            var lookup = {};
-            var i = 0;
-            var l = this.length;
-            var obj;
-            var key;
-            for (; i < l; i++) {
-                obj = this[i];
-                key = distinctCallback ? distinctCallback.call(this, obj, i) : obj;
-                if (!lookup[key]) {
-                    lookup[key] = true;
-                    result.push(obj);
-                }
+            for (var prop in lookup) {
+                result.push(lookup[prop]);
+                //delete lookup2[prop];
             }
-            i = 0;
-            l = list.length;
-            for (; i < l; i++) {
-                obj = list[i];
-                key = distinctCallback ? distinctCallback.call(list, obj, i) : obj;
-                if (!lookup[key]) {
-                    lookup[key] = true;
-                    result.push(obj);
-                }
-            }
+            for (var prop in lookup2)
+                result.push(lookup2[prop]);
             return result;
         },
         where: function (whereCallback) {
             whereCallback = createCallback(whereCallback);
-            if (!whereCallback) return;
+            if (!whereCallback) return this;
             var result = [];
             for (var i = 0, l = this.length; i < l; i++) {
                 var obj = this[i];
-                if (whereCallback.call(this, obj, i))
+                if (whereCallback(obj, i))
                     result.push(obj);
             }
             return result;
         },
         zip: function (list, selectCallback) {
             selectCallback = createCallback(selectCallback);
-            if (!selectCallback) return;
+            if (!list || !selectCallback) return this;
             var result = [];
             var sourceLength = this.length;
             var destLength = list.length;
@@ -455,7 +388,7 @@
             for (var i = 0; i < l; i++) {
                 var sourceObj = this[i];
                 var destObj = list[i];
-                var newObj = selectCallback.call(this, sourceObj, destObj, i);
+                var newObj = selectCallback(sourceObj, destObj, i);
                 result.push(newObj);
             }
             return result;
@@ -474,7 +407,7 @@
     }
     // Pass an array into jinq for easy enumeration
     var jinq = function (list) {
-        return new Enumerable(arguments.length === 1 && ofType(list) === 'array' ? list : Array.prototype.slice.call(arguments));
+        return new Enumerable(arguments.length === 1 && ofType(list, 1) === 'array' ? list : Array.prototype.slice.call(arguments));
     };
     // Static Methods
     jinq.empty = function () { return new Enumerable(); };

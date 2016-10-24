@@ -3,9 +3,9 @@ function log(name, arr) {
     var formatted = Array.isArray(arr) ? JSON.stringify(arr, null, 4) : arr;
     output.innerHTML += name + ':\n' + formatted + '\n\n';
 }
-
 var numberArray = [1, 2, 2, 3, 4, 4, 5, 6];
 var anotherNumberArray = [2, 3, 5, 6, 7, 8, 8];
+var arrayArray = [[1, 3], [0, 2], [5, 7], [4, 6]];
 var objectArray = [
     { id: 1, difficulty: 3, trophyDifficulty: 8, gameName: 'Castle Crashers' },
     { id: 2, difficulty: 9, trophyDifficulty: 10, gameName: 'Dustforce' },
@@ -13,6 +13,7 @@ var objectArray = [
     { id: 4, difficulty: 8, trophyDifficulty: 10, gameName: 'Super Meat Boy' },
     { id: 5, difficulty: 6, trophyDifficulty: 7, gameName: 'Super Time Force Ultra' },
     { id: 6, difficulty: 6, trophyDifficulty: 10, gameName: 'VVVVVV' },
+    { id: 6, difficulty: 6, trophyDifficulty: 10, gameName: 'VVVVVV' }// Distinct
 ];
 var anotherObjectArray = [
     { id: 1, objId: 1, type: 'Bronze', trophyName: 'Melee Is Best' },
@@ -21,7 +22,6 @@ var anotherObjectArray = [
     { id: 4, objId: 4, type: 'Platinum', trophyName: 'Super Meat Boy!' },
     { id: 5, objId: 6, type: 'Silver', trophyName: 'Master of the Universe' },
 ];
-
 /* */
 log('numbers', numberArray);
 /* */
@@ -47,6 +47,8 @@ log('average numbers parameterless', jinq(numberArray).average());
 log('average empty', jinq.empty().average());
 log('average objects difficulty', jinq(objectArray).select('difficulty').average());
 /* /
+log('concat parameterless', jinq(numberArray).concat().toArray());
+log('concat empty', jinq.empty().concat(anotherNumberArray).toArray());
 log('concat numbers', jinq(numberArray).concat(anotherNumberArray).toArray());
 log('concat objects', jinq(objectArray).concat(anotherObjectArray).toArray());
 /* /
@@ -61,8 +63,13 @@ log('count objects parameterless', jinq(objectArray).count());
 log('count empty', jinq.empty().count());
 log('count objects trophyDifficulty 10', jinq(objectArray).count(function (o) { return o.trophyDifficulty === 10; }));
 /* /
+log('defaultIfEmpty parameterless', jinq(numberArray).defaultIfEmpty().toArray());
+log('defaultIfEmpty empty', jinq.empty().defaultIfEmpty(8).toArray());
+log('defaultIfEmpty numbers', jinq(numberArray).defaultIfEmpty().toArray());
+log('defaultIfEmpty objects', jinq(objectArray).defaultIfEmpty().toArray());
+/* /
 log('distinct numbers', jinq(numberArray).distinct().toArray());
-//log('distinct objects', jinq(objectArray).distinct().toArray());// Not Implemented
+log('distinct objects', jinq(objectArray).distinct().toArray());
 log('distinct trophyDifficulty objects', jinq(objectArray).distinct(function (o) { o.trophyDifficulty }).toArray());
 /* /
 log('elementAt parameterless', jinq(numberArray).elementAt());
@@ -71,8 +78,10 @@ log('elementAt numbers 1', jinq(numberArray).elementAt(1));
 log('elementAt objects 1', jinq(objectArray).elementAt(1));
 log('elementAt numbers -1', jinq(numberArray).elementAt(-1));
 /* /
-log('except numbers', jinq(numberArray).toArray());
-log('except objects', jinq(objectArray).toArray());
+log('except parameterless', jinq(numberArray).except().toArray());
+log('except empty', jinq.empty().except(numberArray).toArray());
+log('except numbers 2 4', jinq(numberArray).except([2, 4]).toArray());
+log('except objects', jinq(objectArray).except([2, 4], function (o) { return o.difficulty > 0 }).toArray());
 /* /
 log('first numbers parameterless', jinq(numberArray).first());
 log('first objects parameterless', jinq(objectArray).first());
@@ -86,8 +95,8 @@ log('groupJoin objects with select', jinq(objectArray).groupJoin(anotherObjectAr
 }).toArray());
 log('groupJoin objects', jinq(anotherObjectArray).groupJoin(objectArray, 'objId', 'id').toArray());
 /* /
-log('intersect numbers', jinq(numberArray).toArray());
-log('intersect objects', jinq(objectArray).toArray());
+log('intersect numbers', jinq(numberArray).intersect(anotherNumberArray));
+log('intersect numbers equality', jinq(numberArray).intersect(anotherNumberArray, function (a, b) { a === b}).toArray());
 /* /
 log('join objects', jinq(objectArray).join(anotherObjectArray, 'id', 'objId').toArray());
 log('join objects with select', jinq(anotherObjectArray).join(objectArray, 'objId', 'id', function (a, b) {
@@ -235,5 +244,6 @@ log('repeat object', repeat.toArray());
 var million = jinq.range(0, 1000000);
 log('sum million elements', million.count());
 log('max million elements', million.max());
-log('max million elements', million.min());
+log('min million elements', million.min());
+log('where count million elements', million.where(function (o) { return o < 500000; }).count());
 /* */

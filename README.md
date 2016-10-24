@@ -114,8 +114,10 @@ Using `any` in combination with `where` callback
 ### TODO
 
 - :link: Add new methods
+    - orDefault functions
     - cast?
+    - equality comparer
 
 - :page_facing_up: Add unit tests
 - :page_facing_up: Add more info to the [wiki](https://github.com/A1rPun/jinq.js/wiki)
-- :thumbsup: Distribution :)
+- :thumbsup: Distribution :) (bower, npm)
