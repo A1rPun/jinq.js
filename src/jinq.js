@@ -19,8 +19,7 @@
     }
     // Prototype methods which have no enumerable return types
     Enumerable.prototype = {
-        aggregate: function (aggregateCallback, seed, selectCallback) {
-            //TODO selectCallback
+        aggregate: function (aggregateCallback, seed) {
             var result = seed;
             if (aggregateCallback) {
                 var list = resolveQueue(this);
@@ -50,8 +49,7 @@
         any: function (whereCallback) {
             return !!this.first(whereCallback);
         },
-        average: function (selectCallback) {
-            //TODO selectCallback
+        average: function () {
             var list = resolveQueue(this);
             var l = list.length;
             var result = 0;
@@ -66,19 +64,16 @@
         count: function (whereCallback) {
             return this.toArray(whereCallback).length;
         },
-        //elementAtOrDefault - index,default
         elementAt: function (index) {
             var list = resolveQueue(this);
             if (index > 0 && index < list.length)
                 return list[index];
         },
-        //firstOrDefault - whereCallback,default
         first: function (whereCallback) {
             var list = this.toArray(whereCallback);
             if (list.length)
                 return list[0];
         },
-        //lastOrDefault - whereCallback,default
         last: function (whereCallback) {
             var list = this.toArray(whereCallback);
             var l = list.length;
@@ -118,7 +113,6 @@
             }
             return false;
         },
-        //singleOrDefault - whereCallback,default
         single: function (whereCallback) {
             var list = this.toArray(whereCallback);
             if (list.length === 1)
