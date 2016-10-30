@@ -4,7 +4,7 @@
     else if (typeof define === 'function' && typeof define.amd === 'object')
         define(definition);
     else if (typeof angular !== 'undefined')
-        angular.module('angular-' + name, []).service('$' + name, function () { return definition(); });
+        angular.module('angular-' + name, []).factory('$' + name, function () { return definition(); });
     else {
         var noConflict = this[name];
         this[name] = definition();
