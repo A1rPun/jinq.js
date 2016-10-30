@@ -4,9 +4,6 @@ Inspired by [LINQ](https://msdn.microsoft.com/en-us/library/system.linq.enumerab
 
 For vanillajs and nodejs
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Javascript-736400_960_720.png/64px-Javascript-736400_960_720.png)
-![](https://bitpay.com/img/js64.png)
-
 :page_facing_up: [Wiki](https://github.com/A1rPun/jinq.js/wiki)
 
 ### Methods
@@ -63,7 +60,8 @@ Construct a new enumeration object
 
 Using `where`, `select` and `groupBy`
 
-    var evenNumbers = ints.where(function(o) {
+    var evenNumbers = ints
+        .where(function(o) {
             return o > 1;
         })
         .select(function(o) {
