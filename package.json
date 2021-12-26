@@ -1,0 +1,16 @@
+{
+  "name": "jinq",
+  "version": "2.0.0",
+  "description": "Lazy loaded LINQ in JavaScript",
+  "main": "src/jinq.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "babel-jest": "^27.4.2",
+    "jest": "^27.4.5"
+  }
+}
