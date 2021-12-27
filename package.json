@@ -2,7 +2,7 @@
   "name": "jinq",
   "version": "2.0.0",
   "description": "Lazy loaded LINQ in JavaScript",
-  "main": "src/jinq.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest"
   },
