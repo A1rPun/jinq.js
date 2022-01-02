@@ -1,19 +1,19 @@
-export default function groupJoin(generator, list) {
-  throw Error('Not implemented');
-}
+import toDictionary from './toDictionary.js';
+import toLookup from './toLookup.js';
 
-// groupJoin: function (list, sourceCallback, joinCallback, selectCallback) {
-//   if (!list || !selectCallback) return this;
-//   var lookup = toLookup(true, this, sourceCallback);
-//   var lookup2 = toLookup(true, list, joinCallback);
-//   var result = [];
-//   for (var prop in lookup) {
-//     if (ofType(lookup2[prop]) !== UNDEFINED)
-//       result.push(
-//         selectCallback
-//           ? selectCallback(lookup[prop], lookup2[prop])
-//           : lookup[prop].concat(lookup2[prop])
-//       );
-//   }
-//   return result;
-// },
+export default function* groupJoin(
+  generator,
+  list,
+  outerKey,
+  innerKey,
+  select = (a, b) => ({ ...a, ...b })
+) {
+  const genLookup = toDictionary(generator, outerKey);
+  const listLookup = toLookup(list, innerKey);
+
+  for (const outer in genLookup) {
+    if (listLookup[outer]) {
+      yield select(genLookup[outer], listLookup[outer]);
+    }
+  }
+}

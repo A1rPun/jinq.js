@@ -1,7 +1,7 @@
 ﻿# jinq.js
 
 JavaScript Integrated Query with Deferred Execution.  
-Inspired by [LINQ](<https://msdn.microsoft.com/en-us/library/system.linq.enumerable_methods(v=vs.110).aspx>)
+Inspired by [LINQ](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable?view=net-6.0)
 
 For vanillajs and nodejs
 
@@ -12,46 +12,52 @@ For vanillajs and nodejs
 - aggregate()
 - all()
 - any()
+- append()
+- asEnumerable()
 - average()
+- chunk()
 - concat()
 - contains()
-- count()
+- count() // longCount
 - defaultIfEmpty()
-- distinct()
+- distinct() // distinctBy
 - elementAt() // elementAtOrDefault
-- except()
+- empty()
+- except() // exceptBy
 - first() // firstOrDefault
 - groupBy()
 - groupJoin()
-- intersect()
+- intersect() // intersectBy
 - join()
 - last() // lastOrDefault
-- max()
-- min()
+- max() // maxBy
+- min() // minBy
 - ofType()
 - orderBy()
+- orderByDescending()
+- prepend()
+- range()
+- repeat()
 - reverse()
-- sequenceEqual()
 - select()
 - selectMany()
+- sequenceEqual()
 - single() // singleOrDefault
 - skip()
+- skipLast()
 - skipWhile()
 - sum()
 - take()
+- takeLast()
 - takeWhile()
+- thenBy()
+- thenByDescending()
 - toArray() // toList
-- toDictionary()
+- toDictionary() // toHashSet
 - toLookup()
-- union()
+- union() // unionBy
 - where()
 - zip()
-
-### Static Methods
-
-- empty()
-- range()
-- repeat()
 
 ### Examples
 
@@ -75,7 +81,7 @@ const evenNumbers = ints
     };
   })
   .groupBy((o) => o.isEven)
-  .toArray();
+  .toList();
 ```
 
 **Output** `evenNumbers`

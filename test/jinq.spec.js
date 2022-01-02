@@ -3,26 +3,30 @@ import {
   aggregate,
   all,
   any,
+  append,
+  asEnumerable,
   average,
+  chunk,
   concat,
   contains,
   count, // longCount,
   defaultIfEmpty,
-  distinct,
+  distinct, // distinctBy,
   elementAt, // elementAtOrDefault,
   empty,
-  except,
+  except, // exceptBy,
   first, // firstOrDefault,
   groupBy,
   groupJoin,
-  intersect,
+  intersect, // intersectBy,
   join,
   last, // lastOrDefault,
-  max,
-  min,
+  max, // maxBy,
+  min, // minBy,
   ofType,
   orderBy,
   orderByDescending,
+  prepend,
   range,
   repeat,
   reverse,
@@ -31,14 +35,18 @@ import {
   sequenceEqual,
   single, // singleOrDefault,
   skip,
+  skipLast,
   skipWhile,
   sum,
   take,
+  takeLast,
   takeWhile,
-  toDictionary,
-  toList, // toArray
+  thenBy,
+  thenByDescending,
+  toDictionary, // toHashSet,
+  toList, // toArray,
   toLookup,
-  union,
+  union, // unionBy,
   where,
   zip,
 } from '../index.js';
@@ -103,10 +111,52 @@ test('!any with predicate', () => {
   expect(test).toBe(false);
 });
 
+/* Append */
+test('append an item to a list', () => {
+  const test = toList(append(range(1, 3), 4));
+  expect(test).toStrictEqual([1, 2, 3, 4]);
+});
+test('append multiple items to a list', () => {
+  const test = toList(append(range(1, 3), 4, 5));
+  expect(test).toStrictEqual([1, 2, 3, 4, 5]);
+});
+
+/* AsEnumerable */
+test('asEnumerable of a list', () => {
+  const test = asEnumerable([1, 2, 3]);
+  let next = test.next();
+  expect(next.value).toBe(1);
+  next = test.next();
+  expect(next.value).toBe(2);
+  next = test.next();
+  expect(next.value).toBe(3);
+  next = test.next();
+  expect(next.value).toBe(undefined);
+  expect(next.done).toBe(true);
+});
+
 /* Average */
 test('average a list', () => {
   const test = average(range(1, 9));
   expect(test).toBe(5);
+});
+
+/* Chunk */
+test('chunk a list', () => {
+  const test = toList(chunk(range(1, 6), 2));
+  expect(test).toStrictEqual([
+    [1, 2],
+    [3, 4],
+    [5, 6],
+  ]);
+});
+test('chunk a list with last chunk different size', () => {
+  const test = toList(chunk(range(1, 8), 3));
+  expect(test).toStrictEqual([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8],
+  ]);
 });
 
 /* Count */
@@ -125,7 +175,7 @@ test('count with predicate', () => {
 
 /* Concat */
 test('concat a list', () => {
-  const test = concat(range(1, 3), range(4, 6));
+  const test = toList(concat(range(1, 3), range(4, 6)));
   expect(test).toStrictEqual([1, 2, 3, 4, 5, 6]);
 });
 
@@ -203,10 +253,26 @@ test('groupBy array with grouping and select', () => {
 });
 
 /* GroupJoin */
-// test('groupJoin on a list', () => {
-//   const test = groupJoin(range(1, 5), range(5, 10));
-//   expect(test).toStrictEqual([]);
-// });
+test('groupJoin on a list', () => {
+  const test = toList(
+    groupJoin(
+      [
+        { id: 1, name: 'foo' },
+        { id: 2, name: 'bar' },
+      ],
+      [
+        { test: '1', from: 'foo' },
+        { test: '2', from: 'bar' },
+        { test: '3', from: 'foo' },
+        { test: '4', from: 'bar' },
+      ],
+      (x) => x.name,
+      (x) => x.from,
+      (a, b) => `${a.name}: ${b.map((x) => x.test).join('')}`
+    )
+  );
+  expect(test).toStrictEqual(['foo: 13', 'bar: 24']);
+});
 
 /* Intersect */
 test('intersect on a list', () => {
@@ -215,10 +281,26 @@ test('intersect on a list', () => {
 });
 
 /* Join */
-// test('join on a list', () => {
-//   const test = join(range(1, 5), range(5, 10));
-//   expect(test).toStrictEqual([]);
-// });
+test('join on a list', () => {
+  const test = toList(
+    join(
+      [
+        { id: 1, name: 'foo' },
+        { id: 2, name: 'bar' },
+      ],
+      [
+        { test: '1', from: 1 },
+        { test: '2', from: 2 },
+        { test: '3', from: 1 },
+        { test: '4', from: 2 },
+      ],
+      (x) => x.id,
+      (x) => x.from,
+      (a, b) => `${a.id} ${a.name}: ${b.test}`
+    )
+  );
+  expect(test).toStrictEqual(['1 foo: 1', '1 foo: 3', '2 bar: 2', '2 bar: 4']);
+});
 
 /* First */
 test('first value of a big list', () => {
@@ -268,6 +350,16 @@ test('orderBy on a list', () => {
 test('orderByDescending on a list', () => {
   const test = orderByDescending([2, 1, 3, 5, 4]);
   expect(test).toStrictEqual([5, 4, 3, 2, 1]);
+});
+
+/* Prepend */
+test('prepend an item to a list', () => {
+  const test = toList(prepend(range(2, 4), 1));
+  expect(test).toStrictEqual([1, 2, 3, 4]);
+});
+test('prepend multiple items to a list', () => {
+  const test = toList(prepend(range(2, 4), 0, 1));
+  expect(test).toStrictEqual([0, 1, 2, 3, 4]);
 });
 
 /* Range */
@@ -362,16 +454,34 @@ test('skip first 3 of a list', () => {
   expect(test).toStrictEqual([4, 5]);
 });
 
+/* SkipLast */
+test('skipLast 3 of a list', () => {
+  const test = toList(skipLast(range(1, 5), 3));
+  expect(test).toStrictEqual([1, 2]);
+});
+
 /* SkipWhile */
 test('skip while', () => {
   const test = toList(skipWhile(range(1, 5), (x) => x < 3));
   expect(test).toStrictEqual([3, 4, 5]);
 });
 
+/* Sum */
+test('sum of a list', () => {
+  const test = sum(range(1, 10));
+  expect(test).toBe(55);
+});
+
 /* Take */
 test('take first 3 of a list', () => {
   const test = toList(take(range(1, 5), 3));
   expect(test).toStrictEqual([1, 2, 3]);
+});
+
+/* TakeLast */
+test('takeLast 3 of a list', () => {
+  const test = toList(takeLast(range(1, 5), 3));
+  expect(test).toStrictEqual([3, 4, 5]);
 });
 
 /* TakeWhile */
@@ -390,12 +500,6 @@ test('toDictionary from a list', () => {
 test('toLookup from a list', () => {
   const test = toLookup([1, 1, 2, 2]);
   expect(test).toStrictEqual({ 1: [1, 1], 2: [2, 2] });
-});
-
-/* Sum */
-test('sum of a list', () => {
-  const test = sum(range(1, 10));
-  expect(test).toBe(55);
 });
 
 /* Union */

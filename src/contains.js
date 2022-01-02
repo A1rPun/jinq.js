@@ -1,5 +1,5 @@
-export default function contains(generator, contain) {
+export default function contains(generator, element) {
   for (const value of generator)
-    if (value === contain) return true;
+    if (value === element) return true;
   return false;
 }

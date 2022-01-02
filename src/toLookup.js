@@ -11,5 +11,4 @@ export default function toLookup(
     lookup[key].push(select(value));
   }
   return lookup;
-
 }
