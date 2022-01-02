@@ -50,8 +50,6 @@ For vanillajs and nodejs
 - take()
 - takeLast()
 - takeWhile()
-- thenBy()
-- thenByDescending()
 - toArray() // toList
 - toDictionary() // toHashSet
 - toLookup()
@@ -67,9 +65,8 @@ toArray, toDictionary, toHashSet, toList, toLookup
 
 # Methods that need to traverse Enumerable(s) before yielding
 
-except, groupBy, groupJoin, intersect, join,
+except, groupBy, groupJoin, intersect, join, orderBy, orderByDescending,
 sequenceEqual, reverse, skipLast, takeLast, zip,
-orderBy, orderByDescending, thenBy, thenByDescending, 
 toArray, toDictionary, toHashSet, toList, toLookup
 
 ### Examples

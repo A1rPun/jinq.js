@@ -49,8 +49,6 @@ export { sum } from './src/sum.js';
 export { take } from './src/take.js';
 export { takeLast } from './src/takeLast.js';
 export { takeWhile } from './src/takeWhile.js';
-export { orderBy as thenBy } from './src/orderBy.js';
-export { orderByDescending as thenByDescending } from './src/orderByDescending.js';
 export { toList as toArray } from './src/toList.js';
 export { toDictionary } from './src/toDictionary.js';
 export { toDictionary as toHashSet } from './src/toDictionary.js';

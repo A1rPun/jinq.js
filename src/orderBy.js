@@ -1,3 +1,3 @@
-export function* orderBy(generator) {
-  yield* [...generator].sort();
+export function* orderBy(generator, sortFn = undefined) {
+  yield* [...generator].sort(sortFn);
 }
