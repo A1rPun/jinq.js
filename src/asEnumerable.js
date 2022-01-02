@@ -1,3 +1,3 @@
-export default function* asEnumerable(generator) {
-  for (const value of generator) yield value;
+export default function* asEnumerable(list) {
+  yield* list;
 }

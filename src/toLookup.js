@@ -10,5 +10,6 @@ export default function toLookup(
     if (!lookup[key]) lookup[key] = [];
     lookup[key].push(select(value));
   }
+
   return lookup;
 }

@@ -52,7 +52,7 @@ import {
 } from '../index.js';
 
 function shuffle(arr) {
-  for (var i = arr.length, j, t; i--; ) {
+  for (let i = arr.length, j, t; i--; ) {
     j = Math.floor(Math.random() * (i + 1));
     t = arr[i];
     arr[i] = arr[j];
@@ -201,8 +201,17 @@ test('defaultIfEmpty on a big list', () => {
 
 /* Distinct */
 test('distinct on a list', () => {
-  const test = distinct([1, 1, 2, 3, 4, 4, 5]);
+  const test = toList(distinct(repeat(1, 3)));
+  expect(test).toStrictEqual([1]);
+});
+test('distinct on an array', () => {
+  const test = toList(distinct([1, 1, 2, 3, 4, 4, 5]));
   expect(test).toStrictEqual([1, 2, 3, 4, 5]);
+});
+test('distinct on an array of objects', () => {
+  const obj = { 1: 1 };
+  const test = toList(distinct([obj, obj, { 2: 2 }]));
+  expect(test).toStrictEqual([obj, { 2: 2 }]);
 });
 
 /* ElementAt */
@@ -216,23 +225,28 @@ test('empty list', () => {
   const test = toList(empty());
   expect(test).toStrictEqual([]);
 });
+test('empty result', () => {
+  const test = empty().next();
+  expect(test.value).toBe(undefined);
+  expect(test.done).toBe(true);
+});
 
 /* Except */
 test('except on a list', () => {
-  const test = except(range(1, 5), range(3, 8));
+  const test = toList(except(range(1, 5), range(3, 8)));
   expect(test).toStrictEqual([1, 2]);
 });
 
 /* GroupBy */
 test('groupBy array', () => {
-  const test = groupBy([1, 1, 2, 2]);
+  const test = toList(groupBy([1, 1, 2, 2]));
   expect(test).toStrictEqual([
     { key: '1', value: [1, 1] },
     { key: '2', value: [2, 2] },
   ]);
 });
 test('groupBy array with grouping', () => {
-  const test = groupBy([1, 2, 3, 4, 5, 6], (x) => Math.floor(x / 2));
+  const test = toList(groupBy([1, 2, 3, 4, 5, 6], (x) => Math.floor(x / 2)));
   expect(test).toStrictEqual([
     { key: '0', value: [1] },
     { key: '1', value: [2, 3] },
@@ -241,10 +255,12 @@ test('groupBy array with grouping', () => {
   ]);
 });
 test('groupBy array with grouping and select', () => {
-  const test = groupBy(
-    [1, 2, 3, 4, 5, 6],
-    (x) => x % 2,
-    (x) => x * 100
+  const test = toList(
+    groupBy(
+      [1, 2, 3, 4, 5, 6],
+      (x) => x % 2,
+      (x) => x * 100
+    )
   );
   expect(test).toStrictEqual([
     { key: '0', value: [200, 400, 600] },
@@ -276,7 +292,7 @@ test('groupJoin on a list', () => {
 
 /* Intersect */
 test('intersect on a list', () => {
-  const test = intersect(range(1, 5), range(3, 8));
+  const test = toList(intersect(range(1, 5), range(3, 8)));
   expect(test).toStrictEqual([3, 4, 5]);
 });
 
@@ -342,13 +358,13 @@ test('ofType on a list', () => {
 
 /* OrderBy */
 test('orderBy on a list', () => {
-  const test = orderBy([2, 1, 3, 5, 4]);
+  const test = toList(orderBy([2, 1, 3, 5, 4]));
   expect(test).toStrictEqual([1, 2, 3, 4, 5]);
 });
 
 /* OrderByDescending */
 test('orderByDescending on a list', () => {
-  const test = orderByDescending([2, 1, 3, 5, 4]);
+  const test = toList(orderByDescending([2, 1, 3, 5, 4]));
   expect(test).toStrictEqual([5, 4, 3, 2, 1]);
 });
 
@@ -376,7 +392,7 @@ test('repeats value 29, 3 times', () => {
 
 /* Reverse */
 test('reverse a list', () => {
-  const test = reverse(range(1, 5));
+  const test = toList(reverse(range(1, 5)));
   expect(test).toStrictEqual([5, 4, 3, 2, 1]);
 });
 
@@ -504,11 +520,11 @@ test('toLookup from a list', () => {
 
 /* Union */
 test('union of two lists', () => {
-  const test = union(range(1, 4), range(1, 4));
+  const test = toList(union(range(1, 4), range(1, 4)));
   expect(test).toStrictEqual([1, 2, 3, 4]);
 });
 test('union of two lists', () => {
-  const test = union(range(3, 6), range(1, 4));
+  const test = toList(union(range(3, 6), range(1, 4)));
   expect(test).toStrictEqual([3, 4, 5, 6, 1, 2]);
 });
 

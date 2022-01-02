@@ -1,3 +1,4 @@
-export default function distinct(generator) {
-  return [...new Set(generator)];
+export default function* distinct(generator) {
+  const lookup = new Set(generator);
+  for (const [_, value] of lookup.entries()) yield value;
 }

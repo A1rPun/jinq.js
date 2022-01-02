@@ -6,5 +6,6 @@ export default function sequenceEqual(generator, list) {
     if (value !== checkList[i]) return false;
     i++;
   }
+
   return i === checkList.length;
 }

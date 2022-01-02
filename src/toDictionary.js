@@ -9,5 +9,6 @@ export default function toDictionary(
     const key = groupBy(value);
     if (!dictionary[key]) dictionary[key] = select(value);
   }
+
   return dictionary;
 }

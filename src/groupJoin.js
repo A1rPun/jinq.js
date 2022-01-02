@@ -11,9 +11,6 @@ export default function* groupJoin(
   const genLookup = toDictionary(generator, outerKey);
   const listLookup = toLookup(list, innerKey);
 
-  for (const outer in genLookup) {
-    if (listLookup[outer]) {
-      yield select(genLookup[outer], listLookup[outer]);
-    }
-  }
+  for (const outer in genLookup)
+    if (listLookup[outer]) yield select(genLookup[outer], listLookup[outer]);
 }

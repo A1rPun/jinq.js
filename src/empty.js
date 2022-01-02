@@ -1,3 +1,1 @@
-export default function* empty() {
-  return;
-}
+export default function* empty() {}
