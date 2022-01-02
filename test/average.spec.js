@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { average, empty, range } from '../index.js';
+import { average, range } from '../index.js';
 
 test('average a list', () => {
   const test = average(range(1, 9));
@@ -10,6 +10,6 @@ test('average of an array', () => {
   expect(test).toBe(14);
 });
 test('average of an empty array', () => {
-  const test = average(empty());
+  const test = average([]);
   expect(test).toBe(undefined);
 });

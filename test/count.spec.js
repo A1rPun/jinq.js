@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { count, empty, range } from '../index.js';
+import { count, range } from '../index.js';
 
 test('count a list', () => {
   const test = count(range(1, 10));
@@ -14,6 +14,6 @@ test('count with predicate', () => {
   expect(test).toBe(2);
 });
 test('count an empty list', () => {
-  const test = count(empty());
+  const test = count([]);
   expect(test).toBe(0);
 });

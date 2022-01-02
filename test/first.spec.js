@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { empty, first, range } from '../index.js';
+import { first, range } from '../index.js';
 
 test('first value of a big list', () => {
   const test = first(range(0, Number.MAX_SAFE_INTEGER));
@@ -10,6 +10,6 @@ test('first with predicate', () => {
   expect(test).toBe(4);
 });
 test('first value of an empty list', () => {
-  const test = first(empty());
+  const test = first([]);
   expect(test).toBe(undefined);
 });

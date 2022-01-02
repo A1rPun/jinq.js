@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { empty, prepend, range } from '../index.js';
+import { prepend, range } from '../index.js';
 
 test('prepend an item to a list', () => {
   const test = prepend(range(2, 4), 1);
@@ -10,6 +10,6 @@ test('prepend multiple items to a list', () => {
   expect([...test]).toStrictEqual([0, 1, 2, 3, 4]);
 });
 test('prepend nothing', () => {
-  const test = prepend(empty());
+  const test = prepend([]);
   expect([...test]).toStrictEqual([]);
 });

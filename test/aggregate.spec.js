@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { aggregate, empty, range } from '../index.js';
+import { aggregate, range } from '../index.js';
 
 test('aggregate on a list', () => {
   const test = aggregate(range(1, 10), (acc, cur) => acc + cur);
@@ -23,6 +23,6 @@ test('aggregate on a list with seed and map', () => {
   expect(test).toBe(6500);
 });
 test('aggregate on an empty list', () => {
-  const test = aggregate(empty(), (acc, cur) => acc + cur, 10);
+  const test = aggregate([], (acc, cur) => acc + cur, 10);
   expect(test).toBe(10);
 });

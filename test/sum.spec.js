@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { empty, range, sum } from '../index.js';
+import { range, sum } from '../index.js';
 
 test('sum of a list', () => {
   const test = sum(range(1, 10));
@@ -10,6 +10,6 @@ test('sum of an array', () => {
   expect(test).toBe(42);
 });
 test('sum of an empty array', () => {
-  const test = sum(empty());
+  const test = sum([]);
   expect(test).toBe(0);
 });

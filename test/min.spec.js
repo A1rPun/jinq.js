@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { empty, min, range } from '../index.js';
+import { min, range } from '../index.js';
 
 test('min of a list', () => {
   const test = min(range(1, 10));
@@ -10,6 +10,6 @@ test('min of an array', () => {
   expect(test).toBe(1);
 });
 test('min of an empty array', () => {
-  const test = min(empty());
+  const test = min([]);
   expect(test).toBe(Infinity);
 });

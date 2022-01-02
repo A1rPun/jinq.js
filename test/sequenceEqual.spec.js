@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { empty, range, sequenceEqual } from '../index.js';
+import { range, sequenceEqual } from '../index.js';
 
 test('sequenceEqual of list and array', () => {
   const test = sequenceEqual(range(1, 5), [1, 2, 3, 4, 5]);
@@ -18,6 +18,6 @@ test('!sequenceEqual of two uneven lists', () => {
   expect(test).toBe(false);
 });
 test('sequenceEqual of two empty lists', () => {
-  const test = sequenceEqual(empty(), empty());
+  const test = sequenceEqual([], []);
   expect(test).toBe(true);
 });

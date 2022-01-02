@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { empty, range, take, takeLast, takeWhile } from '../index.js';
+import { range, take, takeLast, takeWhile } from '../index.js';
 
 /* Take */
 test('take first 3 of a list', () => {
@@ -7,7 +7,7 @@ test('take first 3 of a list', () => {
   expect([...test]).toStrictEqual([1, 2, 3]);
 });
 test('take empty list', () => {
-  const test = take(empty(), Number.MAX_SAFE_INTEGER);
+  const test = take([], Number.MAX_SAFE_INTEGER);
   expect([...test]).toStrictEqual([]);
 });
 
@@ -17,7 +17,7 @@ test('takeLast 3 of a list', () => {
   expect([...test]).toStrictEqual([3, 4, 5]);
 });
 test('takeLast empty list', () => {
-  const test = takeLast(empty(), Number.MAX_SAFE_INTEGER);
+  const test = takeLast([], Number.MAX_SAFE_INTEGER);
   expect([...test]).toStrictEqual([]);
 });
 
@@ -27,6 +27,6 @@ test('takeWhile', () => {
   expect([...test]).toStrictEqual([1, 2]);
 });
 test('takeWhile empty list', () => {
-  const test = takeLast(empty());
+  const test = takeLast([]);
   expect([...test]).toStrictEqual([]);
 });

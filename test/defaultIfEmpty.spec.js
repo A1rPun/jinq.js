@@ -1,8 +1,8 @@
 ﻿import 'regenerator-runtime/runtime';
-import { defaultIfEmpty, empty, first, range } from '../index.js';
+import { defaultIfEmpty, first, range } from '../index.js';
 
 test('defaultIfEmpty on an empty list', () => {
-  const test = defaultIfEmpty(empty(), 29);
+  const test = defaultIfEmpty([], 29);
   expect([...test]).toStrictEqual([29]);
 });
 test('defaultIfEmpty on a big list', () => {
@@ -10,6 +10,6 @@ test('defaultIfEmpty on a big list', () => {
   expect(test).toBe(0);
 });
 test('defaultIfEmpty default value', () => {
-  const test = defaultIfEmpty(empty());
+  const test = defaultIfEmpty([]);
   expect([...test]).toStrictEqual([undefined]);
 });

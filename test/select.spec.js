@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { empty, range, select } from '../index.js';
+import { range, select } from '../index.js';
 
 test('select default', () => {
   const test = select(range(1, 5));
@@ -10,6 +10,6 @@ test('select the value + 1', () => {
   expect([...test]).toStrictEqual([2, 3, 4, 5, 6]);
 });
 test('select empty list', () => {
-  const test = select(empty());
+  const test = select([]);
   expect([...test]).toStrictEqual([]);
 });

@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { empty, toDictionary, toLookup } from '../index.js';
+import { toDictionary, toLookup } from '../index.js';
 
 /* ToDictionary */
 test('toDictionary from a list', () => {
@@ -7,7 +7,7 @@ test('toDictionary from a list', () => {
   expect(test).toStrictEqual({ 1: 1, 2: 2 });
 });
 test('toDictionary from an empty list', () => {
-  const test = toDictionary(empty());
+  const test = toDictionary([]);
   expect(test).toStrictEqual({});
 });
 
@@ -17,6 +17,6 @@ test('toLookup from a list', () => {
   expect(test).toStrictEqual({ 1: [1, 1], 2: [2, 2] });
 });
 test('toLookup from an empty list', () => {
-  const test = toLookup(empty());
+  const test = toLookup([]);
   expect(test).toStrictEqual({});
 });
