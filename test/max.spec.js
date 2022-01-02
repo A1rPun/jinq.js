@@ -11,5 +11,5 @@ test('max of an array', () => {
 });
 test('max of an empty array', () => {
   const test = max(empty());
-  expect(test).toBe(undefined);
+  expect(test).toBe(-Infinity);
 });

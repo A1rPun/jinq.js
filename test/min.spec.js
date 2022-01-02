@@ -11,5 +11,5 @@ test('min of an array', () => {
 });
 test('min of an empty array', () => {
   const test = min(empty());
-  expect(test).toBe(undefined);
+  expect(test).toBe(Infinity);
 });

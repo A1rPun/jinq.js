@@ -1,12 +1,5 @@
-export function min(generator, select = (v) => v) {
-  let min;
-  let i = 0;
+import { select } from './select.js';
 
-  for (const value of generator) {
-    const v = select(value);
-    if (min === undefined || v < min) min = v;
-    i++;
-  }
-
-  return i ? min : undefined;
+export function min(generator, selectN = (v) => v) {
+  return Math.min(...select(generator, selectN));
 }

@@ -1,12 +1,5 @@
-export function max(generator, select = (v) => v) {
-  let max;
-  let i = 0;
+import { select } from './select.js';
 
-  for (const value of generator) {
-    const v = select(value);
-    if (max === undefined || v > max) max = v;
-    i++;
-  }
-
-  return i ? max : undefined;
+export function max(generator, selectN = (v) => v) {
+  return Math.max(...select(generator, selectN));
 }
