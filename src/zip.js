@@ -1,9 +1,15 @@
-export function* zip(generator, list, zipFn = (a, b) => [a, b]) {
-  let i = 0;
-  const checkList = [...list];
+import { asEnumerable } from './asEnumerable.js';
 
-  for (const value of generator) {
-    yield zipFn(value, checkList[i]);
-    i++;
+export function* zip(generator, list, zipFn = (a, b) => [a, b]) {
+  const genList = asEnumerable(generator);
+  const checkList = asEnumerable(list);
+
+  let genNext = genList.next();
+  let checkNext = checkList.next();
+
+  while (!genNext.done || !checkNext.done) {
+    yield zipFn(genNext.value, checkNext.value);
+    genNext = genList.next();
+    checkNext = checkList.next();
   }
 }

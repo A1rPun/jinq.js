@@ -51,15 +51,6 @@ import {
   zip,
 } from '../index.js';
 
-function shuffle(arr) {
-  for (let i = arr.length, j, t; i--; ) {
-    j = Math.floor(Math.random() * (i + 1));
-    t = arr[i];
-    arr[i] = arr[j];
-    arr[j] = t;
-  }
-}
-
 /* Aggregate */
 test('aggregate on a list', () => {
   const test = aggregate(range(1, 10), (acc, cur) => acc + cur);
@@ -445,9 +436,17 @@ test('sequenceEqual of two lists', () => {
   const test = sequenceEqual(range(1, 5), range(1, 5));
   expect(test).toBe(true);
 });
-test('!sequenceEqual of two lists', () => {
+test('!sequenceEqual of two uneven lists', () => {
+  const test = sequenceEqual([1, 2], range(1, 5));
+  expect(test).toBe(false);
+});
+test('!sequenceEqual of two uneven lists', () => {
   const test = sequenceEqual(range(1, Number.MAX_SAFE_INTEGER), [1, 2]);
   expect(test).toBe(false);
+});
+test('sequenceEqual of two empty lists', () => {
+  const test = sequenceEqual(empty(), empty());
+  expect(test).toBe(true);
 });
 
 /* Single */
@@ -554,7 +553,23 @@ test('zip two uneven lists', () => {
     [2, undefined],
   ]);
 });
-// test('zip two uneven lists', () => {
-//   const test = toList(zip(range(1, 1), range(1, 2)));
-//   expect(test).toStrictEqual([[1, 1], [undefined, 2]]);
-// });
+test('zip two uneven lists', () => {
+  const test = toList(zip(range(1, 1), range(1, 2)));
+  expect(test).toStrictEqual([
+    [1, 1],
+    [undefined, 2],
+  ]);
+});
+
+/* jinq Fib */
+test('Fib', () => {
+  function* fib(a = 0, b = 1) {
+    while (true) {
+      yield a;
+      [a, b] = [b, a + b];
+    }
+  }
+
+  const test = single(select(take(skip(fib(), 29), 1), (n) => `Fib: ${n}`));
+  expect(test).toBe('Fib: 514229');
+});

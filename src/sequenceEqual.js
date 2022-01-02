@@ -1,11 +1,17 @@
-export function sequenceEqual(generator, list) {
-  let i = 0;
-  const checkList = [...list];
+import { asEnumerable } from './asEnumerable.js';
 
-  for (const value of generator) {
-    if (value !== checkList[i]) return false;
-    i++;
+export function sequenceEqual(generator, list) {
+  const genList = asEnumerable(generator);
+  const checkList = asEnumerable(list);
+
+  let genNext = genList.next();
+  let checkNext = checkList.next();
+
+  while (!genNext.done || !checkNext.done) {
+    if (genNext.value !== checkNext.value) return false;
+    genNext = genList.next();
+    checkNext = checkList.next();
   }
 
-  return i === checkList.length;
+  return true;
 }
