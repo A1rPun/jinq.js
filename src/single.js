@@ -1,4 +1,4 @@
-export default function single(generator, predicate = () => true) {
+export function single(generator, predicate = () => true) {
   let single = undefined;
   for (const value of generator)
     if (predicate(value))

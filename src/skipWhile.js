@@ -1,4 +1,4 @@
-export default function* skipWhile(generator, predicate = () => true) {
+export function* skipWhile(generator, predicate = () => true) {
   let i = 0;
   let returnAll = false;
 

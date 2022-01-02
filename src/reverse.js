@@ -1,3 +1,3 @@
-export default function* reverse(generator) {
+export function* reverse(generator) {
   yield* [...generator].reverse();
 }

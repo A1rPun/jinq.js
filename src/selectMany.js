@@ -1,8 +1,4 @@
-export default function* selectMany(
-  generator,
-  many = (v) => v,
-  select = (_, v) => v
-) {
+export function* selectMany(generator, many = (v) => v, select = (_, v) => v) {
   for (const value of generator) {
     const flatten = many(value);
 

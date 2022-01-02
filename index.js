@@ -1,129 +1,62 @@
-import aggregate from './src/aggregate.js';
-import all from './src/all.js';
-import any from './src/any.js';
-import append from './src/append.js';
-import asEnumerable from './src/asEnumerable.js';
-import average from './src/average.js';
-import chunk from './src/chunk.js';
-import concat from './src/concat.js';
-import contains from './src/contains.js';
-import count from './src/count.js';
-import defaultIfEmpty from './src/defaultIfEmpty.js';
-import distinct from './src/distinct.js';
-import elementAt from './src/elementAt.js';
-import empty from './src/empty.js';
-import except from './src/except.js';
-import first from './src/first.js';
-import groupBy from './src/groupBy.js';
-import groupJoin from './src/groupJoin.js';
-import intersect from './src/intersect.js';
-import join from './src/join.js';
-import last from './src/last.js';
-import max from './src/max.js';
-import min from './src/min.js';
-import ofType from './src/ofType.js';
-import orderBy from './src/orderBy.js';
-import orderByDescending from './src/orderByDescending.js';
-import prepend from './src/prepend.js';
-import range from './src/range.js';
-import repeat from './src/repeat.js';
-import reverse from './src/reverse.js';
-import select from './src/select.js';
-import selectMany from './src/selectMany.js';
-import sequenceEqual from './src/sequenceEqual.js';
-import single from './src/single.js';
-import skip from './src/skip.js';
-import skipLast from './src/skipLast.js';
-import skipWhile from './src/skipWhile.js';
-import sum from './src/sum.js';
-import take from './src/take.js';
-import takeLast from './src/takeLast.js';
-import takeWhile from './src/takeWhile.js';
-import toDictionary from './src/toDictionary.js';
-import toList from './src/toList.js';
-import toLookup from './src/toLookup.js';
-// TryGetNonEnumeratedCount
-import union from './src/union.js';
-import where from './src/where.js';
-import zip from './src/zip.js';
-
-const longCount = count;
-const distinctBy = distinct;
-const elementAtOrDefault = elementAt;
-const exceptBy = except;
-const firstOrDefault = first;
-const intersectBy = intersect;
-const lastOrDefault = last;
-const maxBy = max;
-const minBy = min;
-const thenBy = orderBy;
-const thenByDescending = orderByDescending;
-const singleOrDefault = single;
-const toHashSet = toDictionary;
-const toArray = toList;
-const unionBy = union;
-
-export {
-  aggregate,
-  all,
-  any,
-  append,
-  asEnumerable,
-  average,
-  chunk,
-  concat,
-  contains,
-  count,
-  defaultIfEmpty,
-  distinct,
-  distinctBy,
-  elementAt,
-  elementAtOrDefault,
-  empty,
-  except,
-  exceptBy,
-  first,
-  firstOrDefault,
-  groupBy,
-  groupJoin,
-  intersect,
-  intersectBy,
-  join,
-  last,
-  lastOrDefault,
-  longCount,
-  max,
-  maxBy,
-  min,
-  minBy,
-  ofType,
-  orderBy,
-  orderByDescending,
-  prepend,
-  range,
-  repeat,
-  reverse,
-  select,
-  selectMany,
-  sequenceEqual,
-  single,
-  singleOrDefault,
-  skip,
-  skipLast,
-  skipWhile,
-  sum,
-  take,
-  takeLast,
-  takeWhile,
-  thenBy,
-  thenByDescending,
-  toArray,
-  toDictionary,
-  toHashSet,
-  toList,
-  toLookup,
-  union,
-  unionBy,
-  where,
-  zip,
-};
+export { aggregate } from './src/aggregate.js';
+export { all } from './src/all.js';
+export { any } from './src/any.js';
+export { append } from './src/append.js';
+export { asEnumerable } from './src/asEnumerable.js';
+export { average } from './src/average.js';
+export { chunk } from './src/chunk.js';
+export { concat } from './src/concat.js';
+export { contains } from './src/contains.js';
+export { count } from './src/count.js';
+export { defaultIfEmpty } from './src/defaultIfEmpty.js';
+export { distinct } from './src/distinct.js';
+export { distinct as distinctBy } from './src/distinct.js';
+export { elementAt } from './src/elementAt.js';
+export { elementAt as elementAtOrDefault } from './src/elementAt.js';
+export { empty } from './src/empty.js';
+export { except } from './src/except.js';
+export { except as exceptBy } from './src/except.js';
+export { first } from './src/first.js';
+export { first as firstOrDefault } from './src/first.js';
+export { groupBy } from './src/groupBy.js';
+export { groupJoin } from './src/groupJoin.js';
+export { intersect } from './src/intersect.js';
+export { intersect as intersectBy } from './src/intersect.js';
+export { join } from './src/join.js';
+export { last } from './src/last.js';
+export { last as lastOrDefault } from './src/last.js';
+export { count as longCount } from './src/count.js';
+export { max } from './src/max.js';
+export { max as maxBy } from './src/max.js';
+export { min } from './src/min.js';
+export { min as minBy } from './src/min.js';
+export { ofType } from './src/ofType.js';
+export { orderBy } from './src/orderBy.js';
+export { orderByDescending } from './src/orderByDescending.js';
+export { prepend } from './src/prepend.js';
+export { range } from './src/range.js';
+export { repeat } from './src/repeat.js';
+export { reverse } from './src/reverse.js';
+export { select } from './src/select.js';
+export { selectMany } from './src/selectMany.js';
+export { sequenceEqual } from './src/sequenceEqual.js';
+export { single } from './src/single.js';
+export { single as singleOrDefault } from './src/single.js';
+export { skip } from './src/skip.js';
+export { skipLast } from './src/skipLast.js';
+export { skipWhile } from './src/skipWhile.js';
+export { sum } from './src/sum.js';
+export { take } from './src/take.js';
+export { takeLast } from './src/takeLast.js';
+export { takeWhile } from './src/takeWhile.js';
+export { orderBy as thenBy } from './src/orderBy.js';
+export { orderByDescending as thenByDescending } from './src/orderByDescending.js';
+export { toList as toArray } from './src/toList.js';
+export { toDictionary } from './src/toDictionary.js';
+export { toDictionary as toHashSet } from './src/toDictionary.js';
+export { toList } from './src/toList.js';
+export { toLookup } from './src/toLookup.js';
+export { union } from './src/union.js';
+export { union as unionBy } from './src/union.js';
+export { where } from './src/where.js';
+export { zip } from './src/zip.js';

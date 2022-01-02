@@ -1,3 +1,3 @@
-export default function toList(generator) {
+export function toList(generator) {
   return [...generator];
 }

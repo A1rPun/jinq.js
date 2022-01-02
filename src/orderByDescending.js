@@ -1,3 +1,3 @@
-export default function* orderByDescending(generator) {
+export function* orderByDescending(generator) {
   yield* [...generator].sort((a, b) => (a > b ? -1 : b > a ? 1 : 0));
 }

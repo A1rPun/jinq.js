@@ -1,3 +1,3 @@
-export default function* asEnumerable(list) {
+export function* asEnumerable(list) {
   yield* list;
 }

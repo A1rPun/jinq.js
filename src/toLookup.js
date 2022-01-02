@@ -1,8 +1,4 @@
-export default function toLookup(
-  generator,
-  groupBy = (v) => v,
-  select = (v) => v
-) {
+export function toLookup(generator, groupBy = (v) => v, select = (v) => v) {
   const lookup = {};
 
   for (const value of generator) {

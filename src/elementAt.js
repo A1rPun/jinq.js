@@ -1,4 +1,4 @@
-export default function elementAt(generator, index) {
+export function elementAt(generator, index) {
   let i = 0;
 
   for (const value of generator)

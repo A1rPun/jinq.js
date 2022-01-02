@@ -1,4 +1,4 @@
-export default function* takeLast(generator, count = 0) {
+export function* takeLast(generator, count = 0) {
   const result = [];
   for (const value of generator) result.push(value);
   const skipPos = result.length - count;

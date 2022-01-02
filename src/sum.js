@@ -1,4 +1,4 @@
-export default function sum(generator, select = (v) => v) {
+export function sum(generator, select = (v) => v) {
   let sum = 0;
   let i = 0;
 

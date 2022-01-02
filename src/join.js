@@ -1,7 +1,7 @@
-import toDictionary from './toDictionary.js';
-import toLookup from './toLookup.js';
+import { toDictionary } from './toDictionary.js';
+import { toLookup } from './toLookup.js';
 
-export default function* join(
+export function* join(
   generator,
   list,
   outerKey,

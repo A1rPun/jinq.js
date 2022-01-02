@@ -1,4 +1,4 @@
-export default function sequenceEqual(generator, list) {
+export function sequenceEqual(generator, list) {
   let i = 0;
   const checkList = [...list];
 

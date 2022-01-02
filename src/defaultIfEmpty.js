@@ -1,4 +1,4 @@
-export default function* defaultIfEmpty(generator, defaultValue) {
+export function* defaultIfEmpty(generator, defaultValue) {
   let i = 0;
 
   for (const value of generator) {

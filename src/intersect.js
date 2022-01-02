@@ -1,6 +1,6 @@
-import toDictionary from './toDictionary.js';
+import { toDictionary } from './toDictionary.js';
 
-export default function* intersect(generator, list, groupBy = (v) => v) {
+export function* intersect(generator, list, groupBy = (v) => v) {
   const genLookup = toDictionary(generator, groupBy);
   const listLookup = toDictionary(list, groupBy);
 

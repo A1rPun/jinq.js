@@ -1,4 +1,4 @@
-export default function* chunk(generator, size) {
+export function* chunk(generator, size) {
   let chunk = [];
   let i = 0;
 

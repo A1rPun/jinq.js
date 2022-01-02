@@ -1,4 +1,4 @@
-export default function max(generator, select = (v) => v) {
+export function max(generator, select = (v) => v) {
   let max;
   let i = 0;
 

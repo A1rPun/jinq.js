@@ -1,8 +1,4 @@
-export default function toDictionary(
-  generator,
-  groupBy = (v) => v,
-  select = (v) => v
-) {
+export function toDictionary(generator, groupBy = (v) => v, select = (v) => v) {
   const dictionary = {};
 
   for (const value of generator) {

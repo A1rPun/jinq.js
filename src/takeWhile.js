@@ -1,4 +1,4 @@
-export default function* takeWhile(generator, predicate = () => true) {
+export function* takeWhile(generator, predicate = () => true) {
   let i = 0;
 
   for (const value of generator) {

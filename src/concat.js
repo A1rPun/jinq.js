@@ -1,4 +1,4 @@
-export default function* concat(generator, list) {
+export function* concat(generator, list) {
   yield* generator;
   yield* list;
 }

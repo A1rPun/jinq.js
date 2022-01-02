@@ -1,10 +1,6 @@
-import toLookup from './toLookup.js';
+import { toLookup } from './toLookup.js';
 
-export default function* groupBy(
-  generator,
-  groupBy = (v) => v,
-  select = (v) => v
-) {
+export function* groupBy(generator, groupBy = (v) => v, select = (v) => v) {
   const groups = toLookup(generator, groupBy, select);
 
   for (const [key, value] of Object.entries(groups)) yield { key, value };

@@ -1,4 +1,4 @@
-export default function min(generator, select = (v) => v) {
+export function min(generator, select = (v) => v) {
   let min;
   let i = 0;
 

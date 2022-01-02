@@ -1,9 +1,4 @@
-export default function aggregate(
-  generator,
-  accumulator,
-  seed,
-  select = (v) => v
-) {
+export function aggregate(generator, accumulator, seed, select = (v) => v) {
   let result = seed;
 
   for (const value of generator)
