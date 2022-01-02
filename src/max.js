@@ -8,7 +8,5 @@ export function max(generator, select = (v) => v) {
     i++;
   }
 
-  if (!i) throw RangeError('Sequence contains no elements');
-
-  return max;
+  return i ? max : undefined;
 }

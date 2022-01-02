@@ -8,7 +8,5 @@ export function min(generator, select = (v) => v) {
     i++;
   }
 
-  if (!i) throw RangeError('Sequence contains no elements');
-
-  return min;
+  return i ? min : undefined;
 }

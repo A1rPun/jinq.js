@@ -7,7 +7,5 @@ export function sum(generator, select = (v) => v) {
     i++;
   }
 
-  if (!i) throw RangeError('Sequence contains no elements');
-
   return sum;
 }

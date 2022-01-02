@@ -7,7 +7,5 @@ export function average(generator, select = (v) => v) {
     i++;
   }
 
-  if (!i) throw RangeError('Sequence contains no elements');
-
-  return sum / i;
+  return i ? sum / i : undefined;
 }
