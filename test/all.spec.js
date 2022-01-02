@@ -5,6 +5,10 @@ test('all on a list', () => {
   const test = all(range(1, 10));
   expect(test).toBe(true);
 });
+test('all on an array', () => {
+  const test = all(['foo', 'bar']);
+  expect(test).toBe(true);
+});
 test('all with predicate', () => {
   const test = all(range(1, 10), (x) => x < 20);
   expect(test).toBe(true);

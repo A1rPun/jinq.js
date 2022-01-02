@@ -1,20 +1,32 @@
 ﻿import 'regenerator-runtime/runtime';
-import { range, take, takeLast, takeWhile, toList } from '../index.js';
+import { empty, range, take, takeLast, takeWhile } from '../index.js';
 
 /* Take */
 test('take first 3 of a list', () => {
-  const test = toList(take(range(1, 5), 3));
-  expect(test).toStrictEqual([1, 2, 3]);
+  const test = take(range(1, 5), 3);
+  expect([...test]).toStrictEqual([1, 2, 3]);
+});
+test('take empty list', () => {
+  const test = take(empty(), Number.MAX_SAFE_INTEGER);
+  expect([...test]).toStrictEqual([]);
 });
 
 /* TakeLast */
 test('takeLast 3 of a list', () => {
-  const test = toList(takeLast(range(1, 5), 3));
-  expect(test).toStrictEqual([3, 4, 5]);
+  const test = takeLast(range(1, 5), 3);
+  expect([...test]).toStrictEqual([3, 4, 5]);
+});
+test('takeLast empty list', () => {
+  const test = takeLast(empty(), Number.MAX_SAFE_INTEGER);
+  expect([...test]).toStrictEqual([]);
 });
 
 /* TakeWhile */
-test('take while', () => {
-  const test = toList(takeWhile(range(1, 5), (x) => x < 3));
-  expect(test).toStrictEqual([1, 2]);
+test('takeWhile', () => {
+  const test = takeWhile(range(1, 5), (x) => x < 3);
+  expect([...test]).toStrictEqual([1, 2]);
+});
+test('takeWhile empty list', () => {
+  const test = takeLast(empty());
+  expect([...test]).toStrictEqual([]);
 });

@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { last, range } from '../index.js';
+import { empty, last, range } from '../index.js';
 
 test('last value of a list', () => {
   const test = last(range(0, 10));
@@ -8,4 +8,8 @@ test('last value of a list', () => {
 test('last with predicate', () => {
   const test = last(range(1, 5), (x) => x < 3);
   expect(test).toBe(2);
+});
+test('last value of an empty list', () => {
+  const test = last(empty());
+  expect(test).toBe(undefined);
 });
