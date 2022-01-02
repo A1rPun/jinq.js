@@ -1,11 +1,5 @@
-export function sum(generator, select = (v) => v) {
-  let sum = 0;
-  let i = 0;
+import { aggregate } from './aggregate.js';
 
-  for (const value of generator) {
-    sum += select(value);
-    i++;
-  }
-
-  return sum;
+export function sum(generator, selectN = (v) => v) {
+  return aggregate(generator, (a, b) => a + b, 0, selectN);
 }

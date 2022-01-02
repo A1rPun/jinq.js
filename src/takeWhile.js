@@ -1,9 +1,9 @@
 export function* takeWhile(generator, predicate = () => true) {
-  let i = 0;
+  let index = 0;
 
   for (const value of generator) {
-    if (predicate(value, i)) yield value;
+    if (predicate(value, index)) yield value;
     else return;
-    i++;
+    index++;
   }
 }

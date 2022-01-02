@@ -1,7 +1,7 @@
-export function elementAt(generator, index) {
-  let i = 0;
+export function elementAt(generator, atIndex) {
+  let index = 0;
 
   for (const value of generator)
-    if (index === i) return value;
-    else i++;
+    if (atIndex === index) return value;
+    else index++;
 }

@@ -1,9 +1,9 @@
 export function* defaultIfEmpty(generator, defaultValue) {
-  let i = 0;
+  let index = 0;
 
   for (const value of generator) {
     yield value;
-    i++;
+    index++;
   }
-  if (!i) yield defaultValue;
+  if (!index) yield defaultValue;
 }

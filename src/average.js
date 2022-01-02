@@ -1,11 +1,6 @@
-export function average(generator, select = (v) => v) {
-  let sum = 0;
-  let i = 0;
+import { sum } from './sum.js';
 
-  for (const value of generator) {
-    sum += select(value);
-    i++;
-  }
-
-  return i ? sum / i : undefined;
+export function average(generator, selectN = (v) => v) {
+  const list = [...generator];
+  return list.length ? sum(list, selectN) / list.length : undefined;
 }

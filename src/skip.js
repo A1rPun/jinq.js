@@ -1,8 +1,8 @@
 export function* skip(generator, skip = 0) {
-  let i = 0;
+  let index = 0;
 
   for (const value of generator) {
-    if (i >= skip) yield value;
-    i++;
+    if (index >= skip) yield value;
+    index++;
   }
 }

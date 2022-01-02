@@ -1,9 +1,9 @@
 export function* take(generator, take = 0) {
-  let i = 0;
+  let index = 0;
 
   for (const value of generator) {
-    if (i < take) yield value;
+    if (index < take) yield value;
     else return;
-    i++;
+    index++;
   }
 }

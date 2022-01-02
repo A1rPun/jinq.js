@@ -1,17 +1,17 @@
 export function* chunk(generator, size) {
   let chunk = [];
-  let i = 0;
+  let index = 0;
 
   for (const value of generator) {
     chunk.push(value);
-    i++;
+    index++;
 
-    if (i === size) {
+    if (index === size) {
       yield chunk;
-      i = 0;
+      index = 0;
       chunk = [];
     }
   }
 
-  if (i) yield chunk;
+  if (index) yield chunk;
 }
