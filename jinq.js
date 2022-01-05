@@ -1,6 +1,5 @@
 import * as functions from './index.js';
 
-const staticFns = ['empty', 'range', 'repeat'];
 const valueFns = [
   'aggregate',
   'all',
@@ -30,32 +29,40 @@ const valueFns = [
   'toLookup',
 ];
 
-class Jinq {
-  constructor(list) {
-    this.list = list;
+class Enumerable {
+  constructor(sequence) {
+    this.sequence = functions.asEnumerable(sequence);
+  }
+
+  static from(sequence) {
+    return new Enumerable(sequence);
+  }
+
+  static empty() {
+    return new Enumerable();
+  }
+
+  static range(start, count) {
+    return new Enumerable(functions.range(start, count));
+  }
+
+  static repeat(value, count) {
+    return new Enumerable(functions.repeat(value, count));
   }
 }
 
-const jinq = function (list) {
-  return new Jinq(list);
-};
-
-for (const name of staticFns) {
-  jinq[name] = functions[name];
-}
-
 for (const name of valueFns) {
-  Jinq.prototype[name] = function (...args) {
-    return functions[name](this.list, ...args);
+  Enumerable.prototype[name] = function (...args) {
+    return functions[name](this.sequence, ...args);
   };
 }
 
 for (const [name, fn] of Object.entries(functions)) {
-  if (!Jinq.prototype[name])
-    Jinq.prototype[name] = function (...args) {
-      this.list = fn(this.list, ...args);
+  if (!Enumerable[name] && !Enumerable.prototype[name])
+    Enumerable.prototype[name] = function (...args) {
+      this.sequence = fn(this.sequence, ...args);
       return this;
     };
 }
 
-export { jinq };
+export { Enumerable as jinq };

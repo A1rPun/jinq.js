@@ -63,11 +63,10 @@ aggregate, all, any, average, contains, count, elementAt,
 first, last, max, maxBy, min, minBy, sequenceEqual, single, sum,
 toArray, toDictionary, toHashSet, toList, toLookup
 
-# Methods that need to traverse Enumerable(s) before yielding
+# Methods that don't have deferred execution yet
 
-except, groupBy, groupJoin, intersect, join, orderBy, orderByDescending,
-sequenceEqual, reverse, skipLast, takeLast, zip,
-toArray, toDictionary, toHashSet, toList, toLookup
+except, groupBy, groupJoin, intersect, join,
+orderBy, orderByDescending, reverse, skipLast, takeLast,
 
 ### Examples
 
@@ -127,7 +126,7 @@ const query = jinq([
   { group: 'a', name: 'abc' },
   { group: 'a', name: 'def' },
   { group: 'b', name: 'ghi' },
-]).any((obj) => obj.group === 'b');
+]).any((x) => x.group === 'b');
 ```
 
 **Output** `query`
