@@ -1,6 +1,6 @@
 import * as functions from './index.js';
 
-const valueFns = [
+const valueFunctions = [
   'aggregate',
   'all',
   'any',
@@ -29,11 +29,21 @@ const valueFns = [
   'toLookup',
 ];
 
+const replaySequence = (sequence) => ({
+  values: [],
+  *[Symbol.iterator]() {
+    yield* this.values;
+
+    for (const value of sequence) {
+      this.values.push(value);
+      yield value;
+    }
+  },
+});
+
 class Enumerable {
   constructor(sequence) {
     this.sequence = replaySequence(sequence ?? functions.empty());
-    this.values = [];
-    this.queue = [];
   }
 
   static from(sequence) {
@@ -53,44 +63,17 @@ class Enumerable {
   }
 }
 
-for (const name of valueFns) {
+for (const name of valueFunctions) {
   Enumerable.prototype[name] = function (...args) {
-    let currentSequence = this.sequence;
-
-    for (const { fn, args: fnArgs } of this.queue) {
-      currentSequence = fn(currentSequence, ...fnArgs);
-    }
-    return functions[name](currentSequence, ...args);
+    return functions[name](this.sequence, ...args);
   };
 }
 
 for (const [name, fn] of Object.entries(functions)) {
   if (!Enumerable[name] && !Enumerable.prototype[name])
     Enumerable.prototype[name] = function (...args) {
-      return cloneEnumerable(this, { fn, args });
+      return new Enumerable(fn(this.sequence, ...args));
     };
-}
-
-function replaySequence(sequence) {
-  return sequence.values
-    ? sequence
-    : {
-        values: [],
-        *[Symbol.iterator]() {
-          yield* this.values;
-
-          for (const value of sequence) {
-            this.values.push(value);
-            yield value;
-          }
-        },
-      };
-}
-
-function cloneEnumerable(enumerable, next) {
-  const clone = new Enumerable(enumerable.sequence);
-  clone.queue = [...enumerable.queue, next];
-  return clone;
 }
 
 export { Enumerable as jinq };
