@@ -31,7 +31,9 @@ const valueFns = [
 
 class Enumerable {
   constructor(sequence) {
-    this.sequence = functions.asEnumerable(sequence);
+    this.sequence = replaySequence(sequence ?? functions.empty());
+    this.values = [];
+    this.queue = [];
   }
 
   static from(sequence) {
@@ -53,16 +55,42 @@ class Enumerable {
 
 for (const name of valueFns) {
   Enumerable.prototype[name] = function (...args) {
-    return functions[name](this.sequence, ...args);
+    let currentSequence = this.sequence;
+
+    for (const { fn, args: fnArgs } of this.queue) {
+      currentSequence = fn(currentSequence, ...fnArgs);
+    }
+    return functions[name](currentSequence, ...args);
   };
 }
 
 for (const [name, fn] of Object.entries(functions)) {
   if (!Enumerable[name] && !Enumerable.prototype[name])
     Enumerable.prototype[name] = function (...args) {
-      this.sequence = fn(this.sequence, ...args);
-      return this;
+      return cloneEnumerable(this, { fn, args });
     };
+}
+
+function replaySequence(sequence) {
+  return sequence.values
+    ? sequence
+    : {
+        values: [],
+        *[Symbol.iterator]() {
+          yield* this.values;
+
+          for (const value of sequence) {
+            this.values.push(value);
+            yield value;
+          }
+        },
+      };
+}
+
+function cloneEnumerable(enumerable, next) {
+  const clone = new Enumerable(enumerable.sequence);
+  clone.queue = [...enumerable.queue, next];
+  return clone;
 }
 
 export { Enumerable as jinq };
