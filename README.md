@@ -63,20 +63,25 @@ bigRange.take(2).toList(); // [0, 1]
 - chunk()
 - concat()
 - contains()
-- count() // longCount
+- count() // longCount()
 - defaultIfEmpty()
-- distinct() // distinctBy
+- distinct()
+- distinctBy()
 - elementAt()
 - empty()
-- except() // exceptBy
+- except()
+- exceptBy()
 - first()
 - groupBy()
 - groupJoin()
-- intersect() // intersectBy
+- intersect()
+- intersectBy()
 - join()
 - last()
-- max() // maxBy
-- min() // minBy
+- max()
+- maxBy()
+- min()
+- minBy()
 - ofType()
 - orderBy()
 - orderByDescending()
@@ -95,12 +100,13 @@ bigRange.take(2).toList(); // [0, 1]
 - take()
 - takeLast()
 - takeWhile()
-- toArray() // toList
+- toArray() // toList()
 - toDictionary()
 - toHashSet
 - toLookup()
 - tryGetNonEnumeratedCount()
-- union() // unionBy
+- union()
+- unionBy()
 - where()
 - zip()
 

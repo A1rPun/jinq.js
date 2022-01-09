@@ -1,5 +1,3 @@
-import { select } from './select.js';
-
-export function min(iterator, selector = (v) => v) {
-  return Math.min(...select(iterator, selector));
+export function min(iterator) {
+  return Math.min(...iterator);
 }
