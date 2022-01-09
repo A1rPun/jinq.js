@@ -1,15 +1,15 @@
 import { asEnumerable } from './asEnumerable.js';
 
 export function sequenceEqual(iterator, list) {
-  const genList = asEnumerable(iterator);
+  const iteratorList = asEnumerable(iterator);
   const checkList = asEnumerable(list);
 
-  let genNext = genList.next();
+  let iteratorNext = iteratorList.next();
   let checkNext = checkList.next();
 
-  while (!genNext.done || !checkNext.done) {
-    if (genNext.value !== checkNext.value) return false;
-    genNext = genList.next();
+  while (!iteratorNext.done || !checkNext.done) {
+    if (iteratorNext.value !== checkNext.value) return false;
+    iteratorNext = iteratorList.next();
     checkNext = checkList.next();
   }
 
