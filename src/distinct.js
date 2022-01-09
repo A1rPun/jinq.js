@@ -1,4 +1,9 @@
 export function* distinct(iterator) {
-  const lookup = new Set(iterator);
-  for (const [_, value] of lookup.entries()) yield value;
+  const lookup = new Set();
+
+  for (const value of iterator)
+    if (!lookup.has(value)) {
+      lookup.add(value);
+      yield value;
+    }
 }

@@ -1,4 +1,4 @@
-export function* chunk(iterator, size) {
+export function* chunk(iterator, size = 1) {
   let chunk = [];
   let index = 0;
 
