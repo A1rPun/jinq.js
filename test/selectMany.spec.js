@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { range, selectMany } from '../index.js';
+import { range, repeat, selectMany } from '../index.js';
 
 test('selectMany flatten', () => {
   const test = selectMany([range(1, 5), range(1, 5)]);
@@ -34,4 +34,9 @@ test('selectMany map and select', () => {
 test('selectMany empty list', () => {
   const test = selectMany([[], []]);
   expect([...test]).toStrictEqual([]);
+});
+
+test('selectMany on big list', () => {
+  const test = selectMany(repeat([1, 2, 3], Number.MAX_SAFE_INTEGER));
+  expect(test.next().value).toBe(1);
 });

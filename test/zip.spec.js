@@ -30,3 +30,8 @@ test('zip two uneven lists', () => {
     [undefined, 2],
   ]);
 });
+
+test('zip on big list', () => {
+  const test = zip(range(0, Number.MAX_SAFE_INTEGER), range(0, Number.MAX_SAFE_INTEGER));
+  expect(test.next().value).toStrictEqual([0, 0]);
+});

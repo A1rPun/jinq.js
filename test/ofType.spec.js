@@ -20,3 +20,8 @@ test('ofType on an empty array', () => {
   const test = ofType([], 'number');
   expect([...test]).toStrictEqual([]);
 });
+
+test('ofType on big list', () => {
+  const test = ofType(range(0, Number.MAX_SAFE_INTEGER), 'number');
+  expect(test.next().value).toBe(0);
+});

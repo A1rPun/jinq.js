@@ -15,3 +15,8 @@ test('prepend nothing', () => {
   const test = prepend([]);
   expect([...test]).toStrictEqual([]);
 });
+
+test('prepend on big list', () => {
+  const test = prepend(range(0, Number.MAX_SAFE_INTEGER), -1);
+  expect(test.next().value).toBe(-1);
+});

@@ -10,3 +10,8 @@ test('concat nothing', () => {
   const test = concat();
   expect([...test]).toStrictEqual([]);
 });
+
+test('concat big list', () => {
+  const test = concat(range(0, Number.MAX_SAFE_INTEGER), range(0, Number.MAX_SAFE_INTEGER));
+  expect(test.next().value).toBe(0);
+});

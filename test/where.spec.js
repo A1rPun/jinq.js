@@ -25,3 +25,8 @@ test('!where predicate always false', () => {
   const test = where([1, 2, 3], (x) => x > Number.MAX_SAFE_INTEGER);
   expect([...test]).toStrictEqual([]);
 });
+
+test('where on big list', () => {
+  const test = where(range(0, Number.MAX_SAFE_INTEGER));
+  expect(test.next().value).toBe(0);
+});

@@ -23,3 +23,8 @@ test('chunk an array', () => {
   const test = chunk([1, 2, 3], 2);
   expect([...test]).toStrictEqual([[1, 2], [3]]);
 });
+
+test('chunk on big list', () => {
+  const test = chunk(range(0, Number.MAX_SAFE_INTEGER));
+  expect(test.next().value).toStrictEqual([0]);
+});

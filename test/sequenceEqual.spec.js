@@ -17,7 +17,7 @@ test('!sequenceEqual of two uneven lists', () => {
 });
 
 test('!sequenceEqual of two uneven lists', () => {
-  const test = sequenceEqual(range(1, Number.MAX_SAFE_INTEGER), [1, 2]);
+  const test = sequenceEqual(range(0, Number.MAX_SAFE_INTEGER), [1, 2]);
   expect(test).toBe(false);
 });
 

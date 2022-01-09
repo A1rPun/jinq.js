@@ -16,3 +16,8 @@ test('distinct on an array of objects', () => {
   const test = distinct([obj, obj, { 2: 2 }]);
   expect([...test]).toStrictEqual([obj, { 2: 2 }]);
 });
+
+test('distinct on big list', () => {
+  const test = distinct(repeat(0, Number.MAX_SAFE_INTEGER));
+  expect(test.next().value).toBe(0);
+});

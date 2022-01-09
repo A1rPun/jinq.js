@@ -20,3 +20,8 @@ test('append nothing', () => {
   const test = append([]);
   expect([...test]).toStrictEqual([]);
 });
+
+test('append on big list', () => {
+  const test = append(range(0, Number.MAX_SAFE_INTEGER), 29);
+  expect(test.next().value).toBe(0);
+});

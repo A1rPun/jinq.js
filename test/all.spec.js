@@ -17,6 +17,6 @@ test('all with predicate', () => {
 });
 
 test('!all with predicate on big list', () => {
-  const test = all(range(1, Number.MAX_SAFE_INTEGER), (x) => x < 5);
+  const test = all(range(0, Number.MAX_SAFE_INTEGER), (x) => x < 5);
   expect(test).toBe(false);
 });

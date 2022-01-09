@@ -15,3 +15,8 @@ test('select empty list', () => {
   const test = select([]);
   expect([...test]).toStrictEqual([]);
 });
+
+test('select on big list', () => {
+  const test = select(range(0, Number.MAX_SAFE_INTEGER));
+  expect(test.next().value).toBe(0);
+});
