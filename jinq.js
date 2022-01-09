@@ -34,9 +34,12 @@ const replaySequence = (sequence) => ({
   *[Symbol.iterator]() {
     yield* this.values;
 
-    for (const value of sequence) {
-      this.values.push(value);
-      yield value;
+    let genList = functions.asEnumerable(sequence);
+    let genNext;
+
+    while (!(genNext = genList.next()).done) {
+      this.values.push(genNext.value);
+      yield genNext.value;
     }
   },
 });
