@@ -53,6 +53,14 @@ class Enumerable {
     this.sequence = replaySequence(sequence ?? functions.empty());
   }
 
+  *[Symbol.iterator]() {
+    return this.sequence;
+  }
+
+  tryGetNonEnumeratedCount() {
+    return this.sequence.done ? this.sequence.values.length : undefined;
+  }
+
   static from(sequence) {
     return new Enumerable(sequence);
   }
@@ -67,10 +75,6 @@ class Enumerable {
 
   static repeat(value, count) {
     return new Enumerable(functions.repeat(value, count));
-  }
-
-  tryGetNonEnumeratedCount() {
-    return this.sequence.done ? this.sequence.values.length : undefined;
   }
 }
 

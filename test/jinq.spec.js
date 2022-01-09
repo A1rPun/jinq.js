@@ -30,14 +30,32 @@ test('jinq tryGetNonEnumeratedCount', () => {
   expect(test.tryGetNonEnumeratedCount()).toBe(10);
 });
 
+test('jinq repeat in for of', () => {
+  for (const value of jinq.repeat(1, 2)) {
+    expect(value).toBe(1);
+  }
+});
+
+test('jinq repeat twice in for of', () => {
+  const test = jinq.repeat(1, 2);
+
+  for (const value of test) {
+    expect(value).toBe(1);
+  }
+
+  for (const value of test) {
+    expect(value).toBe(1);
+  }
+});
+
 test('jinq state', () => {
-  const test = jinq.range(1, 2)
+  const test = jinq.range(1, 2);
   expect(test.count()).toBe(2);
   expect(test.toList()).toStrictEqual([1, 2]);
 });
 
 test('jinq deep state', () => {
-  const test = jinq.range(1, 10)
+  const test = jinq.range(1, 10);
   expect(test.count()).toBe(10);
   expect(test.take(2).toList()).toStrictEqual([1, 2]);
 });
