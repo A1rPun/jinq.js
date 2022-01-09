@@ -1,4 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
+import 'regenerator-runtime/runtime';
 import { jinq } from '../jinq.js';
 
 function* fib(a = 0, b = 1) {
@@ -37,7 +37,7 @@ test('jinq on README', () => {
 
   expect(evenNumbers).toStrictEqual([
     {
-      key: 'false',
+      key: false,
       value: [
         { original: 5, multiplied: 10, isEven: false },
         { original: 3, multiplied: 6, isEven: false },
@@ -46,7 +46,7 @@ test('jinq on README', () => {
       ],
     },
     {
-      key: 'true',
+      key: true,
       value: [
         { original: 6, multiplied: 12, isEven: true },
         { original: 2, multiplied: 4, isEven: true },

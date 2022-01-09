@@ -1,20 +1,37 @@
 ﻿import 'regenerator-runtime/runtime';
-import { range, repeat, toDictionary, toHashSet, toList, toLookup } from '../index.js';
+import {
+  range,
+  repeat,
+  toDictionary,
+  toHashSet,
+  toList,
+  toLookup,
+} from '../index.js';
 
 /* ToDictionary */
 test('toDictionary from a list', () => {
   const test = toDictionary(range(1, 2));
-  expect(test).toStrictEqual({ 1: 1, 2: 2 });
+  expect(test).toStrictEqual(
+    new Map([
+      [1, 1],
+      [2, 2],
+    ])
+  );
 });
 
 test('toDictionary from an array', () => {
   const test = toDictionary([1, 1, 2, 2]);
-  expect(test).toStrictEqual({ 1: 1, 2: 2 });
+  expect(test).toStrictEqual(
+    new Map([
+      [1, 1],
+      [2, 2],
+    ])
+  );
 });
 
 test('toDictionary from an empty list', () => {
   const test = toDictionary([]);
-  expect(test).toStrictEqual({});
+  expect(test).toStrictEqual(new Map());
 });
 
 /* ToHashSet */
@@ -47,15 +64,25 @@ test('toList from an array', () => {
 /* ToLookup */
 test('toLookup from a list', () => {
   const test = toLookup(range(1, 2));
-  expect(test).toStrictEqual({ 1: [1], 2: [2] });
+  expect(test).toStrictEqual(
+    new Map([
+      [1, [1]],
+      [2, [2]],
+    ])
+  );
 });
 
 test('toLookup from an array', () => {
   const test = toLookup([1, 1, 2, 2]);
-  expect(test).toStrictEqual({ 1: [1, 1], 2: [2, 2] });
+  expect(test).toStrictEqual(
+    new Map([
+      [1, [1, 1]],
+      [2, [2, 2]],
+    ])
+  );
 });
 
 test('toLookup from an empty list', () => {
   const test = toLookup([]);
-  expect(test).toStrictEqual({});
+  expect(test).toStrictEqual(new Map());
 });

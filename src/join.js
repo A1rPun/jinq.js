@@ -11,8 +11,7 @@ export function* join(
   const genLookup = toDictionary(iterator, outerKey);
   const listLookup = toLookup(list, innerKey);
 
-  for (const outer in genLookup)
-    if (listLookup[outer])
-      for (const inner of listLookup[outer])
-        yield select(genLookup[outer], inner);
+  for (const [outer, value] of genLookup.entries())
+    if (listLookup.has(outer))
+      for (const inner of listLookup.get(outer)) yield select(value, inner);
 }
