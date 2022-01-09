@@ -9,6 +9,7 @@ test('chunk a list', () => {
     [5, 6],
   ]);
 });
+
 test('chunk a list with last chunk different size', () => {
   const test = chunk(range(1, 8), 3);
   expect([...test]).toStrictEqual([
@@ -17,6 +18,7 @@ test('chunk a list with last chunk different size', () => {
     [7, 8],
   ]);
 });
+
 test('chunk an array', () => {
   const test = chunk([1, 2, 3], 2);
   expect([...test]).toStrictEqual([[1, 2], [3]]);

@@ -5,6 +5,7 @@ test('empty list', () => {
   const test = empty();
   expect([...test]).toStrictEqual([]);
 });
+
 test('empty result', () => {
   const test = empty().next();
   expect(test.value).toBe(undefined);

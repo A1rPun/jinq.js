@@ -13,13 +13,6 @@ test('take empty list', () => {
   expect([...test]).toStrictEqual([]);
 });
 
-test('take modify state', () => {
-  const gen = range(1, 5);
-  const test = take(gen, 2);
-  expect([...test]).toStrictEqual([1, 2]);
-  expect([...gen]).toStrictEqual([3, 4, 5]);
-});
-
 /* TakeLast */
 test('takeLast 3 of a list', () => {
   const test = takeLast(range(1, 5), 3);

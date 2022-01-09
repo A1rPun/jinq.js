@@ -8,6 +8,7 @@ test('groupBy array', () => {
     { key: '2', value: [2, 2] },
   ]);
 });
+
 test('groupBy array with grouping', () => {
   const test = groupBy([1, 2, 3, 4, 5, 6], (x) => Math.floor(x / 2));
   expect([...test]).toStrictEqual([
@@ -17,6 +18,7 @@ test('groupBy array with grouping', () => {
     { key: '3', value: [6] },
   ]);
 });
+
 test('groupBy array with grouping and select', () => {
   const test = groupBy(
     [1, 2, 3, 4, 5, 6],

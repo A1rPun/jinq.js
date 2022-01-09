@@ -5,6 +5,7 @@ test('selectMany flatten', () => {
   const test = selectMany([range(1, 5), range(1, 5)]);
   expect([...test]).toStrictEqual([1, 2, 3, 4, 5, 1, 2, 3, 4, 5]);
 });
+
 test('selectMany map', () => {
   const test = selectMany(
     [{ list: range(1, 5) }, { list: range(1, 5) }],
@@ -12,6 +13,7 @@ test('selectMany map', () => {
   );
   expect([...test]).toStrictEqual([1, 2, 3, 4, 5, 1, 2, 3, 4, 5]);
 });
+
 test('selectMany map and select', () => {
   const test = selectMany(
     [
@@ -28,6 +30,7 @@ test('selectMany map and select', () => {
     'Test 2: 4',
   ]);
 });
+
 test('selectMany empty list', () => {
   const test = selectMany([[], []]);
   expect([...test]).toStrictEqual([]);
