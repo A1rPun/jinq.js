@@ -1,3 +1,3 @@
-export function* where(generator, predicate = () => true) {
-  for (const value of generator) if (predicate(value)) yield value;
+export function* where(iterator, predicate = () => true) {
+  for (const value of iterator) if (predicate(value)) yield value;
 }

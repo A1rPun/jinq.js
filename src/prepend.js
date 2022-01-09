@@ -1,4 +1,4 @@
-export function* prepend(generator, ...elements) {
+export function* prepend(iterator, ...elements) {
   yield* elements;
-  yield* generator;
+  yield* iterator;
 }

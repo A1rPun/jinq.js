@@ -1,5 +1,5 @@
 export function aggregate(
-  generator,
+  iterator,
   accumulator,
   seed = undefined,
   select = (v) => v
@@ -7,7 +7,7 @@ export function aggregate(
   let result = seed;
   let index = 0;
 
-  for (const value of generator) {
+  for (const value of iterator) {
     result = result === undefined ? value : accumulator(result, value, index);
     index++;
   }

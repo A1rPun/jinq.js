@@ -1,3 +1,3 @@
-export function toHashSet(generator) {
-  return new Set(generator);
+export function toHashSet(iterator) {
+  return new Set(iterator);
 }

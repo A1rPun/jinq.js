@@ -1,3 +1,3 @@
-export function toList(generator) {
-  return [...generator];
+export function toList(iterator) {
+  return [...iterator];
 }

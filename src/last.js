@@ -1,5 +1,5 @@
-export function last(generator, predicate = () => true) {
+export function last(iterator, predicate = () => true) {
   let last = undefined;
-  for (const value of generator) if (predicate(value)) last = value;
+  for (const value of iterator) if (predicate(value)) last = value;
   return last;
 }

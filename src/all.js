@@ -1,4 +1,4 @@
-export function all(generator, predicate = () => true) {
-  for (const value of generator) if (!predicate(value)) return false;
+export function all(iterator, predicate = () => true) {
+  for (const value of iterator) if (!predicate(value)) return false;
   return true;
 }

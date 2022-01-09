@@ -1,5 +1,5 @@
-export function count(generator, predicate = () => true) {
+export function count(iterator, predicate = () => true) {
   let count = 0;
-  for (const value of generator) if (predicate(value)) count++;
+  for (const value of iterator) if (predicate(value)) count++;
   return count;
 }

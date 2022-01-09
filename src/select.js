@@ -1,3 +1,3 @@
-export function* select(generator, select = (v) => v) {
-  for (const value of generator) yield select(value);
+export function* select(iterator, select = (v) => v) {
+  for (const value of iterator) yield select(value);
 }

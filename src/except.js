@@ -1,8 +1,8 @@
 import { toDictionary } from './toDictionary.js';
 
-export function* except(generator, list, groupBy = (v) => v) {
+export function* except(iterator, list, groupBy = (v) => v) {
   const listLookup = toDictionary(list, groupBy);
 
-  for (const value of generator)
+  for (const value of iterator)
     if (listLookup[groupBy(value)] === undefined) yield value;
 }

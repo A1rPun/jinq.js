@@ -1,7 +1,7 @@
-export function* defaultIfEmpty(generator, defaultValue) {
+export function* defaultIfEmpty(iterator, defaultValue) {
   let index = 0;
 
-  for (const value of generator) {
+  for (const value of iterator) {
     yield value;
     index++;
   }

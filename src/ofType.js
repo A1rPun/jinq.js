@@ -1,3 +1,3 @@
-export function* ofType(generator, type) {
-  for (const value of generator) if (typeof value === type) yield value;
+export function* ofType(iterator, type) {
+  for (const value of iterator) if (typeof value === type) yield value;
 }

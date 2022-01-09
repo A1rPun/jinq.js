@@ -1,8 +1,8 @@
-export function* chunk(generator, size) {
+export function* chunk(iterator, size) {
   let chunk = [];
   let index = 0;
 
-  for (const value of generator) {
+  for (const value of iterator) {
     chunk.push(value);
     index++;
 

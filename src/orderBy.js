@@ -1,6 +1,6 @@
 export function* orderBy(
-  generator,
+  iterator,
   sortFn = (a, b) => (a < b ? -1 : b < a ? 1 : 0)
 ) {
-  yield* [...generator].sort(sortFn);
+  yield* [...iterator].sort(sortFn);
 }

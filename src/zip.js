@@ -1,7 +1,7 @@
 import { asEnumerable } from './asEnumerable.js';
 
-export function* zip(generator, list, zipFn = (a, b) => [a, b]) {
-  const genList = asEnumerable(generator);
+export function* zip(iterator, list, zipFn = (a, b) => [a, b]) {
+  const genList = asEnumerable(iterator);
   const checkList = asEnumerable(list);
 
   let genNext = genList.next();

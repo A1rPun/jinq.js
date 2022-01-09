@@ -1,7 +1,7 @@
 import { asEnumerable } from './asEnumerable.js';
 
-export function sequenceEqual(generator, list) {
-  const genList = asEnumerable(generator);
+export function sequenceEqual(iterator, list) {
+  const genList = asEnumerable(iterator);
   const checkList = asEnumerable(list);
 
   let genNext = genList.next();
