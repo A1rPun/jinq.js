@@ -31,8 +31,11 @@ const valueFunctions = [
 
 const replaySequence = (sequence) => ({
   values: [],
+  done: false,
   *[Symbol.iterator]() {
     yield* this.values;
+
+    if (this.done) return;
 
     let genList = functions.asEnumerable(sequence);
     let genNext;
@@ -41,6 +44,7 @@ const replaySequence = (sequence) => ({
       this.values.push(genNext.value);
       yield genNext.value;
     }
+    this.done = true;
   },
 });
 
@@ -63,6 +67,10 @@ class Enumerable {
 
   static repeat(value, count) {
     return new Enumerable(functions.repeat(value, count));
+  }
+
+  tryGetNonEnumeratedCount() {
+    return this.sequence.done ? this.sequence.values.length : 0;
   }
 }
 

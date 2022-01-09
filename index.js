@@ -51,7 +51,7 @@ export { takeLast } from './src/takeLast.js';
 export { takeWhile } from './src/takeWhile.js';
 export { toList as toArray } from './src/toList.js';
 export { toDictionary } from './src/toDictionary.js';
-export { toDictionary as toHashSet } from './src/toDictionary.js';
+export { toHashSet } from './src/toHashSet.js';
 export { toList } from './src/toList.js';
 export { toLookup } from './src/toLookup.js';
 export { union } from './src/union.js';

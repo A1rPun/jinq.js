@@ -21,11 +21,13 @@ test('jinq static from', () => {
   expect(test).toStrictEqual([1, 2]);
 });
 
-test('jinq static interface', () => {
-  expect(jinq.empty()).toStrictEqual(new jinq());
-  expect(jinq.range(1, 0)).toStrictEqual(new jinq());
-  expect(jinq.repeat(1, 0)).toStrictEqual(new jinq());
-  expect(jinq.from()).toStrictEqual(new jinq());
+test('jinq tryGetNonEnumeratedCount', () => {
+  const test = jinq.range(1, 10);
+  expect(test.tryGetNonEnumeratedCount()).toBe(0);
+  test.take(2).toList();
+  expect(test.tryGetNonEnumeratedCount()).toBe(0);
+  test.toList();
+  expect(test.tryGetNonEnumeratedCount()).toBe(10);
 });
 
 test('jinq state', () => {
