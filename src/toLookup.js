@@ -1,4 +1,8 @@
-export function toLookup(iterator, keySelector = (v) => v, elementSelector = (v) => v) {
+export function toLookup(
+  iterator,
+  keySelector = (v) => v,
+  elementSelector = (v) => v
+) {
   const lookup = new Map();
 
   for (const value of iterator) {

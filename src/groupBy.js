@@ -8,5 +8,6 @@ export function* groupBy(
 ) {
   const iteratorLookup = toLookup(iterator, keySelector, elementSelector);
 
-  for (const [key, value] of iteratorLookup.entries()) yield resultSelector({ key, value });
+  for (const [key, value] of iteratorLookup.entries())
+    yield resultSelector({ key, value });
 }

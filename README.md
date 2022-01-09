@@ -9,14 +9,14 @@ For vanillajs and nodejs
 
 ### How jinq deviates from LINQ
 
-- `OrDefault()` not implemented
-- `EqualityComparer` not implemented
-- `orderBy()` & `orderByDescending()` use `Array.sort()` internally so no OrderedEnumerable (yet?)
-- `aggregate()` has the seed as the second parameter
-- `except()`, `intersect()`, `groupJoin()`, `join()` iterates the passed list before producing values
-- `groupBy()`, `reverse()`, `skipLast()`, `takeLast()` iterates the iterator before producing values
-- `tryGetNonEnumeratedCount()` returns the count if enumerated, otherwise undefined
-- some functions like `count()` & `longCount()` have the same body
+- `OrDefault` not implemented
+- `EqualityComparer` is a function and not implemented on `distinct`, `except`, `groupBy`, `groupJoin`, `intersect`, `join`, `toHashSet`, `toLookup` , `union`
+- `orderBy` & `orderByDescending` use `Array.sort()` internally so no OrderedEnumerable (yet?)
+- `aggregate` has the seed as the second parameter
+- `except`, `intersect`, `groupJoin`, `join` iterates the passed list before producing values
+- `groupBy`, `reverse`, `skipLast`, `takeLast` iterates the iterator before producing values
+- `tryGetNonEnumeratedCount` returns the count if enumerated, otherwise undefined
+- some functions like `count` & `longCount` have the same body
 
 ### Examples
 
