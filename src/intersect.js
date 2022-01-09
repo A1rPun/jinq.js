@@ -1,8 +1,8 @@
 import { toDictionary } from './toDictionary.js';
 
-export function* intersect(iterator, list, groupBy = (v) => v) {
-  const listLookup = toDictionary(list, groupBy);
+export function* intersect(iterator, list, keySelector = (v) => v) {
+  const listLookup = toDictionary(list, keySelector);
 
   for (const value of iterator)
-    if (listLookup.has(groupBy(value))) yield value;
+    if (listLookup.has(keySelector(value))) yield value;
 }

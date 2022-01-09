@@ -1,7 +1,11 @@
-export function* selectMany(iterator, many = (v) => v, select = (_, v) => v) {
+export function* selectMany(
+  iterator,
+  collectionSelector = (v) => v,
+  resultSelector = (_, v) => v
+) {
   for (const value of iterator) {
-    const list = many(value);
+    const list = collectionSelector(value);
 
-    for (const element of list) yield select(value, element);
+    for (const element of list) yield resultSelector(value, element);
   }
 }

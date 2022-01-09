@@ -3,15 +3,15 @@ import { toLookup } from './toLookup.js';
 export function* groupJoin(
   iterator,
   list,
-  outerKey,
-  innerKey,
-  select = (a, b) => ({ ...a, ...b })
+  outerKeySelector,
+  innerKeySelector,
+  resultSelector = (a, b) => ({ ...a, ...b })
 ) {
   const iteratorLookup = new Set();
-  const listLookup = toLookup(list, innerKey);
+  const listLookup = toLookup(list, innerKeySelector);
 
   for (const value of iterator) {
-    const outer = outerKey(value);
+    const outer = outerKeySelector(value);
 
     if (iteratorLookup.has(outer)) continue;
 
@@ -19,6 +19,6 @@ export function* groupJoin(
 
     if (!listLookup.has(outer)) continue;
 
-    yield select(value, listLookup.get(outer));
+    yield resultSelector(value, listLookup.get(outer));
   }
 }

@@ -1,10 +1,12 @@
-export function toLookup(iterator, groupBy = (v) => v, select = (v) => v) {
+export function toLookup(iterator, keySelector = (v) => v, elementSelector = (v) => v) {
   const lookup = new Map();
 
   for (const value of iterator) {
-    const key = groupBy(value);
+    const key = keySelector(value);
+
     if (!lookup.has(key)) lookup.set(key, []);
-    lookup.get(key).push(select(value));
+
+    lookup.get(key).push(elementSelector(value));
   }
 
   return lookup;

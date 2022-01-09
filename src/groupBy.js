@@ -1,7 +1,12 @@
 import { toLookup } from './toLookup.js';
 
-export function* groupBy(iterator, groupBy = (v) => v, select = (v) => v) {
-  const iteratorLookup = toLookup(iterator, groupBy, select);
+export function* groupBy(
+  iterator,
+  keySelector = (v) => v,
+  elementSelector = (v) => v,
+  resultSelector = (v) => v
+) {
+  const iteratorLookup = toLookup(iterator, keySelector, elementSelector);
 
-  for (const [key, value] of iteratorLookup.entries()) yield { key, value };
+  for (const [key, value] of iteratorLookup.entries()) yield resultSelector({ key, value });
 }

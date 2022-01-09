@@ -1,10 +1,12 @@
-export function* distinct(iterator) {
+export function* distinct(iterator, keySelector = (v) => v) {
   const lookup = new Set();
 
   for (const value of iterator) {
-    if (lookup.has(value)) continue;
+    const key = keySelector(value);
 
-    lookup.add(value);
+    if (lookup.has(key)) continue;
+
+    lookup.add(key);
     yield value;
   }
 }

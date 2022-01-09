@@ -1,6 +1,7 @@
 import { sum } from './sum.js';
 
-export function average(iterator, selectN = (v) => v) {
+export function average(iterator, selector = (v) => v) {
   const list = [...iterator];
-  return list.length ? sum(list, selectN) / list.length : undefined;
+
+  return list.length ? sum(list, selector) / list.length : undefined;
 }

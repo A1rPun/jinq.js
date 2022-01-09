@@ -2,7 +2,7 @@ export function aggregate(
   iterator,
   accumulator,
   seed = undefined,
-  select = (v) => v
+  resultSelector = (v) => v
 ) {
   let result = seed;
   let index = 0;
@@ -12,5 +12,5 @@ export function aggregate(
     index++;
   }
 
-  return select(result);
+  return resultSelector(result);
 }
