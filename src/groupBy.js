@@ -2,8 +2,8 @@ import { toLookup } from './toLookup.js';
 
 export function* groupBy(
   iterator,
-  keySelector = (v) => v,
-  elementSelector = (v) => v,
+  keySelector,
+  elementSelector,
   resultSelector = (v) => v
 ) {
   const iteratorLookup = toLookup(iterator, keySelector, elementSelector);
