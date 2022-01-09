@@ -1,4 +1,3 @@
-import { toDictionary } from './toDictionary.js';
 import { toLookup } from './toLookup.js';
 
 export function* join(
@@ -8,10 +7,18 @@ export function* join(
   innerKey,
   select = (a, b) => ({ ...a, ...b })
 ) {
-  const genLookup = toDictionary(iterator, outerKey);
+  const iteratorLookup = new Set();
   const listLookup = toLookup(list, innerKey);
 
-  for (const [outer, value] of genLookup.entries())
-    if (listLookup.has(outer))
-      for (const inner of listLookup.get(outer)) yield select(value, inner);
+  for (const value of iterator) {
+    const outer = outerKey(value);
+
+    if (iteratorLookup.has(outer)) continue;
+
+    iteratorLookup.add(outer);
+
+    if (!listLookup.has(outer)) continue;
+
+    for (const inner of listLookup.get(outer)) yield select(value, inner);
+  }
 }
