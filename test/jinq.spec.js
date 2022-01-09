@@ -23,9 +23,9 @@ test('jinq static from', () => {
 
 test('jinq tryGetNonEnumeratedCount', () => {
   const test = jinq.range(1, 10);
-  expect(test.tryGetNonEnumeratedCount()).toBe(0);
+  expect(test.tryGetNonEnumeratedCount()).toBe(undefined);
   test.take(2).toList();
-  expect(test.tryGetNonEnumeratedCount()).toBe(0);
+  expect(test.tryGetNonEnumeratedCount()).toBe(undefined);
   test.toList();
   expect(test.tryGetNonEnumeratedCount()).toBe(10);
 });

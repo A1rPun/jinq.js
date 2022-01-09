@@ -3,7 +3,7 @@ export function single(iterator, predicate = () => true) {
 
   for (const value of iterator)
     if (predicate(value))
-      if (single) return undefined;
+      if (single !== undefined) return undefined;
       else single = value;
 
   return single;

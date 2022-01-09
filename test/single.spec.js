@@ -6,7 +6,7 @@ test('single value on a list with single value', () => {
   expect(test).toBe(0);
 });
 
-test('!single value on a list with multiple values', () => {
+test('!single on a list with multiple values', () => {
   const test = single(range(1, 3));
   expect(test).toBe(undefined);
 });
@@ -16,7 +16,7 @@ test('!single with predicate', () => {
   expect(test).toBe(undefined);
 });
 
-test('!single value of an empty list', () => {
+test('!single of an empty list', () => {
   const test = single([]);
   expect(test).toBe(undefined);
 });
@@ -24,4 +24,10 @@ test('!single value of an empty list', () => {
 test('!single on big list', () => {
   const test = single(range(0, Number.MAX_SAFE_INTEGER));
   expect(test).toBe(undefined);
+});
+
+test('single on an array with undefined values', () => {
+  const test = [];
+  test[4] = 1;
+  expect(single(test)).toBe(1);
 });

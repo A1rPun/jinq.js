@@ -70,7 +70,7 @@ class Enumerable {
   }
 
   tryGetNonEnumeratedCount() {
-    return this.sequence.done ? this.sequence.values.length : 0;
+    return this.sequence.done ? this.sequence.values.length : undefined;
   }
 }
 
