@@ -2,6 +2,7 @@
 import {
   range,
   repeat,
+  toArray,
   toDictionary,
   toHashSet,
   toList,
@@ -59,6 +60,11 @@ test('toList from a list', () => {
 test('toList from an array', () => {
   const test = toList([1, 1, 2, 2]);
   expect(test).toStrictEqual([1, 1, 2, 2]);
+});
+
+test('toArray is the same as toList', () => {
+  const test = toArray([1, 1, 2, 2]);
+  expect(test).toStrictEqual(toList([1, 1, 2, 2]));
 });
 
 /* ToLookup */
