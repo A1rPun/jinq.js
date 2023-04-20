@@ -1,24 +1,35 @@
 ﻿# jinq.js
 
-JavaScript Integrated Query with Deferred Execution.  
+JavaScript Integrated Query with Deferred Execution.
 Inspired by [LINQ](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable?view=net-6.0)
 
 For vanillajs and nodejs
 
 :page_facing_up: [Wiki](https://github.com/A1rPun/jinq.js/wiki)
 
-### How jinq deviates from LINQ
+- [Installation](#installation)
+- [Usage examples](#usage-examples)
+- [How jinq deviates from LINQ](#how-jinq-deviates-from-linq)
+- [Methods](#methods)
+  - [Methods that return a value](#methods-that-return-a-value)
+  - [Javascript alternatives](#javascript-alternatives)
 
-- `OrDefault` not implemented
-- `EqualityComparer` is a function and not implemented on `distinct`, `except`, `groupBy`, `groupJoin`, `intersect`, `join`, `toHashSet`, `toLookup` , `union`
-- `orderBy` & `orderByDescending` use `Array.sort()` internally so no OrderedEnumerable (yet?)
-- `aggregate` has the seed as the second parameter
-- `except`, `intersect`, `groupJoin`, `join` iterates the passed list before producing values
-- `groupBy`, `reverse`, `skipLast`, `takeLast` iterates the iterator before producing values
-- `tryGetNonEnumeratedCount` returns the count if enumerated, otherwise undefined
-- some functions like `count` & `longCount` have the same body
+### Installation
 
-### Examples
+For now use:
+
+```
+$ npm i github:A1rPun/jinq.js
+```
+
+Package.json
+```json
+  "dependencies": {
+    "jinq": "github:A1rPun/jinq.js"
+  }
+```
+
+### Usage examples
 
 Use `jinq.from` to construct an Enumerable from an iterator or an array.
 
@@ -51,6 +62,18 @@ const bigRange = jinq.range(0, Number.MAX_SAFE_INTEGER);
 bigRange.any(); // true
 bigRange.take(2).toList(); // [0, 1]
 ```
+
+### How jinq deviates from LINQ
+
+- `OrDefault` not implemented
+- `EqualityComparer` is a function and not implemented on `distinct`, `except`, `groupBy`, `groupJoin`, `intersect`, `join`, `toHashSet`, `toLookup` , `union`
+- `orderBy` & `orderByDescending` use `Array.sort()` internally so no OrderedEnumerable (yet?)
+- `aggregate` has the seed as the second parameter
+- `except`, `intersect`, `groupJoin`, `join` iterates the passed list before producing values
+- `groupBy`, `reverse`, `skipLast`, `takeLast` iterates the iterator before producing values
+- `tryGetNonEnumeratedCount` returns the count if enumerated, otherwise undefined
+- some functions like `count` & `longCount` have the same body
+- some functions like `where` don't have expected parameters available in the callback functions
 
 ### Methods
 
@@ -102,7 +125,7 @@ bigRange.take(2).toList(); // [0, 1]
 - takeWhile()
 - toArray() // toList()
 - toDictionary()
-- toHashSet
+- toHashSet()
 - toLookup()
 - tryGetNonEnumeratedCount()
 - union()
@@ -115,3 +138,42 @@ bigRange.take(2).toList(); // [0, 1]
 aggregate, all, any, average, contains, count, elementAt,
 first, last, max, maxBy, min, minBy, sequenceEqual, single, sum,
 toArray, toDictionary, toHashSet, toList, toLookup
+
+#### Javascript alternatives
+
+- at()
+  - elementAt
+- concat()
+  - concat
+- every()
+  - all
+- filter()
+  - where
+  - except
+- flatMap()
+  - selectMany
+- includes()
+  - contains
+- length
+  - count
+  - longCount
+  - tryGetNonEnumeratedCount
+- map()
+  - select
+- push()
+  - append
+- reduce()
+  - aggregate
+  - sum
+  - min
+  - max
+  - average
+- reverse()
+  - reverse
+- some()
+  - any
+- sort()
+  - orderBy
+  - orderByDescending
+- unshift()
+  - prepend
