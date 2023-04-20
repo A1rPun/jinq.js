@@ -67,8 +67,8 @@ bigRange.take(2).toList(); // [0, 1]
 
 - `OrDefault` not implemented
 - `EqualityComparer` is a function and not implemented on `distinct`, `except`, `groupBy`, `groupJoin`, `intersect`, `join`, `toHashSet`, `toLookup` , `union`
-- `orderBy` & `orderByDescending` use `Array.sort()` internally so no OrderedEnumerable (yet?)
-- `aggregate` has the seed as the second parameter
+- `orderBy` & `orderByDescending` use `Array.sort()` internally so it lacks a proper interface
+- `aggregate` has the seed as the second parameter because there is no function overloading in JS
 - `except`, `intersect`, `groupJoin`, `join` iterates the passed list before producing values
 - `groupBy`, `reverse`, `skipLast`, `takeLast` iterates the iterator before producing values
 - `tryGetNonEnumeratedCount` returns the count if enumerated, otherwise undefined
