@@ -1,3 +1,7 @@
 export function* where(iterator, predicate = () => true) {
-  for (const value of iterator) if (predicate(value)) yield value;
+  let index = 0;
+  for (const value of iterator) {
+    if (predicate(value, index)) yield value;
+    index++;
+  }
 }

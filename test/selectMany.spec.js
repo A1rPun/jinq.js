@@ -40,3 +40,8 @@ test('selectMany on big list', () => {
   const test = selectMany(repeat([1, 2, 3], Number.MAX_SAFE_INTEGER));
   expect(test.next().value).toBe(1);
 });
+
+test('selectMany predicate has index', () => {
+  const test = selectMany([[0, 1], [2, 3]], (x, i) => i ? x : [] );
+  expect([...test]).toStrictEqual([2, 3]);
+});

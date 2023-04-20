@@ -20,3 +20,8 @@ test('select on big list', () => {
   const test = select(range(0, Number.MAX_SAFE_INTEGER));
   expect(test.next().value).toBe(0);
 });
+
+test('select predicate has index', () => {
+  const test = select(range(0, 2), (_, i) => i);
+  expect([...test]).toStrictEqual([0, 1, 2]);
+});
