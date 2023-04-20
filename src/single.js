@@ -8,3 +8,7 @@ export function single(iterator, predicate = () => true) {
 
   return single;
 }
+
+export function singleOrDefault(iterator, predicate, defaultValue = null) {
+  return single(iterator, predicate) ?? defaultValue;
+}

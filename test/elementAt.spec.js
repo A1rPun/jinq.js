@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { elementAt, range } from '../index.js';
+import { elementAt, elementAtOrDefault, range } from '../index.js';
 
 test('elementAt on big list', () => {
   const test = elementAt(range(0, Number.MAX_SAFE_INTEGER), 10);
@@ -14,4 +14,9 @@ test('elementAt on an array', () => {
 test('!elementAt on empty list', () => {
   const test = elementAt([], Number.MAX_SAFE_INTEGER);
   expect(test).toBe(undefined);
+});
+
+test('!elementAtOrDefault on a list', () => {
+  const test = elementAtOrDefault(range(1, 3), 5);
+  expect(test).toBe(null);
 });

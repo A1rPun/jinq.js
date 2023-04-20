@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { first, range } from '../index.js';
+import { first, firstOrDefault, range } from '../index.js';
 
 test('first value of a big list', () => {
   const test = first(range(0, Number.MAX_SAFE_INTEGER));
@@ -14,4 +14,14 @@ test('first with predicate', () => {
 test('first value of an empty list', () => {
   const test = first([]);
   expect(test).toBe(undefined);
+});
+
+test('!firstOrDefault on a list', () => {
+  const test = firstOrDefault(range(1, 3), (x) => x > 3);
+  expect(test).toBe(null);
+});
+
+test('firstOrDefault on a list with default', () => {
+  const test = firstOrDefault(range(1, 3), (x) => x > 3, 1);
+  expect(test).toBe(1);
 });

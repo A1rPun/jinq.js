@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { range, single } from '../index.js';
+import { range, single, singleOrDefault } from '../index.js';
 
 test('single value on a list with single value', () => {
   const test = single(range(0, 0));
@@ -30,4 +30,14 @@ test('single on an array with undefined values', () => {
   const test = [];
   test[4] = 1;
   expect(single(test)).toBe(1);
+});
+
+test('!singleOrDefault on a list', () => {
+  const test = singleOrDefault(range(1, 3), (x) => x > 3);
+  expect(test).toBe(null);
+});
+
+test('singleOrDefault on a list with default', () => {
+  const test = singleOrDefault(range(1, 3), (x) => x > 3, 1);
+  expect(test).toBe(1);
 });

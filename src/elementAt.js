@@ -5,3 +5,7 @@ export function elementAt(iterator, atIndex) {
     if (atIndex === index) return value;
     else index++;
 }
+
+export function elementAtOrDefault(iterator, atIndex) {
+  return elementAt(iterator, atIndex) ?? null;
+}
