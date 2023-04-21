@@ -1,5 +1,5 @@
 declare class Enumerable {
-	constructor(iterator: Iterable<any>);
+  constructor(iterator: Iterable<any>);
   aggregate(seed: any, accumulator: () => any, resultSelector: () => any): any;
   all(predicate: () => boolean): boolean;
   any(predicate: () => boolean): boolean;
