@@ -1,6 +1,7 @@
 ﻿import 'regenerator-runtime/runtime';
-import { distinct, repeat } from '../src/index.js';
+import { distinct, distinctBy ,repeat } from '../src/index.js';
 
+/* Distinct */
 test('distinct on a list', () => {
   const test = distinct(repeat(1, 3));
   expect([...test]).toStrictEqual([1]);
@@ -20,4 +21,15 @@ test('distinct on an array of objects', () => {
 test('distinct on big list', () => {
   const test = distinct(repeat(0, Number.MAX_SAFE_INTEGER));
   expect(test.next().value).toBe(0);
+});
+
+/* DistinctBy */
+test('distinctBy on a list', () => {
+  const test = distinctBy(repeat(1, 3));
+  expect([...test]).toStrictEqual([1]);
+});
+
+test('distinctBy with selector', () => {
+  const test = distinctBy(repeat({ id: 1 }, 3), (x) => x.id);
+  expect([...test]).toStrictEqual([{ id: 1 }]);
 });
