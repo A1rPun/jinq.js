@@ -67,72 +67,72 @@ bigRange.take(2).toList(); // [0, 1]
 ### How jinq deviates from LINQ
 
 - `EqualityComparer` is a function and not implemented on `distinct`, `except`, `groupBy`, `groupJoin`, `intersect`, `join`, `toHashSet`, `toLookup` & `union`
-- `orderBy` & `orderByDescending` don't return a IOrderedEnumerable
 - `except`, `intersect`, `groupJoin`, `join` iterates the passed list before producing values
 - `groupBy`, `reverse`, `skipLast`, `takeLast`, `orderBy` & `orderByDescending` iterates the iterator before producing values
-- `tryGetNonEnumeratedCount` returns the count if enumerated, otherwise undefined
-- some functions like `toArray` & `toList` have the same body
-- some functions like `where` don't have expected parameters available in the callback functions
+- `orderBy` & `orderByDescending` don't return a IOrderedEnumerable
 
 ### Enumerable methods
 
-- aggregate()
-- all()
-- any()
-- append()
-- asEnumerable()
-- average()
-- chunk()
-- concat()
-- contains()
-- count()
-- defaultIfEmpty()
-- distinct()
-- distinctBy()
-- elementAt()
-- elementAtOrDefault()
-- except()
-- exceptBy()
-- first()
-- firstOrDefault()
-- groupBy()
-- groupJoin()
-- intersect()
-- intersectBy()
-- join()
-- last()
-- longCount()
-- lastOrDefault()
-- max()
-- maxBy()
-- min()
-- minBy()
-- ofType()
-- orderBy()
-- orderByDescending()
-- prepend()
-- reverse()
-- select()
-- selectMany()
-- sequenceEqual()
-- single()
-- singleOrDefault()
-- skip()
-- skipLast()
-- skipWhile()
-- sum()
-- take()
-- takeLast()
-- takeWhile()
-- toArray() // toList()
-- toDictionary()
-- toHashSet()
-- toLookup()
-- tryGetNonEnumeratedCount()
-- union()
-- unionBy()
-- where()
-- zip()
+Method|Returns value|Description
+--|--|--
+aggregate()|:white_check_mark:|
+all()|:white_check_mark:|
+any()|:white_check_mark:|
+append()||
+asEnumerable()||
+average()|:white_check_mark:|
+chunk()||
+concat()||
+contains()|:white_check_mark:|
+count()|:white_check_mark:|
+defaultIfEmpty()||
+distinct()||
+distinctBy()||
+elementAt()|:white_check_mark:|
+elementAtOrDefault()|:white_check_mark:|
+except()||
+exceptBy()||
+first()|:white_check_mark:|
+firstOrDefault()|:white_check_mark:|
+groupBy()||
+groupJoin()||
+intersect()||
+intersectBy()||
+join()||
+last()|:white_check_mark:|
+lastOrDefault()|:white_check_mark:|
+longCount()|:white_check_mark:|
+max()|:white_check_mark:|
+maxBy()|:white_check_mark:|
+min()|:white_check_mark:|
+minBy()|:white_check_mark:|
+ofType()||
+orderBy()||
+orderByDescending()||
+prepend()||
+reverse()||
+select()||
+selectMany()||
+sequenceEqual()|:white_check_mark:|
+single()|:white_check_mark:|
+singleOrDefault()||
+skip()||
+skipLast()||
+skipWhile()||
+sum()|:white_check_mark:|
+take()||
+takeLast()||
+takeWhile()||
+toArray()|:white_check_mark:|
+toDictionary()|:white_check_mark:|
+toHashSet()|:white_check_mark:|
+toList()|:white_check_mark:|same as toArray()
+toLookup()|:white_check_mark:|
+tryGetNonEnumeratedCount()|:white_check_mark:| returns the count if enumerated, otherwise undefined
+union()||
+unionBy()||
+where()||
+zip()||
 
 #### Static methods
 
@@ -140,12 +140,6 @@ bigRange.take(2).toList(); // [0, 1]
 - jinq.from()
 - jinq.range()
 - jinq.repeat()
-
-#### Methods that return a value
-
-aggregate, all, any, average, contains, count, elementAt,
-first, last, max, maxBy, min, minBy, sequenceEqual, single, sum,
-toArray, toDictionary, toHashSet, toList, toLookup
 
 #### Javascript alternatives
 
