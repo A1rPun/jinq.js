@@ -1,7 +1,7 @@
 ﻿# jinq.js
 
 JavaScript Integrated Query with Deferred Execution.
-Inspired by [LINQ](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable?view=net-6.0)
+Inspired by [LINQ](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable)
 
 For vanillajs and nodejs
 
@@ -66,12 +66,12 @@ bigRange.take(2).toList(); // [0, 1]
 
 ### How jinq deviates from LINQ
 
-- `EqualityComparer` is a function and not implemented on `distinct`, `except`, `groupBy`, `groupJoin`, `intersect`, `join`, `toHashSet`, `toLookup` , `union`
-- `orderBy` & `orderByDescending` use `Array.sort()` internally so it lacks a proper interface
+- `EqualityComparer` is a function and not implemented on `distinct`, `except`, `groupBy`, `groupJoin`, `intersect`, `join`, `toHashSet`, `toLookup` & `union`
+- `orderBy` & `orderByDescending` don't return a IOrderedEnumerable
 - `except`, `intersect`, `groupJoin`, `join` iterates the passed list before producing values
-- `groupBy`, `reverse`, `skipLast`, `takeLast` iterates the iterator before producing values
+- `groupBy`, `reverse`, `skipLast`, `takeLast`, `orderBy` & `orderByDescending` iterates the iterator before producing values
 - `tryGetNonEnumeratedCount` returns the count if enumerated, otherwise undefined
-- some functions like `count` & `longCount` have the same body
+- some functions like `toArray` & `toList` have the same body
 - some functions like `where` don't have expected parameters available in the callback functions
 
 ### Enumerable methods
@@ -85,7 +85,7 @@ bigRange.take(2).toList(); // [0, 1]
 - chunk()
 - concat()
 - contains()
-- count() // longCount()
+- count()
 - defaultIfEmpty()
 - distinct()
 - distinctBy()
@@ -101,6 +101,7 @@ bigRange.take(2).toList(); // [0, 1]
 - intersectBy()
 - join()
 - last()
+- longCount()
 - lastOrDefault()
 - max()
 - maxBy()
