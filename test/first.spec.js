@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { first, firstOrDefault, range } from '../index.js';
+import { first, firstOrDefault, range } from '../src/index.js';
 
 test('first value of a big list', () => {
   const test = first(range(0, Number.MAX_SAFE_INTEGER));

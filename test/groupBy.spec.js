@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { groupBy, range } from '../index.js';
+import { groupBy, range } from '../src/index.js';
 
 test('groupBy on list', () => {
   const test = groupBy(range(1, 2));

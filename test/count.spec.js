@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { count, longCount, range } from '../index.js';
+import { count, longCount, range } from '../src/index.js';
 
 test('count a list', () => {
   const test = count(range(1, 10));

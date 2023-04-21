@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { range, where } from '../index.js';
+import { range, where } from '../src/index.js';
 
 test('where', () => {
   const test = where(range(1, 4));

@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { empty } from '../index.js';
+import { empty } from '../src/index.js';
 
 test('empty list', () => {
   const test = empty();

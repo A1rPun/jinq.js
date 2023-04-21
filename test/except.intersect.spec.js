@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { except, intersect, range } from '../index.js';
+import { except, intersect, range } from '../src/index.js';
 
 /* Except */
 test('except on a list', () => {

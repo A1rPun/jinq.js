@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { range, reverse } from '../index.js';
+import { range, reverse } from '../src/index.js';
 
 test('reverse a list', () => {
   const test = reverse(range(1, 5));

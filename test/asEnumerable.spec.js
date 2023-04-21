@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { asEnumerable, range } from '../index.js';
+import { asEnumerable, range } from '../src/index.js';
 
 test('asEnumerable of an array', () => {
   const test = asEnumerable([1, 2, 3]);

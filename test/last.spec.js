@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { last, lastOrDefault, range } from '../index.js';
+import { last, lastOrDefault, range } from '../src/index.js';
 
 test('last value of a list', () => {
   const test = last(range(0, 10));

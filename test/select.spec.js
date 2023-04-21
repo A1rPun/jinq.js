@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { range, select } from '../index.js';
+import { range, select } from '../src/index.js';
 
 test('select default', () => {
   const test = select(range(1, 5));

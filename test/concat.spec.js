@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { concat, range } from '../index.js';
+import { concat, range } from '../src/index.js';
 
 test('concat a list', () => {
   const test = concat(range(1, 3), range(4, 6));

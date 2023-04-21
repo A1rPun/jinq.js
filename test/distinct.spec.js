@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { distinct, repeat } from '../index.js';
+import { distinct, repeat } from '../src/index.js';
 
 test('distinct on a list', () => {
   const test = distinct(repeat(1, 3));

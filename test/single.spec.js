@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { range, single, singleOrDefault } from '../index.js';
+import { range, single, singleOrDefault } from '../src/index.js';
 
 test('single value on a list with single value', () => {
   const test = single(range(0, 0));

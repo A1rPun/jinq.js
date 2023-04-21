@@ -2,7 +2,7 @@
 import {
   orderBy,
   orderByDescending,
-} from '../index.js';
+} from '../src/index.js';
 
 /* OrderBy */
 test('orderBy on a list', () => {

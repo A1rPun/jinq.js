@@ -1,4 +1,4 @@
-import 'regenerator-runtime/runtime';
+﻿import 'regenerator-runtime/runtime';
 import { jinq } from '../index.js';
 
 test('jinq static empty', () => {
@@ -71,3 +71,9 @@ test('jinq modify state', () => {
   test.take(2).toList();
   expect(test.count()).toBe(10);
 });
+
+// test('jinq from jinq state', () => {
+//   const test = jinq.range(1, 10);
+//   const test2 = jinq.from(test)
+//   expect(test.count()).toBe(test2.count());
+// });

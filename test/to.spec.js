@@ -7,7 +7,7 @@ import {
   toHashSet,
   toList,
   toLookup,
-} from '../index.js';
+} from '../src/index.js';
 
 /* ToDictionary */
 test('toDictionary from a list', () => {

@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { range, skip, skipLast, skipWhile } from '../index.js';
+import { range, skip, skipLast, skipWhile } from '../src/index.js';
 
 /* Skip */
 test('skip first 3 of a list', () => {
