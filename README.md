@@ -10,7 +10,8 @@ For vanillajs and nodejs
 - [Installation](#installation)
 - [Usage examples](#usage-examples)
 - [How jinq deviates from LINQ](#how-jinq-deviates-from-linq)
-- [Methods](#methods)
+- [Enumerable methods](#enumerable-methods)
+  - [Static methods](#static-methods)
   - [Methods that return a value](#methods-that-return-a-value)
   - [Javascript alternatives](#javascript-alternatives)
 
@@ -74,7 +75,7 @@ bigRange.take(2).toList(); // [0, 1]
 - some functions like `count` & `longCount` have the same body
 - some functions like `where` don't have expected parameters available in the callback functions
 
-### Methods
+### Enumerable methods
 
 - aggregate()
 - all()
@@ -90,16 +91,18 @@ bigRange.take(2).toList(); // [0, 1]
 - distinct()
 - distinctBy()
 - elementAt()
-- empty()
+- elementAtOrDefault()
 - except()
 - exceptBy()
 - first()
+- firstOrDefault()
 - groupBy()
 - groupJoin()
 - intersect()
 - intersectBy()
 - join()
 - last()
+- lastOrDefault()
 - max()
 - maxBy()
 - min()
@@ -108,13 +111,12 @@ bigRange.take(2).toList(); // [0, 1]
 - orderBy()
 - orderByDescending()
 - prepend()
-- range()
-- repeat()
 - reverse()
 - select()
 - selectMany()
 - sequenceEqual()
 - single()
+- singleOrDefault()
 - skip()
 - skipLast()
 - skipWhile()
@@ -132,6 +134,13 @@ bigRange.take(2).toList(); // [0, 1]
 - where()
 - zip()
 
+#### Static methods
+
+- jinq.empty()
+- jinq.from()
+- jinq.range()
+- jinq.repeat()
+
 #### Methods that return a value
 
 aggregate, all, any, average, contains, count, elementAt,
@@ -140,39 +149,39 @@ toArray, toDictionary, toHashSet, toList, toLookup
 
 #### Javascript alternatives
 
-- at()
+- Array.at()
   - elementAt
-- concat()
+- Array.concat()
   - concat
-- every()
+- Array.every()
   - all
-- filter()
+- Array.filter()
   - except
   - where
-- flatMap()
+- Array.flatMap()
   - selectMany
-- includes()
+- Array.includes()
   - contains
-- length
+- Array.length
   - count
   - longCount
   - tryGetNonEnumeratedCount
-- map()
+- Array.map()
   - select
-- push()
+- Array.push()
   - append
-- reduce()
+- Array.reduce()
   - aggregate
   - average
   - max
   - min
   - sum
-- reverse()
+- Array.reverse()
   - reverse
-- some()
+- Array.some()
   - any
-- sort()
+- Array.sort()
   - orderBy
   - orderByDescending
-- unshift()
+- Array.unshift()
   - prepend
