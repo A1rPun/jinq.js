@@ -13,6 +13,11 @@ test('take empty list', () => {
   expect([...test]).toStrictEqual([]);
 });
 
+test('take nothing', () => {
+  const test = take(range(1, 3));
+  expect([...test]).toStrictEqual([]);
+});
+
 /* TakeLast */
 test('takeLast 3 of a list', () => {
   const test = takeLast(range(1, 5), 3);
@@ -24,6 +29,11 @@ test('takeLast empty list', () => {
   expect([...test]).toStrictEqual([]);
 });
 
+test('takeLast nothing', () => {
+  const test = takeLast(range(1, 3));
+  expect([...test]).toStrictEqual([]);
+});
+
 /* TakeWhile */
 test('takeWhile', () => {
   const test = takeWhile(range(1, 5), (x) => x < 3);
@@ -31,6 +41,11 @@ test('takeWhile', () => {
 });
 
 test('takeWhile empty list', () => {
-  const test = takeLast([]);
+  const test = takeWhile([]);
   expect([...test]).toStrictEqual([]);
+});
+
+test('takeWhile everything', () => {
+  const test = takeWhile(range(1, 3));
+  expect([...test]).toStrictEqual([1, 2, 3]);
 });

@@ -40,6 +40,21 @@ test('groupJoin on a non distinct list', () => {
   expect([...test]).toStrictEqual(['foo: 1234']);
 });
 
+test('!groupJoin not found', () => {
+  const test = groupJoin(
+    [
+      { id: 0 },
+      { id: 1 },
+    ],
+    [
+      { test: 1 },
+    ],
+    (x) => x.id,
+    (x) => x.test
+  );
+  expect([...test]).toStrictEqual([{ "0": { test: 1 }, id: 1 }]);
+});
+
 /* Join */
 test('join on a list', () => {
   const test = join(
@@ -80,4 +95,19 @@ test('join on a non distinct list', () => {
     (a, b) => `${a.id} ${a.name}: ${b.test}`
   );
   expect([...test]).toStrictEqual(['0 foo: 1', '0 foo: 2']);
+});
+
+test('!join not found', () => {
+  const test = join(
+    [
+      { id: 0 },
+      { id: 1 },
+    ],
+    [
+      { test: 1 },
+    ],
+    (x) => x.id,
+    (x) => x.test
+  );
+  expect([...test]).toStrictEqual([{ id: 1, test: 1 }]);
 });

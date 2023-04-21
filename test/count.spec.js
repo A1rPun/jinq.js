@@ -21,6 +21,11 @@ test('count an empty list', () => {
   expect(test).toBe(0);
 });
 
+test('longCount with predicate', () => {
+  const test = longCount(range(1, 5), (x) => x > 3);
+  expect(test).toBe(2n);
+});
+
 test('longCount returns a BigInt', () => {
   const test = longCount([0]);
   expect(test).toBe(1n);

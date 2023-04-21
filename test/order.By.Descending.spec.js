@@ -7,14 +7,14 @@ import {
 
 /* Order */
 test('orderBy on a list', () => {
-  const test = order([2, 1, 3, 5, 4]);
-  expect([...test]).toStrictEqual([1, 2, 3, 4, 5]);
+  const test = order([2, 1, 1, 3, 5, 4]);
+  expect([...test]).toStrictEqual([1, 1, 2, 3, 4, 5]);
 });
 
 /* OrderBy */
 test('orderBy on a list', () => {
-  const test = orderBy([2, 1, 3, 5, 4]);
-  expect([...test]).toStrictEqual([1, 2, 3, 4, 5]);
+  const test = orderBy([2, 1, 1, 3, 5, 4]);
+  expect([...test]).toStrictEqual([1, 1, 2, 3, 4, 5]);
 });
 
 test('orderBy on a list of objects', () => {
@@ -35,8 +35,8 @@ test('orderBy on a list of objects', () => {
 
 /* OrderByDescending */
 test('orderByDescending on a list', () => {
-  const test = orderByDescending([2, 1, 3, 5, 4]);
-  expect([...test]).toStrictEqual([5, 4, 3, 2, 1]);
+  const test = orderByDescending([2, 1, 1, 3, 5, 4]);
+  expect([...test]).toStrictEqual([5, 4, 3, 2, 1, 1]);
 });
 
 test('orderByDescending on a list of objects', () => {

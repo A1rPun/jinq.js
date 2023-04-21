@@ -11,7 +11,12 @@ test('defaultIfEmpty on a big list', () => {
   expect(test).toBe(0);
 });
 
-test('defaultIfEmpty default value', () => {
+test('defaultIfEmpty no default value', () => {
   const test = defaultIfEmpty([]);
   expect([...test]).toStrictEqual([undefined]);
+});
+
+test('!defaultIfEmpty not empty', () => {
+  const test = defaultIfEmpty([1, 2]);
+  expect([...test]).toStrictEqual([1, 2]);
 });
