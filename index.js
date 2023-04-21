@@ -30,11 +30,11 @@ const valueFunctions = [
 ];
 
 class ReplaySubject {
-  constructor(sequence) {
-    const isDone = Array.isArray(sequence);
-    this.values = isDone ? sequence : [];
+  constructor(iterator) {
+    const isDone = Array.isArray(iterator);
+    this.values = isDone ? iterator : [];
     this.done = isDone;
-    this.sequence = sequence;
+    this.sequence = iterator;
   }
 
   *[Symbol.iterator]() {
@@ -54,8 +54,8 @@ class ReplaySubject {
 }
 
 class Enumerable {
-  constructor(sequence) {
-    this.sequence = new ReplaySubject(sequence ?? functions.empty());
+  constructor(iterator) {
+    this.sequence = new ReplaySubject(iterator ?? functions.empty());
   }
 
   *[Symbol.iterator]() {
@@ -66,8 +66,8 @@ class Enumerable {
     return this.sequence.done ? this.sequence.values.length : undefined;
   }
 
-  static from(sequence) {
-    return new Enumerable(sequence);
+  static from(iterator) {
+    return new Enumerable(iterator);
   }
 
   static empty() {
