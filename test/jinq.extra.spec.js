@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime';
-import { jinq } from '../jinq.js';
+import { jinq } from '../index.js';
 
 function* fib(a = 0, b = 1) {
   while (true) {

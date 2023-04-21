@@ -1,54 +1,99 @@
-export { aggregate } from './src/aggregate.js';
-export { all } from './src/all.js';
-export { any } from './src/any.js';
-export { append } from './src/append.js';
-export { asEnumerable } from './src/asEnumerable.js';
-export { average } from './src/average.js';
-export { chunk } from './src/chunk.js';
-export { concat } from './src/concat.js';
-export { contains } from './src/contains.js';
-export { count, count as longCount } from './src/count.js';
-export { defaultIfEmpty } from './src/defaultIfEmpty.js';
-export { distinct } from './src/distinct.js';
-export { distinctBy } from './src/distinctBy.js';
-export { elementAt, elementAtOrDefault } from './src/elementAt.js';
-export { empty } from './src/empty.js';
-export { except } from './src/except.js';
-export { exceptBy } from './src/exceptBy.js';
-export { first, firstOrDefault } from './src/first.js';
-export { groupBy } from './src/groupBy.js';
-export { groupJoin } from './src/groupJoin.js';
-export { intersect } from './src/intersect.js';
-export { intersectBy } from './src/intersectBy.js';
-export { join } from './src/join.js';
-export { last, lastOrDefault } from './src/last.js';
-export { max } from './src/max.js';
-export { maxBy } from './src/maxBy.js';
-export { min } from './src/min.js';
-export { minBy } from './src/minBy.js';
-export { ofType } from './src/ofType.js';
-export { orderBy } from './src/orderBy.js';
-export { orderByDescending } from './src/orderByDescending.js';
-export { prepend } from './src/prepend.js';
-export { range } from './src/range.js';
-export { repeat } from './src/repeat.js';
-export { reverse } from './src/reverse.js';
-export { select } from './src/select.js';
-export { selectMany } from './src/selectMany.js';
-export { sequenceEqual } from './src/sequenceEqual.js';
-export { single, singleOrDefault } from './src/single.js';
-export { skip } from './src/skip.js';
-export { skipLast } from './src/skipLast.js';
-export { skipWhile } from './src/skipWhile.js';
-export { sum } from './src/sum.js';
-export { take } from './src/take.js';
-export { takeLast } from './src/takeLast.js';
-export { takeWhile } from './src/takeWhile.js';
-export { toDictionary } from './src/toDictionary.js';
-export { toHashSet } from './src/toHashSet.js';
-export { toList, toList as toArray } from './src/toList.js';
-export { toLookup } from './src/toLookup.js';
-export { union } from './src/union.js';
-export { unionBy } from './src/unionBy.js';
-export { where } from './src/where.js';
-export { zip } from './src/zip.js';
+import * as functions from './src/index.js';
+
+const valueFunctions = [
+  'aggregate',
+  'all',
+  'any',
+  'average',
+  'contains',
+  'count',
+  'elementAt',
+  'elementAtOrDefault',
+  'first',
+  'firstOrDefault',
+  'last',
+  'lastOrDefault',
+  'longCount',
+  'max',
+  'maxBy',
+  'min',
+  'minBy',
+  'sequenceEqual',
+  'single',
+  'singleOrDefault',
+  'sum',
+  'toArray',
+  'toDictionary',
+  'toHashSet',
+  'toList',
+  'toLookup',
+];
+
+class ReplaySubject {
+  constructor(sequence) {
+    const isDone = Array.isArray(sequence);
+    this.values = isDone ? sequence : [];
+    this.done = isDone;
+    this.sequence = sequence;
+  }
+
+  *[Symbol.iterator]() {
+    yield* this.values;
+
+    if (this.done) return;
+
+    const genList = functions.asEnumerable(this.sequence);
+    let genNext;
+
+    while (!(genNext = genList.next()).done) {
+      this.values.push(genNext.value);
+      yield genNext.value;
+    }
+    this.done = true;
+  }
+}
+
+class Enumerable {
+  constructor(sequence) {
+    this.sequence = new ReplaySubject(sequence ?? functions.empty());
+  }
+
+  *[Symbol.iterator]() {
+    return this.sequence;
+  }
+
+  tryGetNonEnumeratedCount() {
+    return this.sequence.done ? this.sequence.values.length : undefined;
+  }
+
+  static from(sequence) {
+    return new Enumerable(sequence);
+  }
+
+  static empty() {
+    return new Enumerable();
+  }
+
+  static range(start, count) {
+    return new Enumerable(functions.range(start, count));
+  }
+
+  static repeat(value, count) {
+    return new Enumerable(functions.repeat(value, count));
+  }
+}
+
+for (const name of valueFunctions) {
+  Enumerable.prototype[name] = function (...args) {
+    return functions[name](this.sequence, ...args);
+  };
+}
+
+for (const [name, fn] of Object.entries(functions)) {
+  if (!Enumerable[name] && !Enumerable.prototype[name])
+    Enumerable.prototype[name] = function (...args) {
+      return new Enumerable(fn(this.sequence, ...args));
+    };
+}
+
+export { Enumerable as jinq };
