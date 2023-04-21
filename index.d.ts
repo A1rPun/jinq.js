@@ -1,68 +1,98 @@
-// TODO: Fix any's with generics
-declare class Enumerable {
-  constructor(iterator: Iterable<any>);
-  aggregate(seed: any, accumulator: (result: any, element: any, index: number) => any, resultSelector: (element: any) => any): any;
-  all(predicate: (element: any) => boolean): boolean;
-  any(predicate: (element: any) => boolean): boolean;
-  append(...elements: any): Enumerable;
-  asEnumerable(): Enumerable;
-  average(selector: (element: any) => number): any;
-  chunk(size: number): Enumerable;
-  concat(list: Iterable<any>): Enumerable;
-  contains(element: any, comparer: (value: any, element: any) => any): boolean;
-  count(predicate: (element: any) => boolean): number;
-  defaultIfEmpty(defaultValue: any): Enumerable;
-  distinct(): Enumerable;
-  distinctBy(keySelector: (element: any) => string): Enumerable;
-  elementAt(atIndex: number): any;
-  elementAtOrDefault(atIndex: number): any;
-  static empty(): Enumerable;
-  except(list: Iterable<any>): Enumerable;
-  exceptBy(list: Iterable<any>, keySelector: (element: any) => string): Enumerable;
-  first(predicate: (element: any) => boolean): any;
-  firstOrDefault(predicate: (element: any) => boolean, defaultValue: any): any;
-  static from<T>(iterator: Iterable<T>): Enumerable;
-  groupBy(keySelector: (element: any) => string, elementSelector: (element: any) => any, resultSelector: (element: any) => any): Enumerable;
-  groupJoin(list: Iterable<any>, outerKeySelector: (element: any) => string, innerKeySelector: (element: any) => string, resultSelector: (element: any) => any): Enumerable;
-  intersect(list: Iterable<any>): Enumerable;
-  intersectBy(list: Iterable<any>, keySelector: (element: any) => string): Enumerable;
-  join(list: Iterable<any>, outerKeySelector: (element: any) => string, innerKeySelector: (element: any) => string, resultSelector: (element: any) => any): Enumerable;
-  last(predicate: (element: any) => boolean): any;
-  lastOrDefault(predicate: (element: any) => boolean, defaultValue: any): any;
-  longCount(predicate: (element: any) => boolean): BigInt;
+declare class Enumerable<TSource> {
+  constructor(iterator: Iterable<TSource>);
+  aggregate<TAccumulate, TResult>(
+    seed: TAccumulate,
+    accumulator: (result: TAccumulate, element: TSource, index: number) => TAccumulate,
+    resultSelector?: (element: TSource) => TResult
+  ): TResult;
+  all(predicate?: (element: TSource) => boolean): boolean;
+  any(predicate?: (element: TSource) => boolean): boolean;
+  append(...elements: TSource[]): Enumerable<TSource>;
+  asEnumerable(): Enumerable<TSource>;
+  average(selector: (element: TSource) => number): number;
+  chunk(size: number): Enumerable<TSource>;
+  concat(list: Iterable<TSource>): Enumerable<TSource>;
+  contains(element: TSource, comparer: (value: TSource, element: TSource) => boolean): boolean;
+  count(predicate?: (element: TSource) => boolean): number;
+  defaultIfEmpty(defaultValue: TSource): Enumerable<TSource>;
+  distinct(): Enumerable<TSource>;
+  distinctBy(keySelector: (element: TSource) => string): Enumerable<TSource>;
+  elementAt(atIndex: number): TSource;
+  elementAtOrDefault(atIndex: number): TSource;
+  static empty<TResult>(): Enumerable<TResult>;
+  except(list: Iterable<TSource>): Enumerable<TSource>;
+  exceptBy(list: Iterable<TSource>, keySelector: (element: TSource) => string): Enumerable<TSource>;
+  first(predicate?: (element: TSource) => boolean): TSource;
+  firstOrDefault(predicate?: (element: TSource) => boolean, defaultValue?: TSource): TSource;
+  static from<TResult>(iterator: Iterable<TResult>): Enumerable<TResult>;
+  groupBy<TElement, TResult>(
+    keySelector: (element: TSource) => string,
+    elementSelector: (element: TSource) => TElement,
+    resultSelector: (element: TElement) => TResult
+  ): Enumerable<TResult>;
+  groupJoin<TInner, TResult>(
+    list: Iterable<TInner>,
+    outerKeySelector: (element: TSource) => string,
+    innerKeySelector: (element: TInner) => string,
+    resultSelector: (element: TSource) => TResult
+  ): Enumerable<TResult>;
+  intersect(list: Iterable<TSource>): Enumerable<TSource>;
+  intersectBy(list: Iterable<TSource>, keySelector: (element: TSource) => string): Enumerable<TSource>;
+  join<TInner, TResult>(
+    list: Iterable<TInner>,
+    outerKeySelector: (element: TSource) => string,
+    innerKeySelector: (element: TInner) => string,
+    resultSelector: (element: TSource) => TResult
+  ): Enumerable<TResult>;
+  last(predicate?: (element: TSource) => boolean): TSource;
+  lastOrDefault(predicate?: (element: TSource) => boolean, defaultValue?: TSource): TSource;
+  longCount(predicate?: (element: TSource) => boolean): BigInt;
   max(): number;
-  maxBy(selector: (element: any) => number): number;
+  maxBy(selector: (element: TSource) => number): number;
   min(): number;
-  minBy(selector: (element: any) => number): number;
-  ofType(type: string): Enumerable;
-  orderBy(keySelector: (element: any) => string): Enumerable;
-  orderByDescending(keySelector: (element: any) => string): Enumerable;
-  prepend(...elements: any): Enumerable;
-  static range(start: number, count: number): Enumerable;
-  static repeat(start: number, count: number): Enumerable;
-  reverse(): Enumerable;
-  select(selector: (element: any) => any): Enumerable;
-  selectMany(collectionSelector: (element: any) => any, resultSelector: (element: any) => any): Enumerable;
-  sequenceEqual(list: Iterable<any>, comparer: (value: any, element: any) => any): boolean;
-  single(predicate: (element: any) => boolean): any;
-  singleOrDefault(predicate: (element: any) => boolean, defaultValue: any): any;
-  skip(skip: number): Enumerable;
-  skipLast(count: number): Enumerable;
-  skipWhile(predicate: (element: any) => boolean): Enumerable;
-  sum(selector: (element: any) => number): number;
-  take(take: number): Enumerable;
-  takeLast(count: number): Enumerable;
-  takeWhile(predicate: (element: any) => boolean): Enumerable;
-  toArray(): Array<any>;
-  toDictionary(keySelector: (element: any) => string, elementSelector: (element: any) => any): Map<string, any>;
-  toHashSet(): Set<any>;
-  toList(): Array<any>;
-  toLookup(keySelector: (element: any) => string, elementSelector: (element: any) => any): Map<string, any>;
+  minBy(selector: (element: TSource) => number): number;
+  ofType(type: string): Enumerable<TSource>;
+  orderBy(keySelector: (element: TSource) => string): Enumerable<TSource>;
+  orderByDescending(keySelector: (element: TSource) => string): Enumerable<TSource>;
+  prepend(...elements: TSource[]): Enumerable<TSource>;
+  static range(start: number, count: number): Enumerable<number>;
+  static repeat<TResult>(element: TResult, count: number): Enumerable<TResult>;
+  reverse(): Enumerable<TSource>;
+  select<TResult>(selector: (element: TSource) => TResult): Enumerable<TResult>;
+  selectMany<TCollection, TResult>(
+    collectionSelector: (element: TSource) => Iterable<TCollection>,
+    resultSelector: (element: TSource, collection: TCollection) => TResult
+  ): Enumerable<TResult>;
+  sequenceEqual(list: Iterable<TSource>, comparer: (value: TSource, element: TSource) => boolean): boolean;
+  single(predicate?: (element: TSource) => boolean): TSource;
+  singleOrDefault(predicate?: (element: TSource) => boolean, defaultValue?: TSource): TSource;
+  skip(skip: number): Enumerable<TSource>;
+  skipLast(count: number): Enumerable<TSource>;
+  skipWhile(predicate?: (element: TSource) => boolean): Enumerable<TSource>;
+  sum(selector: (element: TSource) => number): number;
+  take(take: number): Enumerable<TSource>;
+  takeLast(count: number): Enumerable<TSource>;
+  takeWhile(predicate?: (element: TSource) => boolean): Enumerable<TSource>;
+  toArray(): Array<TSource>;
+  toDictionary<TResult>(
+    keySelector: (element: TSource) => string,
+    elementSelector: (element: TSource) => TResult
+  ): Map<string, TResult>;
+  toHashSet(): Set<TSource>;
+  toList(): Array<TSource>;
+  toLookup<TResult>(
+    eySelector: (element: TSource) => string,
+    elementSelector: (element: TSource) => TResult
+  ): Map<string, TResult>;
   tryGetNonEnumeratedCount(): number | undefined;
-  union(list: Iterable<any>, comparer: (value: any, element: any) => any): Enumerable;
-  unionBy(list: Iterable<any>, keySelector: (element: any) => string, comparer: (value: any, element: any) => any): Enumerable;
-  where(predicate: (element: any) => boolean): Enumerable;
-  zip(list: Iterable<any>, zipFn: (a: any, b: any) => any): Enumerable;
+  union(list: Iterable<TSource>, comparer: (value: TSource, element: TSource) => boolean): Enumerable<TSource>;
+  unionBy(
+    list: Iterable<TSource>,
+    keySelector: (element: TSource) => string,
+    comparer: (value: TSource, element: TSource) => boolean
+  ): Enumerable<TSource>;
+  where(predicate?: (element: TSource) => boolean): Enumerable<TSource>;
+  zip<TSecond, TResult>(list: Iterable<TSecond>, zipFn: (a: TSource, b: TSecond) => TResult): Enumerable<TResult>;
 }
 
 export { Enumerable as jinq };
