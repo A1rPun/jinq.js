@@ -1,7 +1,7 @@
 export function aggregate(
   iterator,
-  accumulator,
   seed,
+  accumulator,
   resultSelector = (v) => v
 ) {
   let result = seed;
