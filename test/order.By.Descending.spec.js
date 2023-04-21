@@ -1,8 +1,15 @@
 ﻿import 'regenerator-runtime/runtime';
 import {
+  order,
   orderBy,
   orderByDescending,
 } from '../src/index.js';
+
+/* Order */
+test('orderBy on a list', () => {
+  const test = order([2, 1, 3, 5, 4]);
+  expect([...test]).toStrictEqual([1, 2, 3, 4, 5]);
+});
 
 /* OrderBy */
 test('orderBy on a list', () => {

@@ -68,7 +68,7 @@ bigRange.take(2).toList(); // [0, 1]
 
 - `EqualityComparer` is a function and not implemented on `distinct`, `except`, `groupBy`, `groupJoin`, `intersect`, `join`, `toHashSet`, `toLookup` & `union`
 - `except`, `intersect`, `groupJoin`, `join` iterates the passed list before producing values
-- `groupBy`, `reverse`, `skipLast`, `takeLast`, `orderBy` & `orderByDescending` iterates the iterator before producing values
+- `groupBy`, `reverse`, `skipLast`, `takeLast`, `order`, `orderBy` & `orderByDescending` iterates the iterator before producing values
 
 ### Enumerable methods
 
@@ -106,6 +106,7 @@ maxBy()|:white_check_mark:|
 min()|:white_check_mark:|
 minBy()|:white_check_mark:|
 ofType()||
+order()||doesn't return an IOrderedEnumerable
 orderBy()||doesn't return an IOrderedEnumerable
 orderByDescending()||doesn't return an IOrderedEnumerable
 prepend()||

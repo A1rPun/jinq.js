@@ -1,5 +1,4 @@
 declare class Enumerable<TSource> {
-  constructor(iterator: Iterable<TSource>);
   aggregate<TAccumulate, TResult>(
     seed: TAccumulate,
     accumulator: (result: TAccumulate, element: TSource, index: number) => TAccumulate,
@@ -52,6 +51,7 @@ declare class Enumerable<TSource> {
   min(): number;
   minBy(selector: (element: TSource) => number): number;
   ofType(type: string): Enumerable<TSource>;
+  order(): Enumerable<TSource>;
   orderBy(keySelector: (element: TSource) => string): Enumerable<TSource>;
   orderByDescending(keySelector: (element: TSource) => string): Enumerable<TSource>;
   prepend(...elements: TSource[]): Enumerable<TSource>;
