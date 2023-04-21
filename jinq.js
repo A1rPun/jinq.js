@@ -29,15 +29,20 @@ const valueFunctions = [
   'toLookup',
 ];
 
-const replaySequence = (sequence) => ({
-  values: [],
-  done: false,
+class ReplaySubject {
+  constructor(sequence) {
+    const isDone = Array.isArray(sequence);
+    this.values = isDone ? sequence : [];
+    this.done = isDone;
+    this.sequence = sequence;
+  }
+
   *[Symbol.iterator]() {
     yield* this.values;
 
     if (this.done) return;
 
-    let genList = functions.asEnumerable(sequence);
+    const genList = functions.asEnumerable(this.sequence);
     let genNext;
 
     while (!(genNext = genList.next()).done) {
@@ -45,12 +50,12 @@ const replaySequence = (sequence) => ({
       yield genNext.value;
     }
     this.done = true;
-  },
-});
+  }
+}
 
 class Enumerable {
   constructor(sequence) {
-    this.sequence = replaySequence(sequence ?? functions.empty());
+    this.sequence = new ReplaySubject(sequence ?? functions.empty());
   }
 
   *[Symbol.iterator]() {

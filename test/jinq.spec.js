@@ -48,9 +48,15 @@ test('jinq repeat twice in for of', () => {
   }
 });
 
-test('jinq state', () => {
+test('jinq state count before toList', () => {
   const test = jinq.range(1, 2);
   expect(test.count()).toBe(2);
+  expect(test.toList()).toStrictEqual([1, 2]);
+});
+
+test('jinq state first before toList', () => {
+  const test = jinq.from([1, 2]);
+  expect(test.first()).toBe(1);
   expect(test.toList()).toStrictEqual([1, 2]);
 });
 
