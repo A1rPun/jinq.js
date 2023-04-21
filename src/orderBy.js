@@ -1,6 +1,10 @@
 export function* orderBy(
   iterator,
-  sortFn = (a, b) => (a < b ? -1 : b < a ? 1 : 0)
+  keySelector = (v) => v
 ) {
-  yield* [...iterator].sort(sortFn);
+  yield* [...iterator].sort((a, b) => {
+    const aValue = keySelector(a);
+    const bValue = keySelector(b);
+    return aValue < bValue ? -1 : bValue < aValue ? 1 : 0;
+  });
 }

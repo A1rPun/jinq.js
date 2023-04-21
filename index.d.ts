@@ -34,8 +34,8 @@ declare class Enumerable {
   min(): number;
   minBy(selector: () => number): number;
   ofType(type: string): Enumerable;
-  orderBy(sortFn: () => any): Enumerable;
-  orderByDescending(sortFn: () => any): Enumerable;
+  orderBy(keySelector: () => string): Enumerable;
+  orderByDescending(keySelector: () => string): Enumerable;
   prepend(...elements: any): Enumerable;
   static range(start: number, count: number): Enumerable;
   static repeat(start: number, count: number): Enumerable;

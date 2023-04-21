@@ -17,7 +17,7 @@ test('orderBy on a list of objects', () => {
       { id: 1, name: 'foo' },
       { id: 2, name: 'bar' },
     ],
-    (a, b) => a.id - b.id
+    (x) => x.id
   );
   expect([...test]).toStrictEqual([
     { id: 1, name: 'foo' },
@@ -39,7 +39,7 @@ test('orderByDescending on a list of objects', () => {
       { id: 1, name: 'foo' },
       { id: 2, name: 'bar' },
     ],
-    (a, b) => b.id - a.id
+    (x) => x.id
   );
   expect([...test]).toStrictEqual([
     { id: 3, name: 'baz' },

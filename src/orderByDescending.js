@@ -1,8 +1,10 @@
-import { orderBy } from './orderBy.js';
-
 export function* orderByDescending(
   iterator,
-  sortFn = (a, b) => (a > b ? -1 : b > a ? 1 : 0)
+  keySelector = (v) => v
 ) {
-  yield* orderBy(iterator, sortFn);
+  yield* [...iterator].sort((a, b) => {
+    const aValue = keySelector(a);
+    const bValue = keySelector(b);
+    return aValue < bValue ? 1 : bValue < aValue ? -1 : 0;
+  });
 }
