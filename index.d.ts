@@ -10,7 +10,6 @@ declare class Enumerable {
   concat(list: Iterable<any>): Enumerable;
   contains(element: any, comparer: () => any): boolean;
   count(predicate: () => boolean): number;
-  longCount(predicate: () => boolean): number;
   defaultIfEmpty(defaultValue: any): Enumerable;
   distinct(): Enumerable;
   distinctBy(keySelector: () => string): Enumerable;
@@ -29,6 +28,7 @@ declare class Enumerable {
   join(list: Iterable<any>, outerKeySelector: () => string, innerKeySelector: () => string, resultSelector: () => any): Enumerable;
   last(predicate: () => boolean): any;
   lastOrDefault(predicate: () => boolean, defaultValue: any): any;
+  longCount(predicate: () => boolean): BigInt;
   max(): number;
   maxBy(selector: () => number): number;
   min(): number;
@@ -53,9 +53,9 @@ declare class Enumerable {
   takeLast(count: number): Enumerable;
   takeWhile(predicate: () => boolean): Enumerable;
   toArray(): Array<any>;
-  toList(): Array<any>;
   toDictionary(keySelector: () => string, elementSelector: () => any): Map<string, any>;
   toHashSet(): Set<any>;
+  toList(): Array<any>;
   toLookup(keySelector: () => string, elementSelector: () => any): Map<string, any>;
   tryGetNonEnumeratedCount(): number | undefined;
   union(list: Iterable<any>, comparer: () => any): Enumerable;

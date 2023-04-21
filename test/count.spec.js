@@ -21,7 +21,7 @@ test('count an empty list', () => {
   expect(test).toBe(0);
 });
 
-test('longCount is the same as count', () => {
+test('longCount returns a BigInt', () => {
   const test = longCount([0]);
-  expect(test).toBe(count([1]));
+  expect(test).toBe(1n);
 });
