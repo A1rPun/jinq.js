@@ -24,9 +24,9 @@ $ npm i github:A1rPun/jinq.js
 
 Package.json
 ```json
-  "dependencies": {
-    "jinq": "github:A1rPun/jinq.js"
-  }
+"dependencies": {
+  "jinq": "github:A1rPun/jinq.js"
+}
 ```
 
 ### Usage examples
@@ -147,8 +147,8 @@ toArray, toDictionary, toHashSet, toList, toLookup
 - every()
   - all
 - filter()
-  - where
   - except
+  - where
 - flatMap()
   - selectMany
 - includes()
@@ -163,10 +163,10 @@ toArray, toDictionary, toHashSet, toList, toLookup
   - append
 - reduce()
   - aggregate
-  - sum
-  - min
-  - max
   - average
+  - max
+  - min
+  - sum
 - reverse()
   - reverse
 - some()
