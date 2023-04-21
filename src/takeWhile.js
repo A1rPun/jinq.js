@@ -1,8 +1,8 @@
-export function* takeWhile(iterator, predicate = () => true) {
+export function* takeWhile(source, predicate = () => true) {
   let index = 0;
 
-  for (const value of iterator) {
-    if (predicate(value, index)) yield value;
+  for (const element of source) {
+    if (predicate(element, index)) yield element;
     else return;
     index++;
   }

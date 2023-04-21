@@ -1,5 +1,4 @@
-export function any(iterator, predicate = () => true) {
-  for (const value of iterator) if (predicate(value)) return true;
-
+export function any(source, predicate = () => true) {
+  for (const element of source) if (predicate(element)) return true;
   return false;
 }

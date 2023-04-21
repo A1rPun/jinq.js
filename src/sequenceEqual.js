@@ -1,18 +1,17 @@
 import { asEnumerable } from './asEnumerable.js';
 
-export function sequenceEqual(iterator, list, comparer = (a, b) => a === b) {
-  const iteratorList = asEnumerable(iterator);
+export function sequenceEqual(source, list, comparer = (a, b) => a === b) {
+  const sourceList = asEnumerable(source);
   const checkList = asEnumerable(list);
 
-  let iteratorNext = iteratorList.next();
+  let sourceNext = sourceList.next();
   let checkNext = checkList.next();
 
-  while (!iteratorNext.done || !checkNext.done) {
-    if (!comparer(iteratorNext.value, checkNext.value)) return false;
+  while (!sourceNext.done || !checkNext.done) {
+    if (!comparer(sourceNext.value, checkNext.value)) return false;
 
-    iteratorNext = iteratorList.next();
+    sourceNext = sourceList.next();
     checkNext = checkList.next();
   }
-
   return true;
 }

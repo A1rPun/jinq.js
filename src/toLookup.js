@@ -1,17 +1,16 @@
 export function toLookup(
-  iterator,
+  source,
   keySelector = (v) => v,
   elementSelector = (v) => v
 ) {
   const lookup = new Map();
 
-  for (const value of iterator) {
-    const key = keySelector(value);
+  for (const element of source) {
+    const key = keySelector(element);
 
     if (!lookup.has(key)) lookup.set(key, []);
 
-    lookup.get(key).push(elementSelector(value));
+    lookup.get(key).push(elementSelector(element));
   }
-
   return lookup;
 }

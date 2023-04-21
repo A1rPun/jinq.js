@@ -1,21 +1,21 @@
-function getSingle(iterator, predicate = () => true, defaultValue) {
+function getSingle(source, predicate = () => true, defaultValue) {
   let single = defaultValue;
 
-  for (const value of iterator)
-    if (predicate(value))
+  for (const element of source)
+    if (predicate(element))
       if (single !== undefined) throw Error("More than one element satisfies the condition in predicate.");
-      else single = value;
+      else single = element;
 
   return single;
 }
 
-export function single(iterator, predicate) {
-  const single = getSingle(iterator, predicate);
+export function single(source, predicate) {
+  const single = getSingle(source, predicate);
 
   if (single === undefined) throw Error("The source sequence is empty.")
   return single;
 }
 
-export function singleOrDefault(iterator, predicate, defaultValue = null) {
-  return getSingle(iterator, predicate, defaultValue);
+export function singleOrDefault(source, predicate, defaultValue = null) {
+  return getSingle(source, predicate, defaultValue);
 }

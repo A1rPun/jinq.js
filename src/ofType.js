@@ -1,3 +1,3 @@
-export function* ofType(iterator, type) {
-  for (const value of iterator) if (typeof value === type) yield value;
+export function* ofType(source, type) {
+  for (const element of source) if (typeof element === type) yield element;
 }

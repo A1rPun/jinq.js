@@ -1,6 +1,6 @@
 import { concat } from './concat.js';
 import { distinct } from './distinct.js';
 
-export function* union(iterator, list, comparer) {
-  yield* distinct(concat(iterator, list), comparer);
+export function* union(source, list, comparer) {
+  yield* distinct(concat(source, list), comparer);
 }

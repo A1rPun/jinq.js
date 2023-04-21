@@ -1,3 +1,3 @@
-export function* reverse(iterator) {
-  yield* [...iterator].reverse();
+export function* reverse(source) {
+  yield* [...source].reverse();
 }

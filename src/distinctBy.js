@@ -1,12 +1,12 @@
-export function* distinctBy(iterator, keySelector = (v) => v) {
+export function* distinctBy(source, keySelector = (v) => v) {
   const lookup = new Set();
 
-  for (const value of iterator) {
-    const key = keySelector(value);
+  for (const element of source) {
+    const key = keySelector(element);
 
     if (lookup.has(key)) continue;
 
     lookup.add(key);
-    yield value;
+    yield element;
   }
 }

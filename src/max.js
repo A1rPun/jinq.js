@@ -1,3 +1,3 @@
-export function max(iterator) {
-  return Math.max(...iterator);
+export function max(source) {
+  return Math.max(...source);
 }

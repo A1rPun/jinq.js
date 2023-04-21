@@ -1,15 +1,14 @@
 export function toDictionary(
-  iterator,
+  source,
   keySelector = (v) => v,
   elementSelector = (v) => v
 ) {
   const dictionary = new Map();
 
-  for (const value of iterator) {
-    const key = keySelector(value);
+  for (const element of source) {
+    const key = keySelector(element);
 
-    if (!dictionary.has(key)) dictionary.set(key, elementSelector(value));
+    if (!dictionary.has(key)) dictionary.set(key, elementSelector(element));
   }
-
   return dictionary;
 }

@@ -1,8 +1,8 @@
-export function* skip(iterator, skip = 0) {
+export function* skip(source, skip = 0) {
   let index = 0;
 
-  for (const value of iterator) {
-    if (index >= skip) yield value;
+  for (const element of source) {
+    if (index >= skip) yield element;
     index++;
   }
 }

@@ -1,5 +1,5 @@
-export function longCount(iterator, predicate = () => true) {
+export function longCount(source, predicate = () => true) {
   let count = 0n;
-  for (const value of iterator) if (predicate(value)) count += 1n;
+  for (const element of source) if (predicate(element)) count += 1n;
   return count;
 }

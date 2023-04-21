@@ -1,13 +1,13 @@
 export function* selectMany(
-  iterator,
+  source,
   collectionSelector = (v) => v,
   resultSelector = (_, v) => v
 ) {
   let index = 0;
-  for (const value of iterator) {
-    const list = collectionSelector(value, index);
+  for (const element of source) {
+    const list = collectionSelector(element, index);
     index++;
 
-    for (const element of list) yield resultSelector(value, element);
+    for (const collection of list) yield resultSelector(element, collection);
   }
 }

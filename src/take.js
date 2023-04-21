@@ -1,10 +1,10 @@
-export function* take(iterator, take = 0) {
+export function* take(source, take = 0) {
   if (take < 1) return;
 
   let index = 0;
 
-  for (const value of iterator) {
-    yield value;
+  for (const element of source) {
+    yield element;
     index++;
     if (index >= take) return;
   }

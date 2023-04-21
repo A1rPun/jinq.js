@@ -1,4 +1,4 @@
-export function* prepend(iterator, ...elements) {
+export function* prepend(source, ...elements) {
   yield* elements;
-  yield* iterator;
+  yield* source;
 }

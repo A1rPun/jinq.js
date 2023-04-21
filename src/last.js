@@ -1,9 +1,9 @@
-export function last(iterator, predicate = () => true) {
+export function last(source, predicate = () => true) {
   let last = undefined;
-  for (const value of iterator) if (predicate(value)) last = value;
+  for (const element of source) if (predicate(element)) last = element;
   return last;
 }
 
-export function lastOrDefault(iterator, predicate, defaultValue = null) {
-  return last(iterator, predicate) ?? defaultValue;
+export function lastOrDefault(source, predicate, defaultValue = null) {
+  return last(source, predicate) ?? defaultValue;
 }

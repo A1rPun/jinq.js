@@ -1,15 +1,15 @@
 import { asEnumerable } from './asEnumerable.js';
 
-export function* zip(iterator, list, zipFn = (a, b) => [a, b]) {
-  const iteratorList = asEnumerable(iterator);
+export function* zip(source, list, zipFn = (a, b) => [a, b]) {
+  const sourceList = asEnumerable(source);
   const checkList = asEnumerable(list);
 
-  let iteratorNext = iteratorList.next();
+  let sourceNext = sourceList.next();
   let checkNext = checkList.next();
 
-  while (!iteratorNext.done || !checkNext.done) {
-    yield zipFn(iteratorNext.value, checkNext.value);
-    iteratorNext = iteratorList.next();
+  while (!sourceNext.done || !checkNext.done) {
+    yield zipFn(sourceNext.value, checkNext.value);
+    sourceNext = sourceList.next();
     checkNext = checkList.next();
   }
 }

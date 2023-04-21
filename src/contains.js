@@ -1,5 +1,4 @@
-export function contains(iterator, element, comparer = (a, b) => a === b) {
-  for (const value of iterator) if (comparer(value, element)) return true;
-
+export function contains(source, value, comparer = (a, b) => a === b) {
+  for (const element of source) if (comparer(value, element)) return true;
   return false;
 }

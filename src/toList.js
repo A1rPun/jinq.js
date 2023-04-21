@@ -1,3 +1,3 @@
-export function toList(iterator) {
-  return [...iterator];
+export function toList(source) {
+  return [...source];
 }

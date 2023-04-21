@@ -1,10 +1,10 @@
-export function* distinct(iterator) {
+export function* distinct(source) {
   const lookup = new Set();
 
-  for (const value of iterator) {
-    if (lookup.has(value)) continue;
+  for (const element of source) {
+    if (lookup.has(element)) continue;
 
-    lookup.add(value);
-    yield value;
+    lookup.add(element);
+    yield element;
   }
 }

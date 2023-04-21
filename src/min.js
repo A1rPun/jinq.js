@@ -1,3 +1,3 @@
-export function min(iterator) {
-  return Math.min(...iterator);
+export function min(source) {
+  return Math.min(...source);
 }

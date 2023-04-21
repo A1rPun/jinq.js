@@ -1,8 +1,8 @@
-export function* defaultIfEmpty(iterator, defaultValue) {
+export function* defaultIfEmpty(source, defaultValue) {
   let index = 0;
 
-  for (const value of iterator) {
-    yield value;
+  for (const element of source) {
+    yield element;
     index++;
   }
   if (!index) yield defaultValue;

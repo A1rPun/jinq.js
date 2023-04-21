@@ -1,8 +1,8 @@
 export function* orderBy(
-  iterator,
+  source,
   keySelector = (v) => v
 ) {
-  yield* [...iterator].sort((a, b) => {
+  yield* [...source].sort((a, b) => {
     const aValue = keySelector(a);
     const bValue = keySelector(b);
     return aValue < bValue ? -1 : bValue < aValue ? 1 : 0;

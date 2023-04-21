@@ -1,11 +1,11 @@
-export function elementAt(iterator, atIndex) {
+export function elementAt(source, atIndex) {
   let index = 0;
 
-  for (const value of iterator)
-    if (atIndex === index) return value;
+  for (const element of source)
+    if (atIndex === index) return element;
     else index++;
 }
 
-export function elementAtOrDefault(iterator, atIndex) {
-  return elementAt(iterator, atIndex) ?? null;
+export function elementAtOrDefault(source, atIndex) {
+  return elementAt(source, atIndex) ?? null;
 }

@@ -1,7 +1,7 @@
-export function* select(iterator, selector = (v) => v) {
+export function* select(source, selector = (v) => v) {
   let index = 0;
-  for (const value of iterator) {
-    yield selector(value, index);
+  for (const element of source) {
+    yield selector(element, index);
     index++;
   }
 }

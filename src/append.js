@@ -1,4 +1,4 @@
-export function* append(iterator, ...elements) {
-  yield* iterator;
+export function* append(source, ...elements) {
+  yield* source;
   yield* elements;
 }

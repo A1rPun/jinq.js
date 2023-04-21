@@ -1,7 +1,7 @@
-export function first(iterator, predicate = () => true) {
-  for (const value of iterator) if (predicate(value)) return value;
+export function first(source, predicate = () => true) {
+  for (const element of source) if (predicate(element)) return value;
 }
 
-export function firstOrDefault(iterator, predicate, defaultValue = null) {
-  return first(iterator, predicate) ?? defaultValue;
+export function firstOrDefault(source, predicate, defaultValue = null) {
+  return first(source, predicate) ?? defaultValue;
 }

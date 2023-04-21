@@ -1,4 +1,4 @@
-export function* concat(iterator, list) {
-  yield* iterator;
+export function* concat(source, list) {
+  yield* source;
   yield* list;
 }

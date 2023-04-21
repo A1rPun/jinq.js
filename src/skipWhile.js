@@ -1,11 +1,11 @@
-export function* skipWhile(iterator, predicate = () => true) {
+export function* skipWhile(source, predicate = () => true) {
   let index = 0;
   let returnAll = false;
 
-  for (const value of iterator) {
-    if (returnAll || !predicate(value, index)) {
+  for (const element of source) {
+    if (returnAll || !predicate(element, index)) {
       returnAll = true;
-      yield value;
+      yield element;
     }
     index++;
   }
