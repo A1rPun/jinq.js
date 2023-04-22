@@ -9,6 +9,7 @@ declare class Enumerable<TSource> {
   append(...elements: TSource[]): Enumerable<TSource>;
   asEnumerable(): Enumerable<TSource>;
   average(selector: (element: TSource) => number): number;
+  cast(type: any): Enumerable<any>;
   chunk(size: number): Enumerable<TSource>;
   concat(list: Iterable<TSource>): Enumerable<TSource>;
   contains(element: TSource, comparer: (value: TSource, element: TSource) => boolean): boolean;

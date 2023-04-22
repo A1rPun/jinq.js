@@ -4,6 +4,7 @@ export { any } from './any.js';
 export { append } from './append.js';
 export { asEnumerable } from './asEnumerable.js';
 export { average } from './average.js';
+export { cast } from './cast.js';
 export { chunk } from './chunk.js';
 export { concat } from './concat.js';
 export { contains } from './contains.js';

@@ -80,6 +80,7 @@ any()|:white_check_mark:|
 append()||
 asEnumerable()||
 average()|:white_check_mark:|
+cast()||accepts a type as parameter e.g. `String`, `Number` or `Boolean`
 chunk()||
 concat()||
 contains()|:white_check_mark:|
