@@ -7,11 +7,9 @@
   "types": "index.d.ts",
   "files": [
     "index.js",
-    "index.d.ts"
+    "index.d.ts",
+    "src"
   ],
-  "directories": {
-    "src:": "./src"
-  },
   "scripts": {
     "build": "",
     "test": "jest",
