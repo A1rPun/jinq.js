@@ -12,7 +12,7 @@ declare class Enumerable<TSource> {
   cast<TResult>(selector: (element: TSource) => TResult): Enumerable<TResult>;
   chunk(size: number): Enumerable<TSource>;
   concat(list: Iterable<TSource>): Enumerable<TSource>;
-  contains(element: TSource, comparer?: (value: TSource, element: TSource) => boolean): boolean;
+  contains(element: TSource): boolean;
   count(predicate?: (element: TSource) => boolean): number;
   defaultIfEmpty(defaultValue: TSource): Enumerable<TSource>;
   distinct(): Enumerable<TSource>;
@@ -64,7 +64,7 @@ declare class Enumerable<TSource> {
     collectionSelector: (element: TSource) => Iterable<TCollection>,
     resultSelector?: (element: TSource, collection: TCollection) => TResult
   ): Enumerable<TResult>;
-  sequenceEqual(list: Iterable<TSource>, comparer?: (value: TSource, element: TSource) => boolean): boolean;
+  sequenceEqual(list: Iterable<TSource>): boolean;
   single(predicate?: (element: TSource) => boolean): TSource;
   singleOrDefault(predicate?: (element: TSource) => boolean, defaultValue?: TSource): TSource | undefined;
   skip(skip: number): Enumerable<TSource>;
@@ -86,11 +86,10 @@ declare class Enumerable<TSource> {
     elementSelector?: (element: TSource) => TResult
   ): Map<string, TResult>;
   tryGetNonEnumeratedCount(): number | undefined;
-  union(list: Iterable<TSource>, comparer?: (value: TSource, element: TSource) => boolean): Enumerable<TSource>;
+  union(list: Iterable<TSource>): Enumerable<TSource>;
   unionBy(
     list: Iterable<TSource>,
-    keySelector?: (element: TSource) => string,
-    comparer?: (value: TSource, element: TSource) => boolean
+    keySelector?: (element: TSource) => string
   ): Enumerable<TSource>;
   where(predicate?: (element: TSource) => boolean): Enumerable<TSource>;
   zip<TSecond, TResult>(list: Iterable<TSecond>, zipFn?: (a: TSource, b: TSecond) => TResult): Enumerable<TResult>;
