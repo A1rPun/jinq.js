@@ -9,6 +9,9 @@
     "index.js",
     "index.d.ts"
   ],
+  "directories": {
+    "src:": "./src"
+  },
   "scripts": {
     "build": "",
     "test": "jest",
