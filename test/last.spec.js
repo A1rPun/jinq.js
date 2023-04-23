@@ -18,7 +18,7 @@ test('last value of an empty list', () => {
 
 test('!lastOrDefault on a list', () => {
   const test = lastOrDefault(range(1, 3), (x) => x > 3);
-  expect(test).toBe(null);
+  expect(test).toBe(undefined);
 });
 
 test('lastOrDefault on a list with default', () => {

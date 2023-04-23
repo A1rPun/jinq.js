@@ -4,6 +4,6 @@ export function last(source, predicate = () => true) {
   return last;
 }
 
-export function lastOrDefault(source, predicate, defaultValue = null) {
+export function lastOrDefault(source, predicate, defaultValue) {
   return last(source, predicate) ?? defaultValue;
 }

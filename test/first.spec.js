@@ -18,7 +18,7 @@ test('first value of an empty list', () => {
 
 test('!firstOrDefault on a list', () => {
   const test = firstOrDefault(range(1, 3), (x) => x > 3);
-  expect(test).toBe(null);
+  expect(test).toBe(undefined);
 });
 
 test('firstOrDefault on a list with default', () => {

@@ -18,5 +18,5 @@ test('!elementAt on empty list', () => {
 
 test('!elementAtOrDefault on a list', () => {
   const test = elementAtOrDefault(range(1, 3), 5);
-  expect(test).toBe(null);
+  expect(test).toBe(undefined);
 });

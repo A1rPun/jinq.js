@@ -1,5 +1,5 @@
 function getSingle(source, predicate = () => true, defaultValue) {
-  let single = defaultValue;
+  let single = undefined;
 
   for (const element of source)
     if (predicate(element))
@@ -16,6 +16,6 @@ export function single(source, predicate) {
   return single;
 }
 
-export function singleOrDefault(source, predicate, defaultValue = null) {
-  return getSingle(source, predicate, defaultValue);
+export function singleOrDefault(source, predicate, defaultValue) {
+  return getSingle(source, predicate) ?? defaultValue;
 }

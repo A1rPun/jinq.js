@@ -38,10 +38,15 @@ test('single on an array with undefined values', () => {
 
 test('!singleOrDefault on a list', () => {
   const test = singleOrDefault(range(1, 3), (x) => x > 3);
-  expect(test).toBe(null);
+  expect(test).toBe(undefined);
 });
 
 test('singleOrDefault on a list with default', () => {
   const test = singleOrDefault(range(1, 3), (x) => x > 3, 1);
   expect(test).toBe(1);
+});
+
+test('!singleOrDefault with single result and default', () => {
+  const test = singleOrDefault(range(1, 3), (x) => x === 3, 1);
+  expect(test).toBe(3);
 });

@@ -6,6 +6,6 @@ export function elementAt(source, atIndex) {
     else index++;
 }
 
-export function elementAtOrDefault(source, atIndex) {
-  return elementAt(source, atIndex) ?? null;
+export function elementAtOrDefault(source, atIndex, defaultValue) {
+  return elementAt(source, atIndex) ?? defaultValue;
 }
