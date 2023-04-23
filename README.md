@@ -1,6 +1,6 @@
 ﻿# jinq.js
 
-JavaScript Integrated Query with Deferred Execution.
+JavaScript Integrated Query for generators and arrays.
 Inspired by [LINQ](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable)
 
 For vanillajs and nodejs
@@ -66,7 +66,7 @@ bigRange.take(2).toList(); // [0, 1]
 
 ### How jinq deviates from LINQ
 
-- `EqualityComparer` is a function and not implemented on `distinct`, `except`, `groupBy`, `groupJoin`, `intersect`, `join`, `toHashSet`, `toLookup` & `union`
+- `EqualityComparer` is not implemented
 - `except`, `intersect`, `groupJoin`, `join` iterates the passed list before producing values
 - `groupBy`, `reverse`, `skipLast`, `takeLast`, `order`, `orderBy` & `orderByDescending` iterates the iterator before producing values
 
