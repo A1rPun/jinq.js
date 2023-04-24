@@ -5,7 +5,7 @@ export function* groupJoin(
   list,
   outerKeySelector,
   innerKeySelector,
-  resultSelector = (a, b) => ({ ...a, ...b })
+  resultSelector = (a, b) => [ a, b ]
 ) {
   const sourceLookup = new Set();
   const listLookup = toLookup(list, innerKeySelector);

@@ -1,3 +1,4 @@
 export function* reverse(source) {
-  yield* [...source].reverse();
+  const list = [...source];
+  for (let i = list.length; i--;) yield list[i];
 }
