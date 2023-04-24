@@ -52,7 +52,7 @@ test('!groupJoin not found', () => {
     (x) => x.id,
     (x) => x.test
   );
-  expect([...test]).toStrictEqual([{ "0": { test: 1 }, id: 1 }]);
+  expect([...test]).toStrictEqual([[{ id: 1 }, [{ test: 1 }]]]);
 });
 
 /* Join */

@@ -39,7 +39,7 @@ test('groupBy on array with grouping and select', () => {
   ]);
 });
 
-// test('groupBy on big list', () => {
-//   const test = groupBy(range(0, Number.MAX_SAFE_INTEGER));
-//   expect(test.next().value).toBe(0);
-// });
+test.skip('groupBy on big list', () => {
+  const test = groupBy(range(0, Number.MAX_SAFE_INTEGER));
+  expect(test.next().value).toBe({ key: 0, value: [0] });
+});

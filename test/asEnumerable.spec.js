@@ -26,3 +26,8 @@ test('asEnumerable of a list', () => {
   expect(next.value).toBe(undefined);
   expect(next.done).toBe(true);
 });
+
+test('asEnumerable of a big list', () => {
+  const test = asEnumerable(range(0, Number.MAX_SAFE_INTEGER));
+  expect(test.next().value).toBe(0);
+});

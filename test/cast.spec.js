@@ -15,3 +15,8 @@ test('cast a list of numbers to boolean', () => {
   const test = cast(range(0, 2), Boolean);
   expect([...test]).toStrictEqual([false, true, true]);
 });
+
+test('cast a big list', () => {
+  const test = cast(range(0, Number.MAX_SAFE_INTEGER), String);
+  expect(test.next().value).toBe('0');
+});
