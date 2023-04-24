@@ -67,8 +67,6 @@ bigRange.take(2).toList(); // [0, 1]
 ### How jinq deviates from LINQ
 
 - `EqualityComparer` is not implemented
-- `except`, `intersect`, `groupJoin`, `join` iterates the passed list before producing values
-- `groupBy`, `reverse`, `skipLast`, `takeLast`, `order`, `orderBy` & `orderByDescending` iterates the iterator before producing values
 
 ### Enumerable methods
 

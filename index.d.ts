@@ -70,7 +70,7 @@ declare class Enumerable<TSource> {
   skip(skip: number): Enumerable<TSource>;
   skipLast(count: number): Enumerable<TSource>;
   skipWhile(predicate?: (element: TSource) => boolean): Enumerable<TSource>;
-  sum(selector: (element: TSource) => number): number;
+  sum<TResult>(resultSelector?: (element: TSource) => TResult): TResult | number;
   take(take: number): Enumerable<TSource>;
   takeLast(count: number): Enumerable<TSource>;
   takeWhile(predicate?: (element: TSource) => boolean): Enumerable<TSource>;
