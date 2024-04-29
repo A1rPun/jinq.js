@@ -23,13 +23,6 @@ For now use:
 $ npm i github:A1rPun/jinq.js
 ```
 
-Package.json
-```json
-"dependencies": {
-  "jinq": "github:A1rPun/jinq.js"
-}
-```
-
 ### Usage examples
 
 Use `jinq.from` to construct an Enumerable from an iterator or an array.
@@ -70,68 +63,68 @@ bigRange.take(2).toList(); // [0, 1]
 
 ### Enumerable methods
 
-Method|Returns value|Description
---|--|--
-aggregate()|:white_check_mark:|
-all()|:white_check_mark:|
-any()|:white_check_mark:|
-append()||
-asEnumerable()||
-average()|:white_check_mark:|
-cast()||accepts a type as parameter e.g. `String`, `Number` or `Boolean`
-chunk()||
-concat()||
-contains()|:white_check_mark:|
-count()|:white_check_mark:|
-defaultIfEmpty()||
-distinct()||
-distinctBy()||
-elementAt()|:white_check_mark:|
-elementAtOrDefault()|:white_check_mark:|
-except()||
-exceptBy()||
-first()|:white_check_mark:|
-firstOrDefault()|:white_check_mark:|
-groupBy()||
-groupJoin()||
-intersect()||
-intersectBy()||
-join()||
-last()|:white_check_mark:|
-lastOrDefault()|:white_check_mark:|
-longCount()|:white_check_mark:|
-max()|:white_check_mark:|
-maxBy()|:white_check_mark:|
-min()|:white_check_mark:|
-minBy()|:white_check_mark:|
-ofType()||
-order()||doesn't return an IOrderedEnumerable
-orderBy()||doesn't return an IOrderedEnumerable
-orderByDescending()||doesn't return an IOrderedEnumerable
-prepend()||
-reverse()||
-select()||
-selectMany()||
-sequenceEqual()|:white_check_mark:|
-single()|:white_check_mark:|
-singleOrDefault()||
-skip()||
-skipLast()||
-skipWhile()||
-sum()|:white_check_mark:|
-take()||
-takeLast()||
-takeWhile()||
-toArray()|:white_check_mark:|
-toDictionary()|:white_check_mark:|
-toHashSet()|:white_check_mark:|
-toList()|:white_check_mark:|same as toArray()
-toLookup()|:white_check_mark:|
-tryGetNonEnumeratedCount()|:white_check_mark:| returns the count if enumerated, otherwise undefined
-union()||
-unionBy()||
-where()||
-zip()||
+Method|Returns value|Description|JS alternative
+--|--|--|--
+aggregate()|:white_check_mark:||Array.reduce()
+all()|:white_check_mark:||Array.every()
+any()|:white_check_mark:||Array.some()
+append()|||Array.push()
+asEnumerable()|||yield*
+average()|:white_check_mark:||Array.reduce()
+cast()||accepts a type as parameter e.g. `String`, `Number` or `Boolean`|Array.map()
+chunk()|||-
+concat()|||Array.concat()
+contains()|:white_check_mark:||Array.includes()
+count()|:white_check_mark:||Array.length
+defaultIfEmpty()|||-
+distinct()|||-
+distinctBy()|||-
+elementAt()|:white_check_mark:||Array.at()
+elementAtOrDefault()|:white_check_mark:||Array.at() ?? defaultValue
+except()|||Array.filter()
+exceptBy()|||Array.filter()
+first()|:white_check_mark:||array[0]
+firstOrDefault()|:white_check_mark:||array[0] ?? defaultValue
+groupBy()|||-
+groupJoin()|||-
+intersect()|||-
+intersectBy()|||-
+join()|||-
+last()|:white_check_mark:||array[array.length - 1] ?? throw Error()
+lastOrDefault()|:white_check_mark:||array[array.length - 1] ?? defaultValue
+longCount()|:white_check_mark:||Array.length
+max()|:white_check_mark:||Array.reduce()
+maxBy()|:white_check_mark:||Array.reduce()
+min()|:white_check_mark:||Array.reduce()
+minBy()|:white_check_mark:||Array.reduce()
+ofType()|||Array.filter()
+order()||doesn't return an IOrderedEnumerable|Array.sort()
+orderBy()||doesn't return an IOrderedEnumerable|Array.sort()
+orderByDescending()||doesn't return an IOrderedEnumerable|Array.sort()
+prepend()|||Array.unshift()
+reverse()|||Array.reverse()
+select()|||Array.map()
+selectMany()|||Array.flatMap()
+sequenceEqual()|:white_check_mark:||Array.all()
+single()|:white_check_mark:|| array[index] ?? throw Error()
+singleOrDefault()|||array[index] ?? defaultValue
+skip()|||Array.slice()
+skipLast()|||Array.slice()
+skipWhile()|||Array.slice()
+sum()|:white_check_mark:||Array.reduce()
+take()|||Array.slice()
+takeLast()|||Array.slice()
+takeWhile()|||Array.slice()
+toArray()|:white_check_mark:||[...array]
+toDictionary()|:white_check_mark:||new Map(array)
+toHashSet()|:white_check_mark:||new Set(array)
+toList()|:white_check_mark:|same as toArray()|[...array]
+toLookup()|:white_check_mark:||new Map(array)
+tryGetNonEnumeratedCount()|:white_check_mark:| returns the count if enumerated, otherwise undefined|Array.length
+union()|||-
+unionBy()|||-
+where()|||Array.filter()
+zip()|||-
 
 #### Static methods
 
@@ -139,42 +132,3 @@ zip()||
 - jinq.from()
 - jinq.range()
 - jinq.repeat()
-
-#### Javascript alternatives
-
-- Array.at()
-  - elementAt
-- Array.concat()
-  - concat
-- Array.every()
-  - all
-- Array.filter()
-  - except
-  - where
-- Array.flatMap()
-  - selectMany
-- Array.includes()
-  - contains
-- Array.length
-  - count
-  - longCount
-  - tryGetNonEnumeratedCount
-- Array.map()
-  - select
-- Array.push()
-  - append
-- Array.reduce()
-  - aggregate
-  - average
-  - max
-  - min
-  - sum
-- Array.reverse()
-  - reverse
-- Array.some()
-  - any
-- Array.sort()
-  - orderBy
-  - orderByDescending
-- Array.unshift()
-  - prepend
