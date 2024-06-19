@@ -11,9 +11,32 @@ test('elementAt on an array', () => {
   expect(test).toBe(2);
 });
 
-test('!elementAt on empty list', () => {
-  const test = elementAt([], Number.MAX_SAFE_INTEGER);
-  expect(test).toBe(undefined);
+test('invalid index on an array', () => {
+  expect(() => {
+    elementAt([3, 2, 1], -1);
+  }).toThrow();
+});
+
+test('!elementAt on empty array', () => {
+  expect(() => {
+    elementAt([], Number.MAX_SAFE_INTEGER);
+  }).toThrow();
+});
+
+test('!elementAt on a list', () => {
+  expect(() => {
+    elementAt(range(1, 3), Number.MAX_SAFE_INTEGER);
+  }).toThrow();
+});
+
+test('elementAtOrDefault on an array with default', () => {
+  const test = elementAtOrDefault([3, 2, 1], -1, 4);
+  expect(test).toBe(4);
+});
+
+test('elementAtOrDefault on a list with default', () => {
+  const test = elementAtOrDefault(range(1, 3), Number.MAX_SAFE_INTEGER, 4);
+  expect(test).toBe(4);
 });
 
 test('!elementAtOrDefault on a list', () => {

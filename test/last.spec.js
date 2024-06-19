@@ -11,9 +11,16 @@ test('last with predicate', () => {
   expect(test).toBe(2);
 });
 
-test('last value of an empty list', () => {
-  const test = last([]);
-  expect(test).toBe(undefined);
+test('!last value of an empty list', () => {
+  expect(() => {
+    last([]);
+  }).toThrow();
+});
+
+test('!last with faulty predicate', () => {
+  expect(() => {
+    last(range(1, 3), (x) => x < -1);
+  }).toThrow();
 });
 
 test('!lastOrDefault on a list', () => {

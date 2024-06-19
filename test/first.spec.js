@@ -11,9 +11,16 @@ test('first with predicate', () => {
   expect(test).toBe(4);
 });
 
-test('first value of an empty list', () => {
-  const test = first([]);
-  expect(test).toBe(undefined);
+test('!first value of an empty list', () => {
+  expect(() => {
+    first([]);
+  }).toThrow();
+});
+
+test('!first with faulty predicate', () => {
+  expect(() => {
+    first(range(1, 3), (x) => x < -1);
+  }).toThrow();
 });
 
 test('!firstOrDefault on a list', () => {

@@ -69,7 +69,7 @@ aggregate()|:white_check_mark:||Array.reduce()
 all()|:white_check_mark:||Array.every()
 any()|:white_check_mark:||Array.some()
 append()|||Array.push()
-asEnumerable()|||yield*
+asEnumerable()|||yield* Iterator
 average()|:white_check_mark:||Array.reduce()
 cast()||accepts a type as parameter e.g. `String`, `Number` or `Boolean`|Array.map()
 chunk()|||-
@@ -79,19 +79,19 @@ count()|:white_check_mark:||Array.length
 defaultIfEmpty()|||-
 distinct()|||-
 distinctBy()|||-
-elementAt()|:white_check_mark:||Array.at()
+elementAt()|:white_check_mark:|can throw an error|Array.at() ?? throw new Error()
 elementAtOrDefault()|:white_check_mark:||Array.at() ?? defaultValue
 except()|||Array.filter()
 exceptBy()|||Array.filter()
-first()|:white_check_mark:||array[0]
-firstOrDefault()|:white_check_mark:||array[0] ?? defaultValue
+first()|:white_check_mark:|can throw an error|Array.at(0) ?? throw new Error()
+firstOrDefault()|:white_check_mark:||Array.at(0) ?? defaultValue
 groupBy()|||-
 groupJoin()|||-
 intersect()|||-
 intersectBy()|||-
 join()|||-
-last()|:white_check_mark:||array[array.length - 1] ?? throw Error()
-lastOrDefault()|:white_check_mark:||array[array.length - 1] ?? defaultValue
+last()|:white_check_mark:|can throw an error|Array.at(Array.length - 1) ?? throw new Error()
+lastOrDefault()|:white_check_mark:||Array.at(Array.length - 1) ?? defaultValue
 longCount()|:white_check_mark:||Array.length
 max()|:white_check_mark:||Array.reduce()
 maxBy()|:white_check_mark:||Array.reduce()
@@ -106,8 +106,8 @@ reverse()|||Array.reverse()
 select()|||Array.map()
 selectMany()|||Array.flatMap()
 sequenceEqual()|:white_check_mark:||Array.all()
-single()|:white_check_mark:|| array[index] ?? throw Error()
-singleOrDefault()|||array[index] ?? defaultValue
+single()|:white_check_mark:|can throw an error| -
+singleOrDefault()|||Array.at(index) ?? defaultValue
 skip()|||Array.slice()
 skipLast()|||Array.slice()
 skipWhile()|||Array.slice()
@@ -115,11 +115,11 @@ sum()|:white_check_mark:||Array.reduce()
 take()|||Array.slice()
 takeLast()|||Array.slice()
 takeWhile()|||Array.slice()
-toArray()|:white_check_mark:||[...array]
-toDictionary()|:white_check_mark:||new Map(array)
-toHashSet()|:white_check_mark:||new Set(array)
-toList()|:white_check_mark:|same as toArray()|[...array]
-toLookup()|:white_check_mark:||new Map(array)
+toArray()|:white_check_mark:||[...Iterator]
+toDictionary()|:white_check_mark:||new Map(Array)
+toHashSet()|:white_check_mark:||new Set(Array)
+toList()|:white_check_mark:|same as toArray()|[...Iterator]
+toLookup()|:white_check_mark:||new Map(Array)
 tryGetNonEnumeratedCount()|:white_check_mark:| returns the count if enumerated, otherwise undefined|Array.length
 union()|||-
 unionBy()|||-
