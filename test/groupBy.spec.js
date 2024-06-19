@@ -38,8 +38,3 @@ test('groupBy on array with grouping and select', () => {
     { key: 0, value: [200, 400, 600] },
   ]);
 });
-
-test.skip('groupBy on big list', () => {
-  const test = groupBy(range(0, Number.MAX_SAFE_INTEGER));
-  expect(test.next().value).toBe({ key: 0, value: [0] });
-});
