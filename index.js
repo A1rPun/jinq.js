@@ -31,16 +31,15 @@ const valueFunctions = [
 
 class ReplaySubject {
   constructor(iterator) {
-    const isDone = Array.isArray(iterator);
-    this.values = isDone ? iterator : [];
-    this.done = isDone;
+    this.done = false;
+    this.values = Array.isArray(iterator) ? iterator : [];
     this.sequence = iterator;
   }
 
   *[Symbol.iterator]() {
     yield* this.values;
 
-    if (this.done) return;
+    if (Array.isArray(this.sequence)) return;
 
     const genList = functions.asEnumerable(this.sequence);
     let genNext;
