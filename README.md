@@ -12,15 +12,19 @@ For vanillajs and nodejs
 - [How jinq deviates from LINQ](#how-jinq-deviates-from-linq)
 - [Enumerable methods](#enumerable-methods)
   - [Static methods](#static-methods)
-  - [Methods that return a value](#methods-that-return-a-value)
-  - [Javascript alternatives](#javascript-alternatives)
 
 ### Installation
 
-For now use:
+For now™ use:
 
-```
+```shell
 $ npm i github:A1rPun/jinq.js
+```
+
+And then import it like:
+
+```js
+import { jinq } from 'jinq';
 ```
 
 ### Usage examples
@@ -28,8 +32,6 @@ $ npm i github:A1rPun/jinq.js
 Use `jinq.from` to construct an Enumerable from an iterator or an array.
 
 ```js
-// import { jinq } from 'jinq';
-
 function* generator() {
   yield 1;
   yield 2;
@@ -49,8 +51,6 @@ numberText === 'The number: 3'; // true
 Use `jinq.range` to construct a generated sequence of numbers.
 
 ```js
-// import { jinq } from 'jinq';
-
 const bigRange = jinq.range(0, Number.MAX_SAFE_INTEGER);
 
 bigRange.any(); // true
@@ -62,6 +62,8 @@ bigRange.take(2).toList(); // [0, 1]
 - `EqualityComparer` is not implemented
 
 ### Enumerable methods
+
+JavaScript has numerous built in methods to do operations on arrays, not so much for generators. This library focuses primarely on generators because of the lazy loading with yields.
 
 Method|Returns value|Description|JS alternative
 --|--|--|--
