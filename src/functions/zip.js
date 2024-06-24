@@ -1,8 +1,8 @@
 import { asEnumerable } from './asEnumerable.js';
 
-export function* zip(source, list, zipFn = (a, b) => [a, b]) {
-  const sourceList = asEnumerable(source);
-  const checkList = asEnumerable(list);
+export function* zip(first, second, zipFn = (a, b) => [a, b]) {
+  const sourceList = asEnumerable(first);
+  const checkList = asEnumerable(second);
 
   let sourceNext = sourceList.next();
   let checkNext = checkList.next();

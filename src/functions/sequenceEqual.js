@@ -1,8 +1,8 @@
 import { asEnumerable } from './asEnumerable.js';
 
-export function sequenceEqual(source, list) {
-  const sourceList = asEnumerable(source);
-  const checkList = asEnumerable(list);
+export function sequenceEqual(first, second) {
+  const sourceList = asEnumerable(first);
+  const checkList = asEnumerable(second);
 
   let sourceNext = sourceList.next();
   let checkNext = checkList.next();

@@ -1,16 +1,16 @@
 import { toLookup } from './toLookup.js';
 
 export function* groupJoin(
-  source,
-  list,
+  outer,
+  inner,
   outerKeySelector,
   innerKeySelector,
   resultSelector = (a, b) => [ a, b ]
 ) {
   const sourceLookup = new Set();
-  const listLookup = toLookup(list, innerKeySelector);
+  const listLookup = toLookup(inner, innerKeySelector);
 
-  for (const element of source) {
+  for (const element of outer) {
     const outer = outerKeySelector(element);
 
     if (sourceLookup.has(outer)) continue;

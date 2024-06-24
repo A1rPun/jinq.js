@@ -1,4 +1,4 @@
-export function* concat(source, list) {
-  yield* source;
-  yield* list;
+export function* concat(first, second) {
+  yield* first;
+  yield* second;
 }
