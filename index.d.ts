@@ -11,7 +11,7 @@ declare class Enumerable<TSource> {
   average(selector: (element: TSource) => number): number;
   cast<TResult>(selector: (element: TSource) => TResult): Enumerable<TResult>;
   chunk(size: number): Enumerable<TSource>;
-  concat(list: Iterable<TSource>): Enumerable<TSource>;
+  concat(source: Iterable<TSource>): Enumerable<TSource>;
   contains(element: TSource): boolean;
   count(predicate?: (element: TSource) => boolean): number;
   defaultIfEmpty(defaultValue: TSource): Enumerable<TSource>;
@@ -20,8 +20,8 @@ declare class Enumerable<TSource> {
   elementAt(atIndex: number): TSource;
   elementAtOrDefault(atIndex: number): TSource | undefined;
   static empty<TResult>(): Enumerable<TResult>;
-  except(list: Iterable<TSource>): Enumerable<TSource>;
-  exceptBy(list: Iterable<TSource>, keySelector?: (element: TSource) => string): Enumerable<TSource>;
+  except(source: Iterable<TSource>): Enumerable<TSource>;
+  exceptBy(source: Iterable<TSource>, keySelector?: (element: TSource) => string): Enumerable<TSource>;
   first(predicate?: (element: TSource) => boolean): TSource;
   firstOrDefault(predicate?: (element: TSource) => boolean, defaultValue?: TSource): TSource | undefined;
   static from<TResult>(iterator: Iterable<TResult>): Enumerable<TResult>;
@@ -31,15 +31,15 @@ declare class Enumerable<TSource> {
     resultSelector?: (element: TElement) => TResult
   ): Enumerable<TResult>;
   groupJoin<TInner, TResult>(
-    list: Iterable<TInner>,
+    source: Iterable<TInner>,
     outerKeySelector: (element: TSource) => string,
     innerKeySelector: (element: TInner) => string,
     resultSelector?: (element: TSource) => TResult
   ): Enumerable<TResult>;
-  intersect(list: Iterable<TSource>): Enumerable<TSource>;
-  intersectBy(list: Iterable<TSource>, keySelector?: (element: TSource) => string): Enumerable<TSource>;
+  intersect(source: Iterable<TSource>): Enumerable<TSource>;
+  intersectBy(source: Iterable<TSource>, keySelector?: (element: TSource) => string): Enumerable<TSource>;
   join<TInner, TResult>(
-    list: Iterable<TInner>,
+    source: Iterable<TInner>,
     outerKeySelector: (element: TSource) => string,
     innerKeySelector: (element: TInner) => string,
     resultSelector?: (element: TSource) => TResult
@@ -64,7 +64,7 @@ declare class Enumerable<TSource> {
     collectionSelector: (element: TSource) => Iterable<TCollection>,
     resultSelector?: (element: TSource, collection: TCollection) => TResult
   ): Enumerable<TResult>;
-  sequenceEqual(list: Iterable<TSource>): boolean;
+  sequenceEqual(source: Iterable<TSource>): boolean;
   single(predicate?: (element: TSource) => boolean): TSource;
   singleOrDefault(predicate?: (element: TSource) => boolean, defaultValue?: TSource): TSource | undefined;
   skip(skip: number): Enumerable<TSource>;
@@ -88,11 +88,11 @@ declare class Enumerable<TSource> {
   tryGetNonEnumeratedCount(): number | undefined;
   union(list: Iterable<TSource>): Enumerable<TSource>;
   unionBy(
-    list: Iterable<TSource>,
+    source: Iterable<TSource>,
     keySelector?: (element: TSource) => string
   ): Enumerable<TSource>;
   where(predicate?: (element: TSource) => boolean): Enumerable<TSource>;
-  zip<TSecond, TResult>(list: Iterable<TSecond>, zipFn?: (a: TSource, b: TSecond) => TResult): Enumerable<TResult>;
+  zip<TSecond, TResult>(source: Iterable<TSecond>, zipFn?: (a: TSource, b: TSecond) => TResult): Enumerable<TResult>;
 }
 
 export { Enumerable as jinq };
