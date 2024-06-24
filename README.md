@@ -90,8 +90,8 @@ groupJoin()|||-
 intersect()|||-
 intersectBy()|||-
 join()|||-
-last()|:white_check_mark:|can throw an error|Array.at(Array.length - 1) ?? throw new Error()
-lastOrDefault()|:white_check_mark:||Array.at(Array.length - 1) ?? defaultValue
+last()|:white_check_mark:|can throw an error|Array.at(-1) ?? throw new Error()
+lastOrDefault()|:white_check_mark:||Array.at(-1) ?? defaultValue
 longCount()|:white_check_mark:||Array.length
 max()|:white_check_mark:||Array.reduce()
 maxBy()|:white_check_mark:||Array.reduce()
