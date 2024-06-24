@@ -1,5 +1,5 @@
 ﻿import 'regenerator-runtime/runtime';
-import { jinq } from '../index.js';
+import { jinq, Enumerable } from '../index.js';
 
 test('jinq static empty', () => {
   const test = jinq.empty().toList();
@@ -70,4 +70,16 @@ test('jinq modify state', () => {
   const test = jinq.range(1, 10);
   test.take(2).toList();
   expect(test.count()).toBe(10);
+});
+
+test.skip('jinq extend Enumerable', () => {
+  jinq.prototype.forEach = (source, callback) => {
+    let index = 0;
+    for (const element of source) callback(element, index++);
+  };
+  const test = jinq.from([1]).forEach((x, i) => {
+    expect(x).toBe(1);
+    expect(i).toBe(0);
+  });
+  expect(test).toBe(undefined);
 });
