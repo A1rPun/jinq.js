@@ -1,6 +1,6 @@
 import { InvalidOperationException } from './errors.js';
 
-function getSingle(source, predicate = () => true, defaultValue) {
+function getSingle(source, predicate = () => true) {
   let single = undefined;
 
   for (const element of source)
