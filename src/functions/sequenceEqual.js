@@ -1,6 +1,7 @@
 import { asEnumerable } from './asEnumerable.js';
+import { equalityComparer } from './equalityComparer.js';
 
-export function sequenceEqual(first, second) {
+export function sequenceEqual(first, second, comparer = equalityComparer) {
   const sourceList = asEnumerable(first);
   const checkList = asEnumerable(second);
 
@@ -8,7 +9,7 @@ export function sequenceEqual(first, second) {
   let checkNext = checkList.next();
 
   while (!sourceNext.done || !checkNext.done) {
-    if (sourceNext.value !== checkNext.value) return false;
+    if (!comparer(sourceNext.value, checkNext.value)) return false;
 
     sourceNext = sourceList.next();
     checkNext = checkList.next();

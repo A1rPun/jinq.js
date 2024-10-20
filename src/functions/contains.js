@@ -1,4 +1,6 @@
-export function contains(source, value) {
-  for (const element of source) if (value === element) return true;
+import { equalityComparer } from './equalityComparer.js';
+
+export function contains(source, value, comparer = equalityComparer) {
+  for (const element of source) if (comparer(element, value)) return true;
   return false;
 }
