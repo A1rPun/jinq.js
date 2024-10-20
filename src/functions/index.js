@@ -1,4 +1,5 @@
 export { aggregate } from './aggregate.js';
+export { aggregateBy } from './aggregateBy.js';
 export { all } from './all.js';
 export { any } from './any.js';
 export { append } from './append.js';
@@ -9,6 +10,7 @@ export { chunk } from './chunk.js';
 export { concat } from './concat.js';
 export { contains } from './contains.js';
 export { count } from './count.js';
+export { countBy } from './countBy.js';
 export { defaultIfEmpty } from './defaultIfEmpty.js';
 export { distinct } from './distinct.js';
 export { distinctBy } from './distinctBy.js';

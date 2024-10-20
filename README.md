@@ -59,7 +59,8 @@ bigRange.take(2).toList(); // [0, 1]
 
 ### How jinq deviates from LINQ
 
-- `EqualityComparer` is not implemented
+- `IEqualityComparer` is not implemented
+- `IOrderedEnumerable` is not implemented
 
 ### Enumerable methods
 
@@ -68,6 +69,7 @@ JavaScript has numerous built in methods to do operations on arrays, not so much
 Method|Returns value|Description|JS alternative
 --|--|--|--
 aggregate()|:white_check_mark:||Array.reduce()
+aggregateBy()|:white_check_mark:||Array.reduce()
 all()|:white_check_mark:||Array.every()
 any()|:white_check_mark:||Array.some()
 append()|||Array.push()
@@ -78,7 +80,8 @@ chunk()|||-
 concat()|||Array.concat()
 contains()|:white_check_mark:||Array.includes()
 count()|:white_check_mark:||Array.length
-defaultIfEmpty()|||-
+countBy()|:white_check_mark:||Array.reduce()
+defaultIfEmpty()|||Array.length ? Array : [defaultValue]
 distinct()|||-
 distinctBy()|||-
 elementAt()|:white_check_mark:|can throw an error|Array.at() ?? throw new Error()
@@ -108,7 +111,7 @@ reverse()|||Array.reverse()
 select()|||Array.map()
 selectMany()|||Array.flatMap()
 sequenceEqual()|:white_check_mark:||Array.all()
-single()|:white_check_mark:|can throw an error| -
+single()|:white_check_mark:|can throw an error|Array.at(index) ?? throw new Error()
 singleOrDefault()|||Array.at(index) ?? defaultValue
 skip()|||Array.slice()
 skipLast()|||Array.slice()
