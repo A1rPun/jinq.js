@@ -2,8 +2,13 @@ declare class Enumerable<TSource> {
   aggregate<TAccumulate, TResult>(
     seed: TAccumulate,
     accumulator: (result: TAccumulate, element: TSource, index: number) => TAccumulate,
-    resultSelector?: (element: TSource) => TResult
+    resultSelector?: (element: TAccumulate) => TResult
   ): TResult;
+  aggregateBy<TAccumulate, TKey>(
+    keySelector: (element: TSource) => TKey,
+    seed: TAccumulate,
+    accumulator: (result: TAccumulate, element: TSource, index: number) => TAccumulate,
+  ): Map<TKey, TAccumulate>;
   all(predicate?: (element: TSource) => boolean): boolean;
   any(predicate?: (element: TSource) => boolean): boolean;
   append(...elements: TSource[]): Enumerable<TSource>;
@@ -14,6 +19,7 @@ declare class Enumerable<TSource> {
   concat(second: Iterable<TSource>): Enumerable<TSource>;
   contains(element: TSource): boolean;
   count(predicate?: (element: TSource) => boolean): number;
+  countBy<TKey>(keySelector: (element: TSource) => TKey): Map<TKey, number>;
   defaultIfEmpty(defaultValue: TSource): Enumerable<TSource>;
   distinct(): Enumerable<TSource>;
   distinctBy(keySelector?: (element: TSource) => string): Enumerable<TSource>;
@@ -75,16 +81,16 @@ declare class Enumerable<TSource> {
   takeLast(count: number): Enumerable<TSource>;
   takeWhile(predicate?: (element: TSource) => boolean): Enumerable<TSource>;
   toArray(): Array<TSource>;
-  toDictionary<TResult>(
-    keySelector?: (element: TSource) => string,
+  toDictionary<TResult, TKey>(
+    keySelector?: (element: TSource) => TKey,
     elementSelector?: (element: TSource) => TResult
-  ): Map<string, TResult>;
+  ): Map<TKey, TResult>;
   toHashSet(): Set<TSource>;
   toList(): Array<TSource>;
-  toLookup<TResult>(
-    keySelector?: (element: TSource) => string,
+  toLookup<TResult, TKey>(
+    keySelector?: (element: TSource) => TKey,
     elementSelector?: (element: TSource) => TResult
-  ): Map<string, TResult>;
+  ): Map<TKey, TResult>;
   tryGetNonEnumeratedCount(): number | undefined;
   union(second: Iterable<TSource>): Enumerable<TSource>;
   unionBy(
