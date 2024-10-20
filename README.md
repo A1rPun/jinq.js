@@ -3,9 +3,7 @@
 JavaScript Integrated Query for generators and arrays.
 Inspired by [LINQ](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable)
 
-For vanillajs and nodejs
-
-:page_facing_up: [Wiki](https://github.com/A1rPun/jinq.js/wiki)
+For JavaScript and NodeJs
 
 - [Installation](#installation)
 - [Usage examples](#usage-examples)
@@ -59,7 +57,7 @@ bigRange.take(2).toList(); // [0, 1]
 
 ### How jinq deviates from LINQ
 
-- `IEqualityComparer` is not implemented
+- `IEqualityComparer` is not implemented for most functions that use it
 - `IOrderedEnumerable` is not implemented
 
 ### Enumerable methods
