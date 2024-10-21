@@ -3,11 +3,13 @@ import { Enumerable } from './src/Enumerable.js';
 
 const valueFunctions = [
   'aggregate',
+  'aggregateBy',
   'all',
   'any',
   'average',
   'contains',
   'count',
+  'countBy',
   'elementAt',
   'elementAtOrDefault',
   'first',
