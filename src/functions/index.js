@@ -11,6 +11,7 @@ export { concat } from './concat.js';
 export { contains } from './contains.js';
 export { count } from './count.js';
 export { countBy } from './countBy.js';
+export { cycle } from './cycle.js';
 export { defaultIfEmpty } from './defaultIfEmpty.js';
 export { distinct } from './distinct.js';
 export { distinctBy } from './distinctBy.js';
