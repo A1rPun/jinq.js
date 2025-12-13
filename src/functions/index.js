@@ -24,6 +24,7 @@ export { groupBy } from './groupBy.js';
 export { groupJoin } from './groupJoin.js';
 export { intersect } from './intersect.js';
 export { intersectBy } from './intersectBy.js';
+export { iterate } from './iterate.js';
 export { join } from './join.js';
 export { last, lastOrDefault } from './last.js';
 export { longCount } from './longCount.js';

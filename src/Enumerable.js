@@ -1,4 +1,4 @@
-import { empty, range, repeat } from './index.js';
+import { empty, range, repeat, iterate } from './index.js';
 import { ReplaySubject } from './ReplaySubject';
 
 export class Enumerable {
@@ -28,5 +28,9 @@ export class Enumerable {
 
   static repeat(value, count) {
     return new Enumerable(repeat(value, count));
+  }
+
+  static iterate(seed, selector) {
+    return new Enumerable(iterate(seed, selector));
   }
 }
