@@ -110,6 +110,7 @@ orderByDescending()||doesn't return an IOrderedEnumerable
 prepend()||
 product()||Not in LINQ
 reverse()||
+scan()||Not in LINQ
 select()||
 selectMany()||
 sequenceEqual()|:white_check_mark:|
@@ -190,6 +191,7 @@ orderByDescending()|Array.sort()|sortOn|sort_by()
 prepend()|Array.unshift()|-|-
 product()|-|product|product()
 reverse()|Array.reverse()|reverse|reverse(), reverse_slice()
+scan()|-|scanl, scanr|scan()
 select()|Array.map()|map|map(), map_every()
 selectMany()|Array.flatMap()|-|flat_map()
 sequenceEqual()|Array.all()|-|-
@@ -229,6 +231,6 @@ List ForEach() | Elixer each()
 
 LINQ Lists FindIndex
 
-Elixer empty?(), dedup(), dedup_by(), find_index(), find_value(), flat_map_reduce(), frequencies(), frequencies_by(), into(), join(), map_intersperse(), map_join(), map_reduce(), min_max(), min_max_by(), product_by(), random(), scan(), shuffle(), slide(), split(), split_while(), split_with(), take_random(), unzip(), with_index()
+Elixer empty?(), dedup(), dedup_by(), find_index(), find_value(), flat_map_reduce(), frequencies(), frequencies_by(), into(), join(), map_intersperse(), map_join(), map_reduce(), min_max(), min_max_by(), product_by(), random(), shuffle(), slide(), split(), split_while(), split_with(), take_random(), unzip(), with_index()
 
-Haskell uncons, unsnoc, single, null, intercalate, transpose, subsequences, permutations, foldr, concatMap, scanl, scanr, mapAccumL, mapAccumR, unfoldr, splitAt, dropWhileEnd, span, break, stripPrefix, group, groupBy, inits, tails, isPrefixOf, isSuffixOf, isInfixOf, isSubsequenceOf, lookup, partition, elemIndex, elemIndices, findIndex, findIndices, zipWith, unzip, insert, insertBy, delete, deleteBy, deleteFirstBy
+Haskell uncons, unsnoc, single, null, intercalate, transpose, subsequences, permutations, foldr, concatMap, mapAccumL, mapAccumR, unfoldr, splitAt, dropWhileEnd, span, break, stripPrefix, group, groupBy, inits, tails, isPrefixOf, isSuffixOf, isInfixOf, isSubsequenceOf, lookup, partition, elemIndex, elemIndices, findIndex, findIndices, zipWith, unzip, insert, insertBy, delete, deleteBy, deleteFirstBy

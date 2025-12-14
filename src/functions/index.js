@@ -42,6 +42,7 @@ export { product } from './product.js';
 export { range } from './range.js';
 export { repeat } from './repeat.js';
 export { reverse } from './reverse.js';
+export { scan } from './scan.js';
 export { select } from './select.js';
 export { selectMany } from './selectMany.js';
 export { sequenceEqual } from './sequenceEqual.js';
