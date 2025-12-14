@@ -2,7 +2,7 @@
 import { concat, range } from '../src/index.js';
 
 test('concat a list', () => {
-  const test = concat(range(1, 3), range(4, 6));
+  const test = concat(range(1, 3), range(4, 3));
   expect([...test]).toStrictEqual([1, 2, 3, 4, 5, 6]);
 });
 

@@ -8,8 +8,8 @@ test('union of two lists', () => {
 });
 
 test('union of two lists', () => {
-  const test = union(range(3, 6), range(1, 4));
-  expect([...test]).toStrictEqual([3, 4, 5, 6, 1, 2]);
+  const test = union(range(4, 3), range(1, 3));
+  expect([...test]).toStrictEqual([4, 5, 6, 1, 2, 3]);
 });
 
 test('union of two big lists', () => {

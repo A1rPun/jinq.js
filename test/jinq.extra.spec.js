@@ -95,10 +95,10 @@ test('jinq long chain', () => {
 
 test('jinq prime generator', () => {
   const primes = jinq
-    .range(2, Number.MAX_SAFE_INTEGER - 1)
+    .range(2, Number.MAX_SAFE_INTEGER)
     .where((number) =>
       jinq
-        .range(2, Math.floor(Math.sqrt(number)))
+        .range(2, Math.floor(Math.sqrt(number)) - 1)
         .all((divisor) => number % divisor)
     );
 

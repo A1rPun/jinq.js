@@ -17,6 +17,6 @@ test('repeats a big list', () => {
 });
 
 test('repeats a range', () => {
-  const test = repeat([...range(0, 1)], 2);
+  const test = repeat([...range(0, 2)], 2);
   expect([...test]).toStrictEqual([[0, 1], [0, 1]]);
 });

@@ -1,3 +1,3 @@
 export function* range(start, count) {
-  for (let value = start; value <= count; value++) yield value;
+  for (let value = start, end = start + count; value < end; value++) yield value;
 }

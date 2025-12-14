@@ -3,7 +3,7 @@ import { last, lastOrDefault, range } from '../src/index.js';
 
 test('last value of a list', () => {
   const test = last(range(0, 10));
-  expect(test).toBe(10);
+  expect(test).toBe(9);
 });
 
 test('last with predicate', () => {

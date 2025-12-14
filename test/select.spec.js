@@ -22,6 +22,6 @@ test('select on big list', () => {
 });
 
 test('select predicate has index', () => {
-  const test = select(range(0, 2), (_, i) => i);
+  const test = select(range(0, 3), (_, i) => i);
   expect([...test]).toStrictEqual([0, 1, 2]);
 });

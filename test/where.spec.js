@@ -32,6 +32,6 @@ test('where on big list', () => {
 });
 
 test('where predicate has index', () => {
-  const test = where(range(0, 2), (_, i) => i);
+  const test = where(range(0, 3), (_, i) => i);
   expect([...test]).toStrictEqual([1, 2]);
 });

@@ -12,7 +12,7 @@ test('cast a list of strings to numbers', () => {
 });
 
 test('cast a list of numbers to boolean', () => {
-  const test = cast(range(0, 2), Boolean);
+  const test = cast(range(0, 3), Boolean);
   expect([...test]).toStrictEqual([false, true, true]);
 });
 
