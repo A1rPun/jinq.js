@@ -21,6 +21,7 @@ const valueFunctions = [
   'maxBy',
   'min',
   'minBy',
+  'product',
   'sequenceEqual',
   'single',
   'singleOrDefault',

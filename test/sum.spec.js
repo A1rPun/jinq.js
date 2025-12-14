@@ -11,6 +11,11 @@ test('sum of an array', () => {
   expect(test).toBe(42);
 });
 
+test('sum of floats', () => {
+  const test = sum([4.1, 2.0, 1.7]);
+  expect(test).toBe(7.8);
+});
+
 test('sum of an empty array', () => {
   const test = sum([]);
   expect(test).toBe(0);

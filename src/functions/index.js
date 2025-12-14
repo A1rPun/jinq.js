@@ -38,6 +38,7 @@ export { order } from './order.js';
 export { orderBy } from './orderBy.js';
 export { orderByDescending } from './orderByDescending.js';
 export { prepend } from './prepend.js';
+export { product } from './product.js';
 export { range } from './range.js';
 export { repeat } from './repeat.js';
 export { reverse } from './reverse.js';
