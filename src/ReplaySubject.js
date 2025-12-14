@@ -12,10 +12,9 @@ export class ReplaySubject {
 
     if (Array.isArray(this.sequence)) return;
 
-    const genList = asEnumerable(this.sequence);
     let genNext;
 
-    while (!(genNext = genList.next()).done) {
+    while (!(genNext = this.sequence.next()).done) {
       this.values.push(genNext.value);
       yield genNext.value;
     }

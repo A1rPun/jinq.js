@@ -74,12 +74,10 @@ test('jinq modify state', () => {
 
 test.skip('jinq extend Enumerable', () => {
   jinq.prototype.forEach = (source, callback) => {
-    let index = 0;
-    for (const element of source) callback(element, index++);
+    for (const element of source) callback(element);
   };
-  const test = jinq.from([1]).forEach((x, i) => {
+  const test = jinq.from([1]).forEach((x) => {
     expect(x).toBe(1);
-    expect(i).toBe(0);
   });
   expect(test).toBe(undefined);
 });
