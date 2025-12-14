@@ -59,6 +59,7 @@ bigRange.take(2).toList(); // [0, 1]
 
 - `IEqualityComparer` is not implemented for most functions that use it
 - `IOrderedEnumerable` is not implemented
+- Added functions like `cycle` & `intersperse` that are inspired by Haskell & Elixer
 
 ### Enumerable methods
 
@@ -93,6 +94,7 @@ groupBy()||
 groupJoin()||
 intersect()||
 intersectBy()||
+intersperse()||Not in LINQ
 join()||
 last()|:white_check_mark:|can throw an error
 lastOrDefault()|:white_check_mark:|
@@ -136,7 +138,7 @@ Method|Description
 --|--
 jinq.empty()|
 jinq.from()|
-jinq.iterate()|Infinite list
+jinq.iterate()|Not in LINQ, produces infinite list
 jinq.range()|
 jinq.repeat()|
 
@@ -155,8 +157,8 @@ cast()|Array.map()||
 chunk()|-||chunk_by(), chunk_every(), chunk_while()
 concat()|Array.concat()||concat()
 contains()|Array.includes()||member()
-count()|Array.length||count(), count_until()
-countBy()|Array.reduce()||
+count()|Array.length|length|count(), count_until()
+countBy()|Array.reduce()|length|
 cycle()|while(true) yield* array|cycle()|
 defaultIfEmpty()|Array.length ? Array : [defaultValue]||
 distinct()|-||uniq()
@@ -165,15 +167,16 @@ elementAt()|Array.at() ?? throw new Error()||at(), fetch()
 elementAtOrDefault()|Array.at() ?? defaultValue||at(), fetch()
 except()|Array.filter()||reject()
 exceptBy()|Array.filter()||reject()
-first()|Array.at(0) ?? throw new Error()||find()
-firstOrDefault()|Array.at(0) ?? defaultValue||find()
+first()|Array.at(0) ?? throw new Error()|head, init|find()
+firstOrDefault()|Array.at(0) ?? defaultValue|head, init|find()
 groupBy()|-||group_by()
 groupJoin()|-||
 intersect()|-||
 intersectBy()|-||
+intersperse()|-||intersperse()
 join()|-||
-last()|Array.at(-1) ?? throw new Error()||
-lastOrDefault()|Array.at(-1) ?? defaultValue||
+last()|Array.at(-1) ?? throw new Error()|last, tail|
+lastOrDefault()|Array.at(-1) ?? defaultValue|last, tail|
 longCount()|Array.length||
 max()|Array.reduce()||max()
 maxBy()|Array.reduce()||max_by()
@@ -214,7 +217,7 @@ Jinq/Linq|JavaScript|Haskell|Elixer
 --|--|--|--
 jinq.empty()|[]||
 jinq.from()|[]||
-jinq.iterate()|while(true) yield element|iterate()|
+jinq.iterate()|while(true) yield element|iterate|
 jinq.range()|for(let i..) yield element||
 jinq.repeat()|for(let i..) yield element||
 
@@ -222,4 +225,6 @@ jinq.repeat()|for(let i..) yield element||
 
 List ForEach() | Elixer each()
 
-Elixer empty?(), dedup(), dedup_by(), find_index(), find_value(), flat_map_reduce(), frequencies(), frequencies_by(), intersperse(), into(), join(), map_intersperse(), map_join(), map_reduce(), min_max(), min_max_by(), product(), product_by(), random(), scan(), shuffle(), slide(), split(), split_while(), split_with(), take_random(), unzip(), with_index()
+Elixer empty?(), dedup(), dedup_by(), find_index(), find_value(), flat_map_reduce(), frequencies(), frequencies_by(), into(), join(), map_intersperse(), map_join(), map_reduce(), min_max(), min_max_by(), product(), product_by(), random(), scan(), shuffle(), slide(), split(), split_while(), split_with(), take_random(), unzip(), with_index()
+
+Haskell uncons, unsnoc, single, null
