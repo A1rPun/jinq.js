@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { average, range } from '../src/index.js';
+﻿import { average, range } from '../src/index.js';
 
 test('average a list', () => {
   const test = average(range(1, 9));

@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { append, range } from '../src/index.js';
+﻿import { append, range } from '../src/index.js';
 
 test('append an item to a list', () => {
   const test = append(range(1, 3), 4);

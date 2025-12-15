@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { first, range, repeat } from '../src/index.js';
+﻿import { first, range, repeat } from '../src/index.js';
 
 test('repeats value 29, 3 times', () => {
   const test = repeat(29, 3);

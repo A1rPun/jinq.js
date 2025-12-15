@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { max, maxBy, range } from '../src/index.js';
+﻿import { max, maxBy, range } from '../src/index.js';
 
 /* Max */
 test('max of a list', () => {

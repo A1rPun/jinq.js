@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { min, minBy, range } from '../src/index.js';
+﻿import { min, minBy, range } from '../src/index.js';
 
 /* Min */
 test('min of a list', () => {

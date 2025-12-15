@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { cycle, repeat, take } from '../src/index.js';
+﻿import { cycle, repeat, take } from '../src/index.js';
 
 test('cycle of 1 integer', () => {
   const test = take(cycle([1]), 3);

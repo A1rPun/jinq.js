@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { range, sum } from '../src/index.js';
+﻿import { range, sum } from '../src/index.js';
 
 test('sum of a list', () => {
   const test = sum(range(1, 10));

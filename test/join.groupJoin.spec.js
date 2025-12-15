@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { groupJoin, join } from '../src/index.js';
+﻿import { groupJoin, join } from '../src/index.js';
 
 /* GroupJoin */
 test('groupJoin on a list', () => {

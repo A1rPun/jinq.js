@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { chunk, range } from '../src/index.js';
+﻿import { chunk, range } from '../src/index.js';
 
 test('chunk a list', () => {
   const test = chunk(range(1, 6), 2);

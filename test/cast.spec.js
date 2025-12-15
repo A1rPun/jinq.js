@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { cast, range, select } from '../src/index.js';
+﻿import { cast, range, select } from '../src/index.js';
 
 test('cast a list of numbers to strings', () => {
   const test = cast(range(1, 3), String);

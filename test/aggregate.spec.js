@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { aggregate, range } from '../src/index.js';
+﻿import { aggregate, range } from '../src/index.js';
 
 test('aggregate on a list', () => {
   const test = aggregate(range(1, 10), 0, (acc, cur) => acc + cur);

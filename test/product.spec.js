@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { range, product } from '../src/index.js';
+﻿import { range, product } from '../src/index.js';
 
 test('product of a list', () => {
   const test = product(range(1, 5));

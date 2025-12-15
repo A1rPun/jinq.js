@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { range, sequenceEqual } from '../src/index.js';
+﻿import { range, sequenceEqual } from '../src/index.js';
 
 test('sequenceEqual of list and array', () => {
   const test = sequenceEqual(range(1, 5), [1, 2, 3, 4, 5]);

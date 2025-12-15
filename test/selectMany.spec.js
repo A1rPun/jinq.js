@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { range, repeat, selectMany } from '../src/index.js';
+﻿import { range, repeat, selectMany } from '../src/index.js';
 
 test('selectMany flatten', () => {
   const test = selectMany([range(1, 5), range(1, 5)]);

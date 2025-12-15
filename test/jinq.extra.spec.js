@@ -1,4 +1,3 @@
-import 'regenerator-runtime/runtime';
 import { jinq } from '../index.js';
 
 function* fib(a = 0, b = 1) {

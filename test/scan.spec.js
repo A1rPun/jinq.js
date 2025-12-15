@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { scan, range } from '../src/index.js';
+﻿import { scan, range } from '../src/index.js';
 
 test('scan on a list', () => {
   const test = scan(range(1, 5), 0, (acc, cur) => acc + cur);

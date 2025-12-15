@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { ofType, range } from '../src/index.js';
+﻿import { ofType, range } from '../src/index.js';
 
 test('ofType on a list', () => {
   const test = ofType(range(1, 3), 'number');

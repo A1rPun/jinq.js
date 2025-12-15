@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { aggregateBy, repeat } from '../src/index.js';
+﻿import { aggregateBy, repeat } from '../src/index.js';
 
 test('aggregateBy on a list', () => {
   const test = aggregateBy(repeat(1, 3), (v) => v, 0, (acc, cur) => acc + cur);

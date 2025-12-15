@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { range } from '../src/index.js';
+﻿import { range } from '../src/index.js';
 
 test('range of 5 integers', () => {
   const test = range(1, 5);

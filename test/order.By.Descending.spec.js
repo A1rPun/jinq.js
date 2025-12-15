@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import {
+﻿import {
   order,
   orderBy,
   orderByDescending,

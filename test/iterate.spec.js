@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { iterate, take } from '../src/index.js';
+﻿import { iterate, take } from '../src/index.js';
 
 test('iterate of an integer', () => {
   const test = take(iterate(42, (v) => v + 3), 3);

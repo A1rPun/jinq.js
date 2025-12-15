@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { any, range } from '../src/index.js';
+﻿import { any, range } from '../src/index.js';
 
 test('any on a big list', () => {
   const test = any(range(0, Number.MAX_SAFE_INTEGER));

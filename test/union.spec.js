@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { range, union, unionBy } from '../src/index.js';
+﻿import { range, union, unionBy } from '../src/index.js';
 
 /* Union */
 test('union of two lists', () => {

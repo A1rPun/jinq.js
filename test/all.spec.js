@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { all, range } from '../src/index.js';
+﻿import { all, range } from '../src/index.js';
 
 test('all on a list', () => {
   const test = all(range(1, 10));

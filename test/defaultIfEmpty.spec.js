@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { defaultIfEmpty, first, range } from '../src/index.js';
+﻿import { defaultIfEmpty, first, range } from '../src/index.js';
 
 test('defaultIfEmpty on an empty list', () => {
   const test = defaultIfEmpty([], 29);

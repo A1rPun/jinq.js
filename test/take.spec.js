@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { range, take, takeLast, takeWhile } from '../src/index.js';
+﻿import { range, take, takeLast, takeWhile } from '../src/index.js';
 
 /* Take */
 test('take first 3 of a list', () => {

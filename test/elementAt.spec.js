@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { elementAt, elementAtOrDefault, range } from '../src/index.js';
+﻿import { elementAt, elementAtOrDefault, range } from '../src/index.js';
 
 test('elementAt on big list', () => {
   const test = elementAt(range(0, Number.MAX_SAFE_INTEGER), 10);

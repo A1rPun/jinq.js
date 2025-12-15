@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { countBy, repeat } from '../src/index.js';
+﻿import { countBy, repeat } from '../src/index.js';
 
 test('countBy a list', () => {
   const test = countBy(repeat(1, 10));

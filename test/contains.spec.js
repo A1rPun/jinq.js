@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { contains, range } from '../src/index.js';
+﻿import { contains, range } from '../src/index.js';
 
 test('contains 29 in a big list', () => {
   const test = contains(range(0, Number.MAX_SAFE_INTEGER), 29);

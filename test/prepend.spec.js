@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { prepend, range } from '../src/index.js';
+﻿import { prepend, range } from '../src/index.js';
 
 test('prepend an item to a list', () => {
   const test = prepend(range(2, 3), 1);

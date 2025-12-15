@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { range, zip } from '../src/index.js';
+﻿import { range, zip } from '../src/index.js';
 
 test('zip two lists', () => {
   const test = zip(range(1, 3), range(1, 3));

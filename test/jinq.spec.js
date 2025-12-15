@@ -1,5 +1,4 @@
-﻿import 'regenerator-runtime/runtime';
-import { jinq, Enumerable } from '../index.js';
+﻿import { jinq, Enumerable } from '../index.js';
 
 test('jinq static empty', () => {
   const test = jinq.empty().toList();
