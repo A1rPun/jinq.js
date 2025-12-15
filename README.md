@@ -10,6 +10,9 @@ For JavaScript and NodeJs
 - [How jinq deviates from LINQ](#how-jinq-deviates-from-linq)
 - [Enumerable methods](#enumerable-methods)
   - [Static methods](#static-methods)
+- [Alternatives](#alternatives)
+  - [Static Alternatives](#static-alternatives)
+- [Missing](#missing)
 
 ### Installation
 
@@ -108,7 +111,7 @@ order()||doesn't return an IOrderedEnumerable
 orderBy()||doesn't return an IOrderedEnumerable
 orderByDescending()||doesn't return an IOrderedEnumerable
 prepend()||
-product()||Not in LINQ
+product()|:white_check_mark:|Not in LINQ
 reverse()||
 scan()||Not in LINQ
 select()||
