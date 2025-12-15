@@ -69,6 +69,7 @@ declare class Enumerable<TSource> {
   orderByDescending(keySelector?: (element: TSource) => string): Enumerable<TSource>;
   prepend(...elements: TSource[]): Enumerable<TSource>;
   product(resultSelector?: (element: TSource) => number): number;
+  random(seed: number): TSource;
   static range(start: number, count: number): Enumerable<number>;
   static repeat<TResult>(element: TResult, count: number): Enumerable<TResult>;
   reverse(): Enumerable<TSource>;
@@ -82,6 +83,7 @@ declare class Enumerable<TSource> {
     resultSelector?: (element: TSource, collection: TCollection) => TResult
   ): Enumerable<TResult>;
   sequenceEqual(second: Iterable<TSource>): boolean;
+  shuffle(seed: number): Enumerable<TSource>;
   single(predicate?: (element: TSource) => boolean): TSource;
   singleOrDefault(predicate?: (element: TSource) => boolean, defaultValue?: TSource): TSource | undefined;
   skip(skip: number): Enumerable<TSource>;

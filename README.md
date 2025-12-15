@@ -12,7 +12,8 @@ For JavaScript and NodeJs
   - [Static methods](#static-methods)
 - [Alternatives](#alternatives)
   - [Static Alternatives](#static-alternatives)
-- [Missing](#missing)
+- [Missing functions?](#missing-functions)
+- [MindMap](#mindmap)
 
 ### Installation
 
@@ -112,11 +113,13 @@ orderBy()||doesn't return an IOrderedEnumerable
 orderByDescending()||doesn't return an IOrderedEnumerable
 prepend()||
 product()|:white_check_mark:|Not in LINQ
+random()|:white_check_mark:|Uses Mulberry32 for seeded RNG
 reverse()||
 scan()||Not in LINQ
 select()||
 selectMany()||
 sequenceEqual()|:white_check_mark:|
+shuffle()||Uses Mulberry32 for seeded RNG
 single()|:white_check_mark:|can throw an error
 singleOrDefault()||
 skip()||
@@ -151,10 +154,10 @@ jinq.repeat()|
 
 Jinq/[LINQ](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable)|[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)|[Haskell](https://hackage.haskell.org/package/base-4.21.0.0/docs/Data-List.html)|[Elixer](https://hexdocs.pm/elixir/main/enum-cheat.html)
 --|--|--|--
-aggregate()|Array.reduce()|foldl|reduce(), reduce_while()
-aggregateBy()|Array.reduce()|foldl|reduce(), reduce_while()
-all()|Array.every()|all, and|all()
-any()|Array.some()|any, or|any()
+aggregate()|Array.reduce()|foldl, foldr|reduce(), reduce_while()
+aggregateBy()|Array.reduce()|foldl, foldr|reduce(), reduce_while()
+all()|Array.every()|all, and|all?()
+any()|Array.some()|any, or, null|any?(), empty?()
 append()|Array.push()|-|-
 asEnumerable()|yield* Iterator|-|-
 average()|Array.reduce()|-|-
@@ -193,11 +196,13 @@ orderBy()|Array.sort()|sortOn|sort_by()
 orderByDescending()|Array.sort()|sortOn|sort_by()
 prepend()|Array.unshift()|-|-
 product()|-|product|product()
+random()|Array.at(Math.random()*Array.length)|-|random()
 reverse()|Array.reverse()|reverse|reverse(), reverse_slice()
 scan()|-|scanl, scanr|scan()
 select()|Array.map()|map|map(), map_every()
 selectMany()|Array.flatMap()|-|flat_map()
 sequenceEqual()|Array.all()|-|-
+shuffle()|-|-|shuffle()
 single()|Array.at(index) ?? throw new Error()|-|-
 singleOrDefault()|Array.at(index) ?? defaultValue|-|-
 skip()|Array.slice()|drop|drop(), drop_every()
@@ -222,18 +227,111 @@ zip()|-|zip|zip(), zip_reduce(), zip_with()
 
 Jinq/Linq|JavaScript|Haskell|Elixer
 --|--|--|--
-jinq.empty()|[]||
-jinq.from()|[]||
-jinq.iterate()|while(true) yield element|iterate, repeat|
+jinq.empty()|[]|[]|[]
+jinq.from()|[]|[]|[]
+jinq.iterate()|while(true) yield element|iterate|
 jinq.range()|for(let i..) yield element||
-jinq.repeat()|for(let i..) yield element|replicate|
+jinq.repeat()|for(let i..) yield element|repeat, replicate|
 
-### Missing
+### Missing functions?
 
-List ForEach() | Elixer each()
+- List ForEach() | Elixer each() or too side-effect prone?
+- LINQ IList functions like FindIndex()?
+- LINQ AsyncEnumerable
+- InfiniteSequence, Sequence, RightJoin
+- [Elixer Enum](https://hexdocs.pm/elixir/Enum.html)
+dedup(), dedup_by(), find_index(), find_value(), flat_map_reduce(), frequencies(), frequencies_by(), into(), join(), map_intersperse(), map_join(), map_reduce(), min_max(), min_max_by(), product_by(), slide(), split(), split_while(), split_with(), take_random(), unzip(), with_index()
+- [Haskell Data.List](https://hackage.haskell.org/package/base-4.21.0.0/docs/Data-List.html)
+uncons, unsnoc, single, intercalate, transpose, subsequences, permutations, concatMap, mapAccumL, mapAccumR, unfoldr, splitAt, dropWhileEnd, span, break, stripPrefix, group, groupBy, inits, tails, isPrefixOf, isSuffixOf, isInfixOf, isSubsequenceOf, lookup, partition, elemIndex, elemIndices, findIndex, findIndices, zipWith, unzip, insert, insertBy, delete, deleteBy, deleteFirstBy
 
-LINQ Lists FindIndex
+### MindMap
 
-Elixer empty?(), dedup(), dedup_by(), find_index(), find_value(), flat_map_reduce(), frequencies(), frequencies_by(), into(), join(), map_intersperse(), map_join(), map_reduce(), min_max(), min_max_by(), product_by(), random(), shuffle(), slide(), split(), split_while(), split_with(), take_random(), unzip(), with_index()
-
-Haskell uncons, unsnoc, single, null, intercalate, transpose, subsequences, permutations, foldr, concatMap, mapAccumL, mapAccumR, unfoldr, splitAt, dropWhileEnd, span, break, stripPrefix, group, groupBy, inits, tails, isPrefixOf, isSuffixOf, isInfixOf, isSubsequenceOf, lookup, partition, elemIndex, elemIndices, findIndex, findIndices, zipWith, unzip, insert, insertBy, delete, deleteBy, deleteFirstBy
+```mermaid
+mindmap
+  root((**jinq.js**))
+    **Merging**
+      groupJoin
+      join
+      zip
+    **Filtering**
+      distinct
+      distinctBy
+      skip
+      skipLast
+      skipWhile
+      take
+      takeLast
+      takeWhile
+      where
+    **Grouping**
+      aggregateBy
+      countBy
+      groupBy
+    **Element**
+      defaultIfEmpty
+      elementAt
+      elementAtOrDefault
+      first
+      firstOrDefault
+      last
+      lastOrDefault
+      random
+      single
+      singleOrDefault
+    **Order**
+      order
+      orderBy
+      orderByDescending
+    **Sequence**
+      append
+      chunk
+      concat
+      cycle
+      empty
+      from
+      intersperse
+      iterate
+      prepend
+      range
+      repeat
+      reverse
+      shuffle
+    **Quantification**
+      all
+      any
+      contains
+      sequenceEqual
+    **Set**
+      except
+      exceptBy
+      intersect
+      intersectBy
+      union
+      unionBy
+    **Aggregation**
+      aggregate
+      average
+      count
+      longCount
+      max
+      maxBy
+      min
+      minBy
+      product
+      scan
+      sum
+      tryGetNonEnumeratedCount
+    **Projection**
+      select
+      selectMany
+    **Conversion**
+      asEnumerable
+      cast
+      ofType
+      toArray
+      toDictionary
+      toHashSet
+      toList
+      toLookup
+```
+Inspired by [this mindmap](https://steven-giesel.com/blogPost/00443661-f75b-4694-852b-175b4a10d6c4)

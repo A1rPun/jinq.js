@@ -46,6 +46,7 @@ export { scan } from './scan.js';
 export { select } from './select.js';
 export { selectMany } from './selectMany.js';
 export { sequenceEqual } from './sequenceEqual.js';
+export { random, shuffle } from './shuffle.js';
 export { single, singleOrDefault } from './single.js';
 export { skip } from './skip.js';
 export { skipLast } from './skipLast.js';
