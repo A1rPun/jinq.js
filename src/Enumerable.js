@@ -1,4 +1,4 @@
-import { empty, range, repeat, iterate } from './index.js';
+import { empty, infiniteSequence, iterate, range, repeat, sequence } from './index.js';
 import { ReplaySubject } from './ReplaySubject';
 
 export class Enumerable {
@@ -14,12 +14,20 @@ export class Enumerable {
     return this.sequence.done ? this.sequence.values.length : undefined;
   }
 
+  static empty() {
+    return new Enumerable();
+  }
+
   static from(iterator) {
     return new Enumerable(iterator);
   }
 
-  static empty() {
-    return new Enumerable();
+  static infiniteSequence(start, step) {
+    return new Enumerable(infiniteSequence(start, step));
+  }
+
+  static iterate(seed, selector) {
+    return new Enumerable(iterate(seed, selector));
   }
 
   static range(start, count) {
@@ -30,7 +38,7 @@ export class Enumerable {
     return new Enumerable(repeat(value, count));
   }
 
-  static iterate(seed, selector) {
-    return new Enumerable(iterate(seed, selector));
+  static sequence(start, endInclusive, step) {
+    return new Enumerable(sequence(start, endInclusive, step));
   }
 }

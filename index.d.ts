@@ -43,6 +43,7 @@ declare class Enumerable<TSource> {
     innerKeySelector: (element: TInner) => string,
     resultSelector?: (element: TSource) => TResult
   ): Enumerable<TResult>;
+  static infiniteSequence(start: number, step: number): Enumerable<number>;
   intersect(second: Iterable<TSource>): Enumerable<TSource>;
   intersectBy(second: Iterable<TSource>, keySelector?: (element: TSource) => string): Enumerable<TSource>;
   intersperse(element: TSource): Enumerable<TSource>;
@@ -82,6 +83,7 @@ declare class Enumerable<TSource> {
     collectionSelector: (element: TSource) => Iterable<TCollection>,
     resultSelector?: (element: TSource, collection: TCollection) => TResult
   ): Enumerable<TResult>;
+  static sequence(start: number, endInclusive: number, step: number): Enumerable<number>;
   sequenceEqual(second: Iterable<TSource>): boolean;
   shuffle(seed: number): Enumerable<TSource>;
   single(predicate?: (element: TSource) => boolean): TSource;

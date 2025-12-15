@@ -146,9 +146,11 @@ Method|Description
 --|--
 jinq.empty()|
 jinq.from()|
+jinq.infiniteSequence()|Produces infinite list
 jinq.iterate()|Not in LINQ, produces infinite list
 jinq.range()|
 jinq.repeat()|
+jinq.sequence()|Can produce an infinite list
 
 ### Alternatives
 
@@ -229,16 +231,18 @@ Jinq/Linq|JavaScript|Haskell|Elixer
 --|--|--|--
 jinq.empty()|[]|[]|[]
 jinq.from()|[]|[]|[]
-jinq.iterate()|while(true) yield element|iterate|
-jinq.range()|for(let i..) yield element||
-jinq.repeat()|for(let i..) yield element|repeat, replicate|
+jinq.infiniteSequence()|while(true) yield element|repeat|-
+jinq.iterate()|while(true) yield element|iterate|-
+jinq.range()|for(let i..) yield element|-|-
+jinq.repeat()|for(let i..) yield element|replicate|-
+jinq.sequence()|-|-|-
 
 ### Missing functions?
 
 - List ForEach() | Elixer each() or too side-effect prone?
 - LINQ IList functions like FindIndex()?
 - LINQ AsyncEnumerable
-- InfiniteSequence, Sequence, RightJoin
+- LeftJoin, RightJoin
 - [Elixer Enum](https://hexdocs.pm/elixir/Enum.html)
 dedup(), dedup_by(), find_index(), find_value(), flat_map_reduce(), frequencies(), frequencies_by(), into(), join(), map_intersperse(), map_join(), map_reduce(), min_max(), min_max_by(), product_by(), slide(), split(), split_while(), split_with(), take_random(), unzip(), with_index()
 - [Haskell Data.List](https://hackage.haskell.org/package/base-4.21.0.0/docs/Data-List.html)
@@ -289,12 +293,14 @@ mindmap
       cycle
       empty
       from
+      infiniteSequence
       intersperse
       iterate
       prepend
       range
       repeat
       reverse
+      sequence
       shuffle
     **Quantification**
       all
