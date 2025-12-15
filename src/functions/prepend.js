@@ -1,4 +1,4 @@
 export function* prepend(source, ...elements) {
-  yield* elements;
-  yield* source;
+  yield* elements ?? [];
+  yield* source ?? [];
 }

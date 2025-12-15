@@ -20,7 +20,7 @@ test('intersperse empty source', () => {
   expect([...test]).toStrictEqual([]);
 });
 
-test.skip('intersperse empty params', () => {
+test('intersperse empty params', () => {
   const test = intersperse();
   expect([...test]).toStrictEqual([]);
 });

@@ -1,3 +1,3 @@
 export function* asEnumerable(list) {
-  yield* list;
+  yield* list ?? [];
 }

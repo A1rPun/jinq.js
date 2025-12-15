@@ -30,3 +30,8 @@ test('asEnumerable of a big list', () => {
   const test = asEnumerable(range(0, Number.MAX_SAFE_INTEGER));
   expect(test.next().value).toBe(0);
 });
+
+test('asEnumerable empty params', () => {
+  const test = asEnumerable();
+  expect([...test]).toStrictEqual([]);
+});

@@ -10,7 +10,7 @@ test('prepend multiple items to a list', () => {
   expect([...test]).toStrictEqual([0, 1, 2, 3, 4]);
 });
 
-test('prepend nothing', () => {
+test('prepend empty source', () => {
   const test = prepend([]);
   expect([...test]).toStrictEqual([]);
 });
@@ -18,4 +18,9 @@ test('prepend nothing', () => {
 test('prepend on big list', () => {
   const test = prepend(range(0, Number.MAX_SAFE_INTEGER), -1);
   expect(test.next().value).toBe(-1);
+});
+
+test('prepend empty params', () => {
+  const test = prepend();
+  expect([...test]).toStrictEqual([]);
 });

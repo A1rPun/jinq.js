@@ -15,7 +15,7 @@ test('append multiple items to a list', () => {
   expect([...test]).toStrictEqual([1, 2, 3, 4, 5]);
 });
 
-test('append nothing', () => {
+test('append empty source', () => {
   const test = append([]);
   expect([...test]).toStrictEqual([]);
 });
@@ -23,4 +23,9 @@ test('append nothing', () => {
 test('append on big list', () => {
   const test = append(range(0, Number.MAX_SAFE_INTEGER), 29);
   expect(test.next().value).toBe(0);
+});
+
+test('append empty params', () => {
+  const test = append();
+  expect([...test]).toStrictEqual([]);
 });

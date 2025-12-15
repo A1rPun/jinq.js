@@ -1,4 +1,4 @@
 export function* concat(first, second) {
-  yield* first;
-  yield* second;
+  yield* first ?? [];
+  yield* second ?? [];
 }

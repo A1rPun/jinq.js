@@ -5,12 +5,17 @@ test('concat a list', () => {
   expect([...test]).toStrictEqual([1, 2, 3, 4, 5, 6]);
 });
 
-test.skip('concat nothing', () => {
-  const test = concat();
+test('concat empty source', () => {
+  const test = concat([], []);
   expect([...test]).toStrictEqual([]);
 });
 
 test('concat big list', () => {
   const test = concat(range(0, Number.MAX_SAFE_INTEGER), range(0, Number.MAX_SAFE_INTEGER));
   expect(test.next().value).toBe(0);
+});
+
+test('concat empty params', () => {
+  const test = concat();
+  expect([...test]).toStrictEqual([]);
 });
