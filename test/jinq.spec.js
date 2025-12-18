@@ -71,9 +71,9 @@ test('jinq modify state', () => {
   expect(test.count()).toBe(10);
 });
 
-test.skip('jinq extend Enumerable', () => {
-  jinq.prototype.forEach = (source, callback) => {
-    for (const element of source) callback(element);
+test('jinq extend Enumerable', () => {
+  jinq.prototype.forEach = function (callback) {
+    for (const element of this.sequence) callback(element);
   };
   const test = jinq.from([1]).forEach((x) => {
     expect(x).toBe(1);

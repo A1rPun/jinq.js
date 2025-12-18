@@ -78,7 +78,7 @@ any()|:white_check_mark:|
 append()||
 asEnumerable()||
 average()|:white_check_mark:|
-cast()||accepts a type as parameter e.g. `String`, `Number` or `Boolean`
+cast()||Accepts a type as parameter e.g. `String`, `Number` or `Boolean`
 chunk()||
 concat()||
 contains()|:white_check_mark:|
@@ -88,11 +88,11 @@ cycle()||Not in LINQ, produces infinite list
 defaultIfEmpty()||
 distinct()||
 distinctBy()||
-elementAt()|:white_check_mark:|can throw an error
+elementAt()|:white_check_mark:|Can throw an error
 elementAtOrDefault()|:white_check_mark:|
 except()||
 exceptBy()||
-first()|:white_check_mark:|can throw an error
+first()|:white_check_mark:|Can throw an error
 firstOrDefault()|:white_check_mark:|
 groupBy()||
 groupJoin()||
@@ -100,7 +100,7 @@ intersect()||
 intersectBy()||
 intersperse()||Not in LINQ
 join()||
-last()|:white_check_mark:|can throw an error
+last()|:white_check_mark:|Can throw an error
 lastOrDefault()|:white_check_mark:|
 longCount()|:white_check_mark:|
 max()|:white_check_mark:|
@@ -108,19 +108,19 @@ maxBy()|:white_check_mark:|
 min()|:white_check_mark:|
 minBy()|:white_check_mark:|
 ofType()||
-order()||doesn't return an IOrderedEnumerable
-orderBy()||doesn't return an IOrderedEnumerable
-orderByDescending()||doesn't return an IOrderedEnumerable
+order()||Doesn't return an IOrderedEnumerable
+orderBy()||Doesn't return an IOrderedEnumerable
+orderByDescending()||Doesn't return an IOrderedEnumerable
 prepend()||
 product()|:white_check_mark:|Not in LINQ
-random()|:white_check_mark:|Uses Mulberry32 for seeded RNG
+random()|:white_check_mark:|Not in LINQ, Uses Mulberry32 for seeded RNG
 reverse()||
 scan()||Not in LINQ
 select()||
 selectMany()||
 sequenceEqual()|:white_check_mark:|
 shuffle()||Uses Mulberry32 for seeded RNG
-single()|:white_check_mark:|can throw an error
+single()|:white_check_mark:|Can throw an error
 singleOrDefault()||
 skip()||
 skipLast()||
@@ -132,9 +132,9 @@ takeWhile()||
 toArray()|:white_check_mark:|
 toDictionary()|:white_check_mark:|
 toHashSet()|:white_check_mark:|
-toList()|:white_check_mark:|same as toArray()
+toList()|:white_check_mark:|Same as toArray()
 toLookup()|:white_check_mark:|
-tryGetNonEnumeratedCount()|:white_check_mark:| returns the count if enumerated, otherwise undefined
+tryGetNonEnumeratedCount()|:white_check_mark:|Returns the count if enumerated, otherwise undefined
 union()||
 unionBy()||
 where()||
@@ -286,7 +286,7 @@ mindmap
     {{Order}}
       [order]
       [orderBy]
-      [orderByDescending]
+        [orderByDescending]
     {{Sequence}}
       [append]
       [chunk]
