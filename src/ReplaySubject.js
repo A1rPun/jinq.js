@@ -1,10 +1,10 @@
-import { asEnumerable } from './index.js';
+import { ensureIterator } from './utils.js';
 
 export class ReplaySubject {
   constructor(iterator) {
     this.done = false;
     this.values = Array.isArray(iterator) ? iterator : [];
-    this.sequence = iterator;
+    this.sequence = ensureIterator(iterator);
   }
 
   *[Symbol.iterator]() {
