@@ -22,6 +22,7 @@ const valueFunctions = [
   'min',
   'minBy',
   'product',
+  'random',
   'sequenceEqual',
   'single',
   'singleOrDefault',
