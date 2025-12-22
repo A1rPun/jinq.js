@@ -59,19 +59,19 @@ test('ReplaySubject replays values', () => {
 });
 
 test('ReplaySubject array iterator', () => {
-  expect(new ReplaySubject([]).sequence).toStrictEqual([]);
+  expect(new ReplaySubject([]).done).toBe(true);
 });
 
 test('ReplaySubject string iterator', () => {
-  expect(new ReplaySubject('foobar').sequence).toBe('foobar');
+  expect(new ReplaySubject('foobar').done).toBe(false);
 });
 
 test('ReplaySubject Map iterator', () => {
-  expect(new ReplaySubject(new Map()).sequence).toStrictEqual(new Map());
+  expect(new ReplaySubject(new Map()).done).toBe(false);
 });
 
 test('ReplaySubject object iterator', () => {
-  expect(new ReplaySubject({}).sequence).toStrictEqual(new Map());
+  expect(new ReplaySubject({}).done).toBe(false);
 });
 
 test('ReplaySubject empty iterator', () => {

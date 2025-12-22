@@ -15,9 +15,36 @@ test('jinq static repeat', () => {
   expect(test).toStrictEqual([1, 1]);
 });
 
+test('jinq static infiniteSequence', () => {
+  const test = jinq.infiniteSequence(3, 3).take(3).toList();
+  expect(test).toStrictEqual([3, 6, 9]);
+});
+
+test('jinq static iterate', () => {
+  const test = jinq.iterate(3, x => x + 3).take(3).toList();
+  expect(test).toStrictEqual([3, 6, 9]);
+});
+
+test('jinq static sequence', () => {
+  const test = jinq.sequence(3, 10, 3).take(3).toList();
+  expect(test).toStrictEqual([3, 6, 9]);
+});
+
 test('jinq static from', () => {
   const test = jinq.from([1, 2]).toList();
   expect(test).toStrictEqual([1, 2]);
+});
+
+test('jinq static from string', () => {
+  const test = jinq.from('foobar').skip(3).toList();
+  expect(test).toStrictEqual(['b', 'a', 'r']);
+});
+
+test('jinq static from object', () => {
+  const test = jinq.from({ foo: 1, bar: 2 })
+    .select(([key, value]) => `${value}${key}`)
+    .toList();
+  expect(test).toStrictEqual(['1foo', '2bar']);
 });
 
 test('jinq tryGetNonEnumeratedCount', () => {

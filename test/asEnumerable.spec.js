@@ -35,3 +35,8 @@ test('asEnumerable empty params', () => {
   const test = asEnumerable();
   expect([...test]).toStrictEqual([]);
 });
+
+test('chained asEnumerable', () => {
+  const test = asEnumerable(asEnumerable(asEnumerable([1])));
+  expect([...test]).toStrictEqual([1]);
+});
