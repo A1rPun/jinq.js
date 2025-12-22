@@ -1,16 +1,14 @@
-import { ensureIterator } from './utils.js';
-
 export class ReplaySubject {
   constructor(iterator) {
-    this.done = false;
-    this.values = Array.isArray(iterator) ? iterator : [];
+    this.done = Array.isArray(iterator);
+    this.values = this.done ? iterator : [];
     this.sequence = ensureIterator(iterator);
   }
 
   *[Symbol.iterator]() {
     yield* this.values;
 
-    if (Array.isArray(this.sequence)) return;
+    if (this.done) return;
 
     let genNext;
 
@@ -20,4 +18,14 @@ export class ReplaySubject {
     }
     this.done = true;
   }
+
+  get length() {
+    return this.done ? this.values.length : undefined;
+  }
+}
+
+function ensureIterator(maybeIterator) {
+  return maybeIterator?.constructor?.name === 'Object'
+    ? new Map(Object.entries(maybeIterator))[Symbol.iterator]()
+    : maybeIterator?.[Symbol.iterator]?.() ?? [];
 }

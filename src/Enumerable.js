@@ -3,19 +3,19 @@ import { ReplaySubject } from './ReplaySubject';
 
 export class Enumerable {
   constructor(iterator) {
-    this.sequence = new ReplaySubject(iterator ?? empty());
+    this.sequence = new ReplaySubject(iterator);
   }
 
   *[Symbol.iterator]() {
-    return this.sequence;
+    yield* this.sequence;
   }
 
   tryGetNonEnumeratedCount() {
-    return this.sequence.done ? this.sequence.values.length : undefined;
+    return this.sequence.length;
   }
 
   static empty() {
-    return new Enumerable();
+    return new Enumerable(empty());
   }
 
   static from(iterator) {
