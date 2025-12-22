@@ -59,6 +59,12 @@ declare class Enumerable<TSource> {
   ): Enumerable<TResult>;
   last(predicate?: (element: TSource) => boolean): TSource;
   lastOrDefault(predicate?: (element: TSource) => boolean, defaultValue?: TSource): TSource | undefined;
+  leftJoin<TInner, TResult>(
+    inner: Iterable<TSource>,
+    outerKeySelector: (element: TSource) => string,
+    innerKeySelector: (element: TInner) => string,
+    resultSelector?: (element: TSource) => TResult
+  ): Enumerable<TResult>;
   longCount(predicate?: (element: TSource) => boolean): BigInt;
   max(): number;
   maxBy(selector: (element: TSource) => number): number;
@@ -74,6 +80,12 @@ declare class Enumerable<TSource> {
   static range(start: number, count: number): Enumerable<number>;
   static repeat<TResult>(element: TResult, count: number): Enumerable<TResult>;
   reverse(): Enumerable<TSource>;
+  rightJoin<TInner, TResult>(
+    inner: Iterable<TSource>,
+    outerKeySelector: (element: TSource) => string,
+    innerKeySelector: (element: TInner) => string,
+    resultSelector?: (element: TSource) => TResult
+  ): Enumerable<TResult>;
   scan<TAccumulate>(
     seed: TAccumulate,
     accumulator: (result: TAccumulate, element: TSource) => TAccumulate

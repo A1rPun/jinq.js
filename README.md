@@ -102,6 +102,7 @@ intersperse()||Not in LINQ
 join()||
 last()|:white_check_mark:|Can throw an error
 lastOrDefault()|:white_check_mark:|
+leftJoin()||
 longCount()|:white_check_mark:|
 max()|:white_check_mark:|
 maxBy()|:white_check_mark:|
@@ -115,6 +116,7 @@ prepend()||
 product()|:white_check_mark:|Not in LINQ
 random()|:white_check_mark:|Not in LINQ, Uses Mulberry32 for seeded RNG
 reverse()||
+rightJoin()||
 scan()||Not in LINQ
 select()||
 selectMany()||
@@ -187,6 +189,7 @@ intersperse()|-|intersperse|intersperse()
 join()|-|-|-
 last()|Array.at(-1) ?? throw new Error()|last, tail|-
 lastOrDefault()|Array.at(-1) ?? defaultValue|last, tail|-
+leftJoin()|-|-|-
 longCount()|Array.length|length|count(), count_until()
 max()|Array.reduce()|maximum|max()
 maxBy()|Array.reduce()|maximumBy|max_by()
@@ -200,6 +203,7 @@ prepend()|Array.unshift()|-|-
 product()|-|product|product()
 random()|Array.at(Math.random()*Array.length)|-|random()
 reverse()|Array.reverse()|reverse|reverse(), reverse_slice()
+rightJoin()|-|-|-
 scan()|-|scanl, scanr|scan()
 select()|Array.map()|map|map(), map_every()
 selectMany()|Array.flatMap()|-|flat_map()
@@ -242,7 +246,6 @@ jinq.sequence()|-|-|-
 - List ForEach() | Elixer each() or too side-effect prone?
 - LINQ IList functions like FindIndex()?
 - LINQ AsyncEnumerable
-- LeftJoin, RightJoin
 - [Elixer Enum](https://hexdocs.pm/elixir/Enum.html)
 dedup(), dedup_by(), find_index(), find_value(), flat_map_reduce(), frequencies(), frequencies_by(), into(), join(), map_intersperse(), map_join(), map_reduce(), min_max(), min_max_by(), product_by(), slide(), split(), split_while(), split_with(), take_random(), unzip(), with_index()
 - [Haskell Data.List](https://hackage.haskell.org/package/base-4.21.0.0/docs/Data-List.html)
