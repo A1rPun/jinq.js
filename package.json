@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build": "",
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:coverage": "jest --coverage"
   },
   "devDependencies": {
