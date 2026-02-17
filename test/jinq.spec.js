@@ -1,4 +1,4 @@
-﻿import { jinq, Enumerable } from '../index.js';
+﻿import { jinq } from '../index.js';
 
 test('jinq static empty', () => {
   const test = jinq.empty().toList();
