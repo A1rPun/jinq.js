@@ -1,5 +1,5 @@
 import { empty, infiniteSequence, iterate, range, repeat, sequence } from './index.js';
-import { ReplaySubject } from './ReplaySubject';
+import { ReplaySubject } from './ReplaySubject.js';
 
 export class Enumerable {
   constructor(iterator) {
