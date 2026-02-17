@@ -1,50 +1,20 @@
 import * as functions from './src/index.js';
 import { Enumerable } from './src/Enumerable.js';
 
-const valueFunctions = [
-  'aggregate',
-  'aggregateBy',
-  'all',
-  'any',
-  'average',
-  'contains',
-  'count',
-  'countBy',
-  'elementAt',
-  'elementAtOrDefault',
-  'first',
-  'firstOrDefault',
-  'last',
-  'lastOrDefault',
-  'longCount',
-  'max',
-  'maxBy',
-  'min',
-  'minBy',
-  'product',
-  'random',
-  'sequenceEqual',
-  'single',
-  'singleOrDefault',
-  'sum',
-  'toArray',
-  'toDictionary',
-  'toHashSet',
-  'toList',
-  'toLookup',
-];
-
-for (const name of valueFunctions) {
-  Enumerable.prototype[name] = function (...args) {
-    return functions[name](this.sequence, ...args);
-  };
-}
-
 for (const [name, fn] of Object.entries(functions)) {
-  if (!Enumerable[name] && !Enumerable.prototype[name])
+  if (Enumerable.prototype[name]) continue;
+
+  const isGenerator = fn.constructor.name === 'GeneratorFunction';
+
+  if (isGenerator) {
     Enumerable.prototype[name] = function (...args) {
       return new Enumerable(fn(this.sequence, ...args));
     };
+  } else {
+    Enumerable.prototype[name] = function (...args) {
+      return fn(this.sequence, ...args);
+    };
+  }
 }
 
 export { Enumerable as jinq };
