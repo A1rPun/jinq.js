@@ -9,7 +9,7 @@ function mulberry32(seed) {
   };
 }
 
-export function shuffle(source, randomSeed) {
+export function* shuffle(source, randomSeed) {
   const random = mulberry32(randomSeed);
   const list = [...source];
 
@@ -17,7 +17,7 @@ export function shuffle(source, randomSeed) {
     const j = Math.floor(random() * (i + 1));
     [list[i], list[j]] = [list[j], list[i]];
   }
-  return list;
+  yield* list;
 }
 
 export function random(source, randomSeed) {
