@@ -21,6 +21,7 @@ export { exceptBy } from './exceptBy.js';
 export { first, firstOrDefault } from './first.js';
 export { groupBy } from './groupBy.js';
 export { groupJoin } from './groupJoin.js';
+export { index } from './indexTuple.js';
 export { infiniteSequence } from './infiniteSequence.js';
 export { intersect } from './intersect.js';
 export { intersectBy } from './intersectBy.js';

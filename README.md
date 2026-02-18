@@ -96,6 +96,7 @@ first()|:white_check_mark:|Can throw an error
 firstOrDefault()|:white_check_mark:|
 groupBy()||
 groupJoin()||
+index()||
 intersect()||
 intersectBy()||
 intersperse()||Not in LINQ
@@ -183,6 +184,7 @@ first()|Array.at(0) ?? throw new Error()|head, init, find|find()
 firstOrDefault()|Array.at(0) ?? defaultValue|head, init|find()
 groupBy()|-|-|group_by()
 groupJoin()|-|-|-
+index()|Array.map()|-|with_index()
 intersect()|-|intersect|-
 intersectBy()|-|intersectBy|-
 intersperse()|-|intersperse|intersperse()
@@ -247,7 +249,7 @@ jinq.sequence()|-|-|-
 - LINQ IList functions like FindIndex()?
 - LINQ AsyncEnumerable
 - [Elixer Enum](https://hexdocs.pm/elixir/Enum.html)
-dedup(), dedup_by(), find_index(), find_value(), flat_map_reduce(), frequencies(), frequencies_by(), into(), join(), map_intersperse(), map_join(), map_reduce(), min_max(), min_max_by(), product_by(), slide(), split(), split_while(), split_with(), take_random(), unzip(), with_index()
+dedup(), dedup_by(), find_index(), find_value(), flat_map_reduce(), frequencies(), frequencies_by(), into(), join(), map_intersperse(), map_join(), map_reduce(), min_max(), min_max_by(), product_by(), slide(), split(), split_while(), split_with(), take_random(), unzip()
 - [Haskell Data.List](https://hackage.haskell.org/package/base-4.21.0.0/docs/Data-List.html)
 uncons, unsnoc, single, intercalate, transpose, subsequences, permutations, concatMap, mapAccumL, mapAccumR, unfoldr, splitAt, dropWhileEnd, span, break, stripPrefix, group, groupBy, inits, tails, isPrefixOf, isSuffixOf, isInfixOf, isSubsequenceOf, lookup, partition, elemIndex, elemIndices, findIndex, findIndices, zipWith, unzip, insert, insertBy, delete, deleteBy, deleteFirstBy
 
@@ -289,7 +291,7 @@ mindmap
     {{Order}}
       [order]
       [orderBy]
-        [orderByDescending]
+      [orderByDescending]
     {{Sequence}}
       [append]
       [chunk]

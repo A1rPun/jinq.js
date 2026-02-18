@@ -43,6 +43,7 @@ declare class Enumerable<TSource> {
     innerKeySelector: (element: TInner) => string,
     resultSelector?: (element: TSource) => TResult
   ): Enumerable<TResult>;
+  index(): Enumerable<[number, TSource]>;
   static infiniteSequence(start: number, step: number): Enumerable<number>;
   intersect(second: Iterable<TSource>): Enumerable<TSource>;
   intersectBy(second: Iterable<TSource>, keySelector?: (element: TSource) => string): Enumerable<TSource>;
