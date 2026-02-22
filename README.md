@@ -111,6 +111,7 @@ min()|:white_check_mark:|
 minBy()|:white_check_mark:|
 ofType()||
 order()||Doesn't return an IOrderedEnumerable
+orderDescending()||Doesn't return an IOrderedEnumerable
 orderBy()||Doesn't return an IOrderedEnumerable
 orderByDescending()||Doesn't return an IOrderedEnumerable
 prepend()||
@@ -199,6 +200,7 @@ min()|Array.reduce()|minimum|min()
 minBy()|Array.reduce()|minimumBy|min_by()
 ofType()|Array.filter()|-|-
 order()|Array.sort()|sort|sort()
+orderDescending()|Array.sort()|sort|sort()
 orderBy()|Array.sort()|sortOn|sort_by()
 orderByDescending()|Array.sort()|sortOn|sort_by()
 prepend()|Array.unshift()|-|-
@@ -290,6 +292,7 @@ mindmap
       [singleOrDefault]
     {{Order}}
       [order]
+      [orderDescending]
       [orderBy]
       [orderByDescending]
     {{Sequence}}

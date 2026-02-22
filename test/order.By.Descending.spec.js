@@ -1,13 +1,20 @@
 ﻿import {
   order,
+  orderDescending,
   orderBy,
   orderByDescending,
 } from '../src/index.js';
 
 /* Order */
-test('orderBy on a list', () => {
+test('order on a list', () => {
   const test = order([2, 1, 1, 3, 5, 4]);
   expect([...test]).toStrictEqual([1, 1, 2, 3, 4, 5]);
+});
+
+/* OrderDescending */
+test('orderDescending on a list', () => {
+  const test = orderDescending([2, 1, 1, 3, 5, 4]);
+  expect([...test]).toStrictEqual([5, 4, 3, 2, 1, 1]);
 });
 
 /* OrderBy */

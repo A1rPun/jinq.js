@@ -73,6 +73,7 @@ declare class Enumerable<TSource> {
   minBy(selector: (element: TSource) => number): number;
   ofType(type: string): Enumerable<TSource>;
   order(): Enumerable<TSource>;
+  orderDescending(): Enumerable<TSource>;
   orderBy(keySelector?: (element: TSource) => string): Enumerable<TSource>;
   orderByDescending(keySelector?: (element: TSource) => string): Enumerable<TSource>;
   prepend(...elements: TSource[]): Enumerable<TSource>;
