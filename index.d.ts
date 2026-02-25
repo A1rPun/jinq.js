@@ -72,10 +72,16 @@ declare class Enumerable<TSource> {
   min(): number;
   minBy(selector: (element: TSource) => number): number;
   ofType(type: string): Enumerable<TSource>;
-  order(): Enumerable<TSource>;
-  orderDescending(): Enumerable<TSource>;
-  orderBy(keySelector?: (element: TSource) => string): Enumerable<TSource>;
-  orderByDescending(keySelector?: (element: TSource) => string): Enumerable<TSource>;
+  order(comparer?: (a: TSource, b: TSource) => number): OrderedEnumerable<TSource>;
+  orderDescending(comparer?:·(a:·TSource,·b:·TSource)·=>·number): OrderedEnumerable<TSource>;
+  orderBy<TKey>(
+    keySelector?: (element: TSource) => TKey,
+    comparer?:·(a:·TKey,·b:·TKey)·=>·number
+  ): OrderedEnumerable<TSource>;
+  orderByDescending<TKey>(
+    keySelector?: (element: TSource) => TKey,
+    comparer?:·(a:·TKey,·b:·TKey)·=>·number
+  ): OrderedEnumerable<TSource>;
   prepend(...elements: TSource[]): Enumerable<TSource>;
   product(resultSelector?: (element: TSource) => number): number;
   random(seed: number): TSource;
@@ -128,6 +134,23 @@ declare class Enumerable<TSource> {
   ): Enumerable<TSource>;
   where(predicate?: (element: TSource) => boolean): Enumerable<TSource>;
   zip<TSecond, TResult>(second: Iterable<TSecond>, zipFn?: (a: TSource, b: TSecond) => TResult): Enumerable<TResult>;
+}
+
+declare class OrderedEnumerable<TSource> {
+  static createOrderedEnumerable<TKey>(
+    source: OrderedEnumerable<TSource>,
+    keySelector?: (element: TSource) => TKey,
+    comparer?:·(a:·TKey,·b:·TKey)·=>·number,
+    ascending?: boolean
+  ):·OrderedEnumerable<TSource>;
+  thenBy<TKey>(
+    keySelector?: (element: TSource) => TKey,
+    comparer?:·(a:·TKey,·b:·TKey)·=>·number
+  ): OrderedEnumerable<TSource>;
+  thenByDescending<TKey>(
+    keySelector?: (element: TSource) => TKey,
+    comparer?:·(a:·TKey,·b:·TKey)·=>·number
+  ): OrderedEnumerable<TSource>;
 }
 
 export { Enumerable as jinq };

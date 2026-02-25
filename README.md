@@ -62,7 +62,6 @@ bigRange.take(2).toList(); // [0, 1]
 ### How jinq deviates from LINQ
 
 - `IEqualityComparer` is not implemented for most functions that use it
-- `IOrderedEnumerable` is not implemented
 - Added functions like `cycle` & `intersperse` that are inspired by Haskell & Elixer
 
 ### Enumerable methods
@@ -110,10 +109,10 @@ maxBy()|:white_check_mark:|
 min()|:white_check_mark:|
 minBy()|:white_check_mark:|
 ofType()||
-order()||Doesn't return an IOrderedEnumerable
-orderDescending()||Doesn't return an IOrderedEnumerable
-orderBy()||Doesn't return an IOrderedEnumerable
-orderByDescending()||Doesn't return an IOrderedEnumerable
+order()||Returns an OrderedEnumerable
+orderDescending()||Returns·an·OrderedEnumerable
+orderBy()||Returns·an·OrderedEnumerable
+orderByDescending()||Returns·an·OrderedEnumerable
 prepend()||
 product()|:white_check_mark:|Not in LINQ
 random()|:white_check_mark:|Not in LINQ, Uses Mulberry32 for seeded RNG
@@ -133,6 +132,8 @@ sum()|:white_check_mark:|
 take()||
 takeLast()||
 takeWhile()||
+thenBy()||Returns·an·OrderedEnumerable
+thenByDescending()||Returns·an·OrderedEnumerable
 toArray()|:white_check_mark:|
 toDictionary()|:white_check_mark:|
 toHashSet()|:white_check_mark:|
@@ -222,6 +223,8 @@ sum()|Array.reduce()|sum|sum(), sum_by()
 take()|Array.slice()|take|slice(), take(), take_every()
 takeLast()|Array.slice()|-|-
 takeWhile()|Array.slice()|takeWhile|take_while()
+thenBy()|Array.sort()|sortOn|sort_by()
+thenByDescending()|Array.sort()|sortOn|sort_by()
 toArray()|[...Iterator]|-|to_list()
 toDictionary()|new Map(Array)|-|-
 toHashSet()|new Set(Array)|-|-
@@ -294,7 +297,9 @@ mindmap
       [order]
       [orderDescending]
       [orderBy]
+        [thenBy]
       [orderByDescending]
+        [thenByDescending]
     {{Sequence}}
       [append]
       [chunk]

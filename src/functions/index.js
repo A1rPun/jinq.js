@@ -36,8 +36,6 @@ export { maxBy } from './maxBy.js';
 export { min } from './min.js';
 export { minBy } from './minBy.js';
 export { ofType } from './ofType.js';
-export { order, orderDescending } from './order.js';
-export { orderBy, orderByDescending } from './orderBy.js';
 export { prepend } from './prepend.js';
 export { product } from './product.js';
 export { range } from './range.js';

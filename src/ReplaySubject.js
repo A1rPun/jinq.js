@@ -19,6 +19,10 @@ export class ReplaySubject {
     this.done = true;
   }
 
+  next() {
+    return this.sequence.next();
+  }
+
   get length() {
     return this.done ? this.values.length : undefined;
   }

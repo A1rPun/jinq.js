@@ -80,7 +80,7 @@ test('jinq long chain', () => {
     .reverse()
     .except([1])
     .intersect([29, 42, 1337])
-    .orderBy()
+    .order()
     .select((x) => x + 1)
     .select((x) => x - 1)
     .where((x) => x > 40)
